@@ -1,1 +1,0 @@
-# starshiran0854.github.io
