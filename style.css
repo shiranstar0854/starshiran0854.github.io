@@ -84,3 +84,17 @@ nav a:hover {
   color: #888;
   font-size: 13px;
 }
+.model-img {
+  max-width: 600px;
+  width: 90%;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+}
+
+@media (max-width: 480px) {
+  .model-img {
+    width: 100%;
+  }
+}
+
