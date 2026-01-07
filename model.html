@@ -5,65 +5,121 @@
   <title>结构化思考模型库</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    :root {
+      --bg-body: #f7f7f7;
+      --bg-container: #ffffff;
+      --bg-model: #fafafa;
+      --border-model: #333;
+      --border-warning: #e5533d;
+      --bg-warning: #fff5f5;
+      --tag-bg: #eaeaea;
+      --tag-color: #222;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background-color: #f7f7f7;
+      font-family: var(--font-family);
+      background-color: var(--bg-body);
       color: #222;
       line-height: 1.7;
       margin: 0;
       padding: 24px;
     }
+
     .container {
       max-width: 900px;
       margin: auto;
-      background: #ffffff;
+      background: var(--bg-container);
       padding: 32px;
       border-radius: 8px;
     }
+
     h1 {
       font-size: 28px;
       border-bottom: 2px solid #eee;
       padding-bottom: 12px;
     }
+
     h2 {
-      margin-top: 40px;
+      margin-top: 32px;
       font-size: 22px;
       color: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
     h3 {
-      margin-top: 24px;
+      margin-top: 20px;
       font-size: 18px;
       color: #333;
     }
-    p {
+
+    p, ul {
       margin: 8px 0;
     }
+
     ul {
-      margin: 8px 0 8px 20px;
+      margin-left: 20px;
     }
+
     .model {
-      margin-top: 32px;
-      padding: 24px;
-      background: #fafafa;
-      border-left: 4px solid #333;
+      margin-top: 24px;
+      padding: 20px;
+      background: var(--bg-model);
+      border-left: 4px solid var(--border-model);
+      border-radius: 6px;
+      transition: all 0.3s;
     }
+
     .tag {
       display: inline-block;
-      background: #eaeaea;
+      background: var(--tag-bg);
+      color: var(--tag-color);
       padding: 2px 8px;
       margin-right: 8px;
       border-radius: 4px;
       font-size: 13px;
+      cursor: pointer;
     }
+
     .warning {
-      background: #fff5f5;
-      border-left: 4px solid #e5533d;
+      background: var(--bg-warning);
+      border-left: 4px solid var(--border-warning);
       padding: 12px;
       margin-top: 12px;
     }
+
+    .toggle-btn {
+      background: #eee;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-left: 12px;
+    }
+
+    /* 折叠样式 */
+    .collapsed .model-content {
+      display: none;
+    }
+
+    /* 搜索栏样式 */
+    .search-bar {
+      margin-top: 20px;
+    }
+
+    .search-bar input {
+      padding: 8px 12px;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
   </style>
 </head>
-
 <body>
 <div class="container">
 
@@ -71,111 +127,174 @@
   <p>本页面用于存放我在现实中已验证、可反复调用的思考模型。</p>
   <p><strong>原则：</strong>先选模型，再判断；不凭情绪，不追热点。</p>
 
-  <!-- 模型一 -->
-  <div class="model">
-    <h2>模型一：短视频与信息内容「情绪模板模型」</h2>
-    <span class="tag">信息筛选</span>
-    <span class="tag">反情绪化</span>
+  <!-- 搜索栏 -->
+  <div class="search-bar">
+    <input type="text" id="tagSearch" placeholder="输入标签过滤模型，例如：AI辅助决策">
+  </div>
 
-    <h3>模型定义</h3>
-    <p>用于判断一条内容是否在利用情绪模板博取注意力，而非传递可迁移的信息。</p>
+  <div class="model-container">
 
-    <h3>适用场景</h3>
-    <ul>
-      <li>短视频平台、信息流内容</li>
-      <li>“普通人逆袭”“成长很痛苦”等叙事</li>
-    </ul>
+    <!-- 模型组件模板开始 -->
 
-    <h3>结构拆解</h3>
-    <ul>
-      <li><strong>表层现象：</strong>煽情 BGM、强共鸣、单一案例</li>
-      <li><strong>本质判断：</strong>是否套用成熟情绪模板</li>
-      <li><strong>验证方式：</strong>内容是否可被无限替换载体</li>
-      <li><strong>微修正：</strong>情绪内容不可直接指导行动</li>
-    </ul>
+    <!-- 模型一 -->
+    <div class="model">
+      <h2>
+        模型一：短视频与信息内容「情绪模板模型」
+        <button class="toggle-btn">折叠/展开</button>
+      </h2>
+      <div class="model-tags">
+        <span class="tag">信息筛选</span>
+        <span class="tag">反情绪化</span>
+      </div>
 
-    <div class="warning">
-      ⚠ 本模型只用于信息过滤，不用于价值判断。
+      <div class="model-content">
+        <h3>模型定义</h3>
+        <p>用于判断一条内容是否在利用情绪模板博取注意力，而非传递可迁移的信息。</p>
+
+        <h3>适用场景</h3>
+        <ul>
+          <li>短视频平台、信息流内容</li>
+          <li>“普通人逆袭”“成长很痛苦”等叙事</li>
+        </ul>
+
+        <h3>结构拆解</h3>
+        <ul>
+          <li><strong>表层现象：</strong>煽情 BGM、强共鸣、单一案例</li>
+          <li><strong>本质判断：</strong>是否套用成熟情绪模板</li>
+          <li><strong>验证方式：</strong>内容是否可被无限替换载体</li>
+          <li><strong>微修正：</strong>情绪内容不可直接指导行动</li>
+        </ul>
+
+        <div class="warning">
+          ⚠ 本模型只用于信息过滤，不用于价值判断。
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- 模型二 -->
-  <div class="model">
-    <h2>模型二：生产力 → 生产关系 → 制度秩序（三要素结构模型）</h2>
-    <span class="tag">趋势判断</span>
-    <span class="tag">宏观分析</span>
+    <!-- 模型二 -->
+    <div class="model">
+      <h2>
+        模型二：生产力 → 生产关系 → 制度秩序（三要素结构模型）
+        <button class="toggle-btn">折叠/展开</button>
+      </h2>
+      <div class="model-tags">
+        <span class="tag">趋势判断</span>
+        <span class="tag">宏观分析</span>
+      </div>
 
-    <h3>模型定义</h3>
-    <p>用于判断一个行业或技术是否具备长期落地的结构性条件。</p>
+      <div class="model-content">
+        <h3>模型定义</h3>
+        <p>用于判断一个行业或技术是否具备长期落地的结构性条件。</p>
 
-    <h3>三要素结构</h3>
-    <ul>
-      <li><strong>生产力：</strong>技术是否成熟、成本是否下降</li>
-      <li><strong>生产关系：</strong>是否有真实应用与商业模式</li>
-      <li><strong>制度秩序：</strong>政策、资本与社会结构是否长期支持</li>
-    </ul>
+        <h3>三要素结构</h3>
+        <ul>
+          <li><strong>生产力：</strong>技术是否成熟、成本是否下降</li>
+          <li><strong>生产关系：</strong>是否有真实应用与商业模式</li>
+          <li><strong>制度秩序：</strong>政策、资本与社会结构是否长期支持</li>
+        </ul>
 
-    <h3>结构结论</h3>
-    <ul>
-      <li>三要素同步 → 结构性机会</li>
-      <li>生产力领先 → 高概率泡沫</li>
-      <li>制度不支持 → 长期不可持续</li>
-    </ul>
+        <h3>结构结论</h3>
+        <ul>
+          <li>三要素同步 → 结构性机会</li>
+          <li>生产力领先 → 高概率泡沫</li>
+          <li>制度不支持 → 长期不可持续</li>
+        </ul>
 
-    <div class="warning">
-      ⚠ 不用于短期价格预测，仅用于中长期方向判断。
+        <div class="warning">
+          ⚠ 不用于短期价格预测，仅用于中长期方向判断。
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- 模型三 -->
-  <div class="model">
-    <h2>模型三：AI 使用边界与责任归属模型</h2>
-    <span class="tag">AI辅助决策</span>
-    <span class="tag">风险控制</span>
+    <!-- 模型三 -->
+    <div class="model">
+      <h2>
+        模型三：AI 使用边界与责任归属模型
+        <button class="toggle-btn">折叠/展开</button>
+      </h2>
+      <div class="model-tags">
+        <span class="tag">AI辅助决策</span>
+        <span class="tag">风险控制</span>
+      </div>
 
-    <h3>模型定义</h3>
-    <p>用于区分哪些决策可以交给 AI，哪些责任必须由人承担。</p>
+      <div class="model-content">
+        <h3>模型定义</h3>
+        <p>用于区分哪些决策可以交给 AI，哪些责任必须由人承担。</p>
 
-    <h3>能力边界</h3>
-    <ul>
-      <li><strong>AI 擅长：</strong>信息整理、方案对比、风险概率</li>
-      <li><strong>人承担：</strong>起点选择、成本投入、风险后果</li>
-    </ul>
+        <h3>能力边界</h3>
+        <ul>
+          <li><strong>AI 擅长：</strong>信息整理、方案对比、风险概率</li>
+          <li><strong>人承担：</strong>起点选择、成本投入、风险后果</li>
+        </ul>
 
-    <h3>核心原则</h3>
-    <p>AI 只能辅助判断“走这条路的风险”，不能决定“是否走这条路”。</p>
+        <h3>核心原则</h3>
+        <p>AI 只能辅助判断“走这条路的风险”，不能决定“是否走这条路”。</p>
 
-    <div class="warning">
-      ⚠ 所有不可逆成本，必须由个人承担。
+        <div class="warning">
+          ⚠ 所有不可逆成本，必须由个人承担。
+        </div>
+      </div>
     </div>
+
+    <!-- 模型四 -->
+    <div class="model">
+      <h2>
+        模型四：健康 → 福利 → 教育（社会发展三要素模型）
+        <button class="toggle-btn">折叠/展开</button>
+      </h2>
+      <div class="model-tags">
+        <span class="tag">社会发展</span>
+        <span class="tag">长期影响分析</span>
+      </div>
+
+      <div class="model-content">
+        <h3>模型定义</h3>
+        <p>用于分析健康、福利和教育如何在长期内影响个人的生活质量、社会流动性，以及整体社会结构。</p>
+
+        <h3>三要素结构</h3>
+        <ul>
+          <li><strong>健康：</strong>医疗保障覆盖度、公共健康服务、疾病预防与健康教育</li>
+          <li><strong>福利：</strong>国家与社会提供的基本经济保障，包括失业保险、社会保障、退休金、住房保障等</li>
+          <li><strong>教育：</strong>从基础教育到高等教育的完整体系，以及职业教育、技能培训等</li>
+        </ul>
+
+        <h3>结构结论</h3>
+        <ul>
+          <li>三要素同步 → 社会稳定与可持续发展</li>
+          <li>健康与福利缺失 → 高度社会不平等与经济停滞</li>
+          <li>教育不平衡 → 阶层固化与社会流动性下降</li>
+        </ul>
+
+        <div class="warning">
+          ⚠ 不用于短期社会预测，仅用于中长期社会稳定与发展方向判断。
+        </div>
+      </div>
+    </div>
+
+    <!-- 模型组件模板结束 -->
+
   </div>
-  <!-- 模型三 -->
-<div class="model">
-  <h2>模型三：健康 → 福利 → 教育（社会发展三要素模型）</h2>
-  <span class="tag">社会发展</span>
-  <span class="tag">长期影响分析</span>
-
-  <h3>模型定义</h3>
-  <p>用于分析健康、福利和教育如何在长期内影响个人的生活质量、社会流动性，以及整体社会结构。</p >
-
-  <h3>三要素结构</h3>
-  <ul>
-    <li><strong>健康：</strong>医疗保障覆盖度、公共健康服务、疾病预防与健康教育</li>
-    <li><strong>福利：</strong>国家与社会提供的基本经济保障，包括失业保险、社会保障、退休金、住房保障等</li>
-    <li><strong>教育：</strong>从基础教育到高等教育的完整体系，以及职业教育、技能培训等</li>
-  </ul>
-
-  <h3>结构结论</h3>
-  <ul>
-    <li>三要素同步 → 社会稳定与可持续发展</li>
-    <li>健康与福利缺失 → 高度社会不平等与经济停滞</li>
-    <li>教育不平衡 → 阶层固化与社会流动性下降</li>
-  </ul>
-
-  <div class="warning">
-    ⚠ 不用于短期社会预测，仅用于中长期社会稳定与发展方向判断。
-  </div>
-</div> 
 </div>
+
+<script>
+  // 折叠功能
+  document.querySelectorAll('.toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const model = btn.closest('.model');
+      model.classList.toggle('collapsed');
+    });
+  });
+
+  // 标签搜索功能
+  const searchInput = document.getElementById('tagSearch');
+  searchInput.addEventListener('input', () => {
+    const keyword = searchInput.value.trim().toLowerCase();
+    document.querySelectorAll('.model').forEach(model => {
+      const tags = Array.from(model.querySelectorAll('.tag')).map(t => t.innerText.toLowerCase());
+      model.style.display = tags.some(t => t.includes(keyword)) || keyword === '' ? 'block' : 'none';
+    });
+  });
+</script>
 </body>
 </html>
+
