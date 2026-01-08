@@ -154,5 +154,69 @@ nav a:hover {
   font-weight: bold;
   opacity: 0.4;
 }
+/* 页面纵向阅读引导 */
+body::before {
+  content: "";
+  position: fixed;
+  left: calc(50% - 380px);
+  top: 0;
+  width: 1px;
+  height: 100vh;
+  background: rgba(0,0,0,0.04);
+  z-index: -1;
+}
+.block {
+  position: relative;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.block:hover {
+  transform: translateY(-2px);
+}
+.block h2 {
+  position: relative;
+  padding-left: 12px;
+}
+
+.block h2::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #999;
+  font-size: 14px;
+}
+.block h2 {
+  position: relative;
+  padding-left: 12px;
+}
+
+.block h2::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #999;
+  font-size: 14px;
+}
+.focus-list li {
+  padding: 8px 0;
+  border-bottom: 1px dashed #eee;
+}
+
+.focus-list li:last-child {
+  border-bottom: none;
+}
+.site-footer {
+  position: relative;
+}
+
+.site-footer::before {
+  content: "System status: evolving";
+  display: block;
+  font-size: 11px;
+  color: #aaa;
+  margin-bottom: 6px;
+}
 
 
