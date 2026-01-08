@@ -97,4 +97,62 @@ nav a:hover {
     width: 100%;
   }
 }
+/* 装饰背景线 */
+.background-lines {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0,0,0,0.05),
+    transparent
+  );
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+/* 区块增强 */
+.block {
+  padding: 40px 0;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.block-highlight {
+  padding-top: 60px;
+}
+
+.block-border {
+  border-top: 1px dashed #ddd;
+  margin-top: 60px;
+}
+
+/* 分隔线 */
+.divider {
+  width: 40px;
+  height: 2px;
+  background: #000;
+  margin: 16px 0 24px 0;
+}
+
+/* 列表结构感 */
+.focus-list {
+  list-style: none;
+  padding: 0;
+}
+
+.focus-list li {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.focus-list span {
+  font-weight: bold;
+  opacity: 0.4;
+}
+
 
