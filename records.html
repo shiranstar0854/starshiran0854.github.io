@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>判断记录 · Records</title>
+
   <style>
     :root {
       --bg-body: #f7f7f7;
@@ -13,7 +16,8 @@
       --bg-warning: #fff5f5;
       --tag-bg: #eaeaea;
       --tag-color: #222;
-      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial;
     }
 
     body {
@@ -35,58 +39,35 @@
 
     h1 {
       font-size: 28px;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 12px;
+      margin-bottom: 12px;
     }
 
-    h2 {
-      margin-top: 32px;
-      font-size: 22px;
-      color: #111;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .page-desc {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 32px;
     }
 
-    h3 {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #333;
-    }
-
-    p, ul {
-      margin: 8px 0;
-    }
-
-    ul {
-      margin-left: 20px;
+    .divider {
+      height: 1px;
+      background: #eee;
+      margin: 24px 0;
     }
 
     .model {
-      margin-top: 24px;
+      margin-top: 28px;
       padding: 20px;
       background: var(--bg-model);
       border-left: 4px solid var(--border-model);
       border-radius: 6px;
-      transition: all 0.3s;
     }
 
-    .tag {
-      display: inline-block;
-      background: var(--tag-bg);
-      color: var(--tag-color);
-      padding: 2px 8px;
-      margin-right: 8px;
-      border-radius: 4px;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .warning {
-      background: var(--bg-warning);
-      border-left: 4px solid var(--border-warning);
-      padding: 12px;
-      margin-top: 12px;
+    .model-title {
+      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0;
     }
 
     .toggle-btn {
@@ -94,94 +75,214 @@
       border: none;
       border-radius: 4px;
       padding: 4px 10px;
-      cursor: pointer;
       font-size: 12px;
-      margin-left: 12px;
+      cursor: pointer;
     }
 
-    /* 折叠样式 */
+    .model-content {
+      margin-top: 12px;
+    }
+
+    .model-item {
+      margin-top: 12px;
+    }
+
+    .model-item strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    ul {
+      margin: 6px 0 6px 18px;
+    }
+
+    .warning {
+      background: var(--bg-warning);
+      border-left: 4px solid var(--border-warning);
+      padding: 12px;
+      border-radius: 4px;
+    }
+
     .collapsed .model-content {
       display: none;
     }
-
-    /* 搜索栏样式 */
-    .search-bar {
-      margin-top: 20px;
-    }
-
-    .search-bar input {
-      padding: 8px 12px;
-      width: 100%;
-      max-width: 300px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
   </style>
 </head>
-<section class="block block-border">
-  <h2>近期判断记录（可调用）</h2>
-  <div class="divider"></div>
 
-  <!-- 情绪模板 -->
-  <div class="model">
-    <h3>情绪模板识别</h3>
-    <p><strong>适用范围：</strong>短视频、情绪叙事、快速共鸣内容</p>
-    <p><strong>核心判断：</strong>内容是否成立不重要，是否触发既有情绪模板才重要。</p>
-    <p><strong>判断规则：</strong></p>
-    <ul>
-      <li>可被任意题材替换</li>
-      <li>不提供可复制的行动路径</li>
-      <li>却能迅速引发强烈情绪</li>
-    </ul>
-    <p><strong>行为约束：</strong>一旦判定为情绪模板，只允许观察结构，禁止据此行动或转发。</p>
+<body>
+  <div class="container">
+    <h1>判断记录（可调用）</h1>
+    <p class="page-desc">
+      已被反复验证、可在现实中直接调用的判断模型集合。
+    </p>
+
+    <div class="divider"></div>
+
+    <!-- 情绪模板识别 -->
+    <div class="model">
+      <h3 class="model-title">
+        情绪模板识别
+        <button class="toggle-btn"
+          onclick="this.closest('.model').classList.toggle('collapsed')">
+          折叠
+        </button>
+      </h3>
+
+      <div class="model-content">
+        <p><strong>覆盖话题：</strong>短视频情绪叙事、共鸣型内容、上瘾机制</p>
+
+        <div class="model-item">
+          <strong>统一本质</strong>
+          <p>内容是否成立并不重要，是否触发既有情绪或欲望模板才重要。</p>
+        </div>
+
+        <div class="model-item">
+          <strong>判断条件</strong>
+          <ul>
+            <li>可被任意题材替换</li>
+            <li>不提供可复制的行动路径</li>
+            <li>却能迅速引发强烈情绪</li>
+          </ul>
+        </div>
+
+        <div class="model-item warning">
+          <strong>行为约束</strong>
+          <p>只允许观察其结构，禁止据此行动或转发。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 结构模型 -->
+    <div class="model">
+      <h3 class="model-title">
+        结构模型使用边界
+        <button class="toggle-btn"
+          onclick="this.closest('.model').classList.toggle('collapsed')">
+          折叠
+        </button>
+      </h3>
+
+      <div class="model-content">
+        <p><strong>覆盖话题：</strong>生产力、生产关系、制度秩序、AI 泡沫</p>
+
+        <div class="model-item">
+          <strong>统一本质</strong>
+          <p>模型不是用来解释一切，而是在特定条件下降低错误率。</p>
+        </div>
+
+        <div class="model-item">
+          <strong>判断逻辑</strong>
+          <p>先判断主导变量，再决定是否使用该模型。</p>
+        </div>
+
+        <div class="model-item warning">
+          <strong>止损条件</strong>
+          <p>现实结果连续偏离时，优先怀疑模型前提是否失效。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 金融 -->
+    <div class="model">
+      <h3 class="model-title">
+        金融与风险溢价
+        <button class="toggle-btn"
+          onclick="this.closest('.model').classList.toggle('collapsed')">
+          折叠
+        </button>
+      </h3>
+
+      <div class="model-content">
+        <div class="model-item">
+          <strong>统一本质</strong>
+          <p>价格波动 ≠ 价值变化，多数来自预期的反复修正。</p>
+        </div>
+
+        <div class="model-item">
+          <strong>判断原则</strong>
+          <p>没有新的结构性信息，就不进行新的决策。</p>
+        </div>
+
+        <div class="model-item warning">
+          <strong>风险管理</strong>
+          <p>不决策不是自信，而是错误成本尚未被证伪。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI -->
+    <div class="model">
+      <h3 class="model-title">
+        AI 结构判断
+        <button class="toggle-btn"
+          onclick="this.closest('.model').classList.toggle('collapsed')">
+          折叠
+        </button>
+      </h3>
+
+      <div class="model-content">
+        <div class="model-item">
+          <strong>现实过滤器</strong>
+          <ul>
+            <li>技术是否可行</li>
+            <li>生产关系是否适配</li>
+            <li>是否接近不用不行的临界点</li>
+          </ul>
+        </div>
+
+        <div class="model-item warning">
+          <strong>时间校准</strong>
+          <p>社会转折点通常滞后于技术突破 5–10 年。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 学习 -->
+    <div class="model">
+      <h3 class="model-title">
+        学习陷阱识别
+        <button class="toggle-btn"
+          onclick="this.closest('.model').classList.toggle('collapsed')">
+          折叠
+        </button>
+      </h3>
+
+      <div class="model-content">
+        <div class="model-item">
+          <strong>判断标准</strong>
+          <p>若在预定时间内未暴露“我哪里错了或不知道”，默认判定为陷阱学习。</p>
+        </div>
+
+        <div class="model-item warning">
+          <strong>行为规范</strong>
+          <p>不看学习输入密度，只看是否被现实打脸。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 行动 -->
+    <div class="model">
+      <h3 class="model-title">
+        行动与执行判断
+        <button class="toggle-btn"
+          onclick="this.closest('.model').classList.toggle('collapsed')">
+          折叠
+        </button>
+      </h3>
+
+      <div class="model-content">
+        <div class="model-item">
+          <strong>核心判断</strong>
+          <p>拖延不是缓冲，而是成本放大器。</p>
+        </div>
+
+        <div class="model-item warning">
+          <strong>执行原则</strong>
+          <p>不追求情绪准备度，只计算不做的现实成本。</p>
+        </div>
+      </div>
+    </div>
+
   </div>
-
-  <!-- 结构模型 -->
-  <div class="model">
-    <h3>结构模型使用边界</h3>
-    <p><strong>适用范围：</strong>宏观判断、趋势分析、技术讨论</p>
-    <p><strong>核心判断：</strong>模型用于降低错误率，而不是解释一切。</p>
-    <p><strong>判断规则：</strong>先判断主导变量，再决定是否使用该模型。</p>
-    <p><strong>止损条件：</strong>现实结果连续偏离时，优先怀疑模型适用前提是否失效。</p>
-  </div>
-
-  <!-- 金融判断 -->
-  <div class="model">
-    <h3>金融与风险溢价</h3>
-    <p><strong>适用范围：</strong>指数投资、市场比较、AI 投资讨论</p>
-    <p><strong>核心判断：</strong>价格波动 ≠ 价值变化，多数波动来自预期反复修正。</p>
-    <p><strong>判断规则：</strong>没有新的结构性信息，就不进行新的决策。</p>
-    <p><strong>风险原则：</strong>不决策不是自信，而是错误成本尚未被证伪。</p>
-  </div>
-
-  <!-- AI 判断 -->
-  <div class="model">
-    <h3>AI 结构判断</h3>
-    <p><strong>适用范围：</strong>AI 产品、技术发布、长期趋势</p>
-    <p><strong>现实过滤器：</strong></p>
-    <ul>
-      <li>技术是否可行</li>
-      <li>生产关系是否适配</li>
-      <li>是否接近不用不行的临界点</li>
-    </ul>
-    <p><strong>时间校准：</strong>社会转折点通常滞后技术突破 5–10 年。</p>
-  </div>
-
-  <!-- 学习判断 -->
-  <div class="model">
-    <h3>学习陷阱识别</h3>
-    <p><strong>适用范围：</strong>课程、阅读、技能学习</p>
-    <p><strong>判断规则：</strong>若在预定时间内未暴露“我哪里错了或不知道”，默认判定为陷阱学习。</p>
-    <p><strong>行为规范：</strong>不看学习输入密度，只看是否被现实打脸。</p>
-  </div>
-
-  <!-- 行动执行 -->
-  <div class="model">
-    <h3>行动与执行判断</h3>
-    <p><strong>适用范围：</strong>必须完成的现实事务</p>
-    <p><strong>核心判断：</strong>拖延不是缓冲，而是成本放大器。</p>
-    <p><strong>执行原则：</strong>不追求情绪准备度，只计算不做的现实成本。</p>
-  </div>
-
-</section>
+</body>
+</html>
