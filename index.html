@@ -11,6 +11,19 @@
 
 <body>
 
+
+ <script>
+  fetch("http://localhost:3000")
+    .then(res => res.text())
+    .then(data => {
+      console.log("来自后端的返回：", data);
+    })
+    .catch(err => {
+      console.error("调用后端失败：", err);
+    });
+</script>
+ 
+
 <header class="site-header">
   <div class="header-inner">
     <h1>Shiran</h1>
