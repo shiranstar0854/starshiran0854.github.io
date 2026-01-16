@@ -13,13 +13,22 @@
  <div id="backend-result">后端返回内容会显示在这里</div>
 
 <script>
-fetch('http://localhost:3000/')
-  .then(res => res.text())
-  .then(data => {
-    console.log('来自后端的返回：', data);
-    document.getElementById('backend-result').innerText = data;
-  })
-  .catch(err => console.error('调用后端失败：', err));
+async function testBackend() {
+  try {
+    const response = await fetch('http://localhost:3000/test', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: 'hello' })
+    });
+    const data = await response.json();
+    console.log('收到后端数据:', data);
+  } catch (err) {
+    console.error('调用后端失败：', err);
+  }
+}
+
+testBackend();
+
 </script>
 
 
