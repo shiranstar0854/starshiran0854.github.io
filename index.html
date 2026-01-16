@@ -13,14 +13,15 @@
 
 
  <script>
-  fetch("http://localhost:3000")
-    .then(res => res.text())
-    .then(data => {
-      console.log("来自后端的返回：", data);
-    })
-    .catch(err => {
-      console.error("调用后端失败：", err);
-    });
+   fetch('http://localhost:3000/')
+  .then(res => res.text())
+  .then(data => {
+    console.log('从后端拿到的数据:', data);
+    const output = document.getElementById('backend-output');
+    if (output) output.innerText = data;
+  })
+  .catch(err => console.error('调用后端失败：', err));
+
 </script>
  
 
