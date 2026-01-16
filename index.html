@@ -16,7 +16,7 @@ async function testBackend() {
     const response = await fetch('http://localhost:3000/test', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: 'hello' })
+      body: JSON.stringify({ message: '这里是拭然' })
     });
     const data = await response.json();
     console.log('收到后端数据:', data);
