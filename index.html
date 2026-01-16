@@ -10,16 +10,17 @@
 <body>
 
 
- <script>
-   fetch('http://localhost:3000/')
+ <div id="backend-result">后端返回内容会显示在这里</div>
+
+<script>
+fetch('http://localhost:3000/')
   .then(res => res.text())
   .then(data => {
-    console.log('从后端拿到的数据:', data);
-    const output = document.getElementById('backend-output');
-    if (output) output.innerText = data;
+    console.log('来自后端的返回：', data);
+    document.getElementById('backend-result').innerText = data;
   })
-  .catch(err => console.error('调用后端失败：', err))
- </script>
+  .catch(err => console.error('调用后端失败：', err));
+</script>
 
 
  
