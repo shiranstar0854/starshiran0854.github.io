@@ -106,6 +106,7 @@ body {
   transition: transform 0.25s ease, background-color 0.25s ease;
   opacity: 0;
   transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease; /* 动画：渐显和滑入 */
 }
 
 /* 当滚动到区块时，触发动画 */
@@ -163,6 +164,7 @@ body {
 .block:hover {
   background-color: #f0f0f0;
   transform: translateY(-2px);
+  transition: background-color 0.3s ease;
 }
 
 /* 分隔线 */
@@ -184,3 +186,4 @@ body {
   font-weight: bold;
   opacity: 0.4;
 }
+
