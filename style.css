@@ -1,3 +1,17 @@
+/* 全局背景样式 */
+:root {
+  --bg-body: #f9f9f9; /* 页面背景 */
+  --bg-container: #ffffff; /* 内容容器背景 */
+  --bg-model: #fafafa; /* 模型部分背景 */
+  --border-model: #333; /* 模型部分边框颜色 */
+  --border-warning: #e5533d; /* 警告框边框颜色 */
+  --bg-warning: #fff5f5; /* 警告框背景 */
+  --tag-bg: #eaeaea; /* 标签背景 */
+  --tag-color: #222; /* 标签字体颜色 */
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* 动画及过渡效果 */
 * {
   margin: 0;
   padding: 0;
@@ -5,129 +19,135 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-               "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
-               sans-serif;
-  background-color: #f9f9f9;
+  font-family: var(--font-family);
+  background-color: var(--bg-body);
   color: #222;
   line-height: 1.8;
+  padding: 0;
+  margin: 0;
+  transition: background-color 0.5s ease;
 }
 
-/* Header */
+/* 页面容器 */
+.container {
+  max-width: 960px;
+  margin: auto;
+  background-color: var(--bg-container);
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeIn 1s forwards; /* 动画：渐显 */
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 页头 */
 .site-header {
+  background-color: #fff;
   border-bottom: 1px solid #e5e5e5;
-  background: #fff;
-}
-
-.header-inner {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 60px 20px 40px;
-}
-
-.site-header h1 {
-  font-size: 32px;
-  font-weight: 600;
-}
-
-.subtitle {
-  color: #666;
-  margin-top: 8px;
-  margin-bottom: 24px;
-}
-
-nav a {
-  margin-right: 20px;
-  text-decoration: none;
-  color: #222;
-  font-size: 14px;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-/* Main content */
-.content {
-  max-width: 760px;
-  margin: 0 auto;
   padding: 40px 20px;
+  transition: background-color 0.3s ease;
 }
 
-.block {
-  margin-bottom: 56px;
-}
-
-.block h2 {
-  font-size: 20px;
-  margin-bottom: 16px;
-}
-
-.block p {
-  color: #333;
-}
-
-.block ul {
-  padding-left: 20px;
-}
-
-.block li {
-  margin-bottom: 8px;
-}
-
-/* Footer */
+/* 页脚 */
 .site-footer {
+  background-color: #fff;
   border-top: 1px solid #e5e5e5;
-  background: #fff;
   padding: 20px;
   text-align: center;
   color: #888;
   font-size: 13px;
-}
-.model-img {
-  max-width: 600px;
-  width: 90%;
-  height: auto;
-  display: block;
-  margin: 20px auto;
+  position: relative;
+  transition: background-color 0.3s ease;
 }
 
-@media (max-width: 480px) {
-  .model-img {
-    width: 100%;
-  }
-}
-/* 装饰背景线 */
+/* 背景装饰线 */
 .background-lines {
   position: fixed;
   top: 0;
   left: 50%;
   width: 1px;
   height: 100vh;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(0,0,0,0.05),
-    transparent
-  );
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.05), transparent);
   transform: translateX(-50%);
   z-index: -1;
 }
 
-/* 区块增强 */
+/* 滚动时内容渐显 */
 .block {
-  padding: 40px 0;
-  max-width: 720px;
-  margin: 0 auto;
+  margin-bottom: 40px;
+  background-color: var(--bg-model);
+  border-left: 4px solid var(--border-model);
+  padding: 40px;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
-.block-highlight {
-  padding-top: 60px;
+/* 当滚动到区块时，触发动画 */
+.block.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.block-border {
-  border-top: 1px dashed #ddd;
-  margin-top: 60px;
+/* 模型标题动画 */
+.block h2 {
+  font-size: 20px;
+  position: relative;
+  padding-left: 12px;
+  transition: color 0.3s ease;
+}
+
+.block h2::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #999;
+  font-size: 14px;
+}
+
+.block h2:hover {
+  color: #000;
+}
+
+/* 提示按钮动画 */
+.toggle-btn {
+  background: #eee;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-btn:hover {
+  background-color: #ddd;
+}
+
+/* 警告框背景 */
+.warning {
+  background-color: var(--bg-warning);
+  border-left: 4px solid var(--border-warning);
+  padding: 12px;
+  margin-top: 12px;
+  transition: background-color 0.3s ease;
+}
+
+/* 过渡效果 */
+.block:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
 }
 
 /* 分隔线 */
@@ -138,12 +158,7 @@ nav a:hover {
   margin: 16px 0 24px 0;
 }
 
-/* 列表结构感 */
-.focus-list {
-  list-style: none;
-  padding: 0;
-}
-
+/* 聚焦列表结构 */
 .focus-list li {
   display: flex;
   gap: 16px;
@@ -154,71 +169,3 @@ nav a:hover {
   font-weight: bold;
   opacity: 0.4;
 }
-/* 页面纵向阅读引导 */
-body::before {
-  content: "";
-  position: fixed;
-  left: calc(50% - 380px);
-  top: 0;
-  width: 1px;
-  height: 100vh;
-  background: rgba(0,0,0,0.04);
-  z-index: -1;
-}
-.block {
-  position: relative;
-  transition: transform 0.25s ease, background 0.25s ease;
-}
-
-.block:hover {
-  transform: translateY(-2px);
-}
-.block h2 {
-  position: relative;
-  padding-left: 12px;
-}
-
-.block h2::before {
-  content: "▸";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: #999;
-  font-size: 14px;
-}
-.block h2 {
-  position: relative;
-  padding-left: 12px;
-}
-
-.block h2::before {
-  content: "▸";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: #999;
-  font-size: 14px;
-}
-.focus-list li {
-  padding: 8px 0;
-  border-bottom: 1px dashed #eee;
-}
-
-.focus-list li:last-child {
-  border-bottom: none;
-}
-.site-footer {
-  position: relative;
-}
-
-.site-footer::before {
-  content: "System status: evolving";
-  display: block;
-  font-size: 11px;
-  color: #aaa;
-  margin-bottom: 6px;
-}
-
-
-
-
