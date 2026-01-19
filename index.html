@@ -5,9 +5,102 @@
   <title>Shiran · 认知记录</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg-body: #f7f7f7;
+      --bg-container: #ffffff;
+      --bg-model: #fafafa;
+      --border-model: #333;
+      --border-warning: #e5533d;
+      --bg-warning: #fff5f5;
+      --tag-bg: #eaeaea;
+      --tag-color: #222;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-body);
+      color: #222;
+      line-height: 1.7;
+      margin: 0;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: var(--bg-container);
+      padding: 32px;
+      border-radius: 8px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-top: 32px;
+      color: #333;
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .section-header {
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .block {
+      background: var(--bg-model);
+      padding: 20px;
+      margin-bottom: 24px;
+      border-radius: 6px;
+      border-left: 4px solid var(--border-model);
+    }
+
+    .block h3 {
+      margin-bottom: 16px;
+      font-size: 18px;
+      color: #111;
+    }
+
+    .block ul {
+      list-style-type: disc;
+      margin-left: 20px;
+      color: #444;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--tag-color);
+      padding: 2px 8px;
+      margin-right: 8px;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      margin-top: 30px;
+    }
+  </style>
 </head>
 
 <body>
+
 
 
 <script>
@@ -30,27 +123,18 @@ testBackend();
 </script>
 
 
- 
 
-<header class="site-header">
-  <div class="header-inner">
-    <h1>Shiran</h1>
-    <p class="subtitle">记录判断如何形成、如何被验证、如何被修正</p>
-
-    <nav>
-      <a href="index.html">首页</a>
-      <a href="model.html">模型库</a>
-      <a href="records.html">行动记录</a>
-      <a href="about.html">关于</a>
-    </nav>
-  </div>
-</header>
-
-<main class="content">
+<div class="container">
+  <header>
+    <h1>Shiran · 认知记录</h1>
+    <p>记录判断如何形成、如何被验证、如何被修正</p>
+  </header>
 
   <!-- 立场 -->
   <section class="block">
-    <h2>立场</h2>
+    <div class="section-header">
+      <h2>立场</h2>
+    </div>
     <p>
       世界并不混乱，只是变量过多。<br>
       我关注结构、约束与长期因果，而非情绪与即时反馈。
@@ -63,7 +147,9 @@ testBackend();
 
   <!-- 当前核心判断 -->
   <section class="block">
-    <h2>正在被验证的判断</h2>
+    <div class="section-header">
+      <h2>正在被验证的判断</h2>
+    </div>
     <ul>
       <li>AI 是否处于「生产力领先，生产关系滞后」阶段</li>
       <li>个体在既定制度下，认知升级的真实边界在哪里</li>
@@ -76,7 +162,9 @@ testBackend();
 
   <!-- 认知如何落地 -->
   <section class="block">
-    <h2>认知如何被使用</h2>
+    <div class="section-header">
+      <h2>认知如何落地</h2>
+    </div>
     <ul>
       <li>通过行动而非阅读验证判断</li>
       <li>用现实反馈暴露认知漏洞</li>
@@ -87,7 +175,9 @@ testBackend();
 
   <!-- 模型入口 -->
   <section class="block">
-    <h2>已调用模型</h2>
+    <div class="section-header">
+      <h2>已调用模型</h2>
+    </div>
     <ul>
       <li>生产力 → 生产关系 → 制度秩序（三要素模型）</li>
       <li>AI 使用边界与责任归属模型</li>
@@ -103,7 +193,9 @@ testBackend();
 
   <!-- 近期真实行动 -->
   <section class="block">
-    <h2>近期行动验证</h2>
+    <div class="section-header">
+      <h2>近期行动验证</h2>
+    </div>
     <ul>
       <li>真实参与乡村干部选举，验证人性与利益博弈</li>
       <li>阅读《贫穷的本质》，对社会保障与金融认知进行现实映射</li>
@@ -114,7 +206,9 @@ testBackend();
 
   <!-- 更新痕迹 -->
   <section class="block">
-    <h2>时间痕迹</h2>
+    <div class="section-header">
+      <h2>时间痕迹</h2>
+    </div>
     <ul>
       <li>2025-01｜AI 产品密集发布的结构性判断</li>
       <li>2025-01｜乡村选举的博弈模型复盘</li>
@@ -122,24 +216,8 @@ testBackend();
     </ul>
   </section>
 
-  <!-- 能提供什么 -->
-  <section class="block">
-    <h2>我能提供什么</h2>
-    <p>
-      如果你正面临一个重要选择，<br>
-      我可以协助你拆解结构、变量与约束条件。
-    </p>
-    <p>
-      不替你决定，不提供情绪安慰，<br>
-      只帮助你看清判断成本。
-    </p>
-    <p class="hint">
-      联系方式：<br>
-      <strong>17713051895meng@gmail.com</strong>
-    </p>
-  </section>
 
-</main>
+
 
 <footer class="site-footer">
   <p>© 2026 Shiran · Built slowly, corrected often</p>
