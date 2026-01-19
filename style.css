@@ -9,7 +9,22 @@
   --tag-bg: #eaeaea; /* 标签背景 */
   --tag-color: #222; /* 标签字体颜色 */
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+
+  
 }
+
+
+nav a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #222;
+  font-size: 14px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
 
 /* 动画及过渡效果 */
 * {
