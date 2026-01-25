@@ -91,15 +91,19 @@ window.addEventListener("scroll", () => {
     activeSection = current;
   }
 });
-// === 页面章节进度条 ===
-const progressInner = document.getElementById("progress-inner");
 
-window.addEventListener("scroll", () => {
-  const scrollTop = window.scrollY;
-  const docHeight = document.body.scrollHeight - window.innerHeight;
-  const progress = (scrollTop / docHeight) * 100;
-  progressInner.style.width = progress + "%";
+// === 页面章节进度条（保证 DOM 已加载） ===
+document.addEventListener("DOMContentLoaded", () => {
+  const progressInner = document.getElementById("progress-inner");
+
+  window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.body.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    progressInner.style.width = progress + "%";
+  });
 });
+
 
 
 
