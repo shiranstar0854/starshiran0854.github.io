@@ -72,6 +72,25 @@ window.addEventListener("wheel", (e) => {
 
   scrollTimeout = setTimeout(() => scrollTimeout = null, 600); // 200ms 节流
 });
+// 监听滚动，判断读到哪一块
+window.addEventListener("scroll", () => {
+  let current = null;
+
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.35) {
+      current = section;
+    }
+  });
+
+  if (current && current !== activeSection) {
+    if (activeSection) {
+      activeSection.classList.remove("reading");
+    }
+    current.classList.add("reading");
+    activeSection = current;
+  }
+});
 
 
 
