@@ -98,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateProgress() {
     const scrollTop = window.scrollY;
-    // 获取 body 内真实内容高度（忽略固定元素）
     const content = document.querySelector(".record-card");
     if (!content) return;
 
@@ -107,10 +106,16 @@ document.addEventListener("DOMContentLoaded", () => {
     progressInner.style.width = Math.min(progress, 100) + "%";
   }
 
+  // 延迟强制触发一次渲染，确保高度正确
+  setTimeout(() => {
+    updateProgress();
+    window.dispatchEvent(new Event('scroll')); // 模拟滚动触发
+  }, 100);
+
   window.addEventListener("scroll", updateProgress);
-  window.addEventListener("resize", updateProgress); // 窗口大小改变也更新
-  updateProgress(); // 页面加载立即计算一次
+  window.addEventListener("resize", updateProgress);
 });
+
 
 
 
