@@ -103,10 +103,10 @@ body {
   background-color: var(--bg-model);
   border-left: 4px solid var(--border-model);
   padding: 40px;
-  transition: transform 0.25s ease, background-color 0.25s ease;
+  transition: transform 0.5s ease, background-color 0.5s ease;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease; /* 动画：渐显和滑入 */
+  transition: opacity 1.5s ease, transform 1.5s ease; /* 动画：渐显和滑入 */
 }
 
 /* 当滚动到区块时，触发动画 */
