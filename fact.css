@@ -168,6 +168,13 @@ details[open] {
 details {
   transition: all 0.4s ease;
 }
+/* === 当前滚轮阅读模块高亮 === */
+details.reading {
+  background: #eef6ff;       /* 微光蓝背景 */
+  border-left: 4px solid #3b82f6;  /* 明显高亮边框 */
+  padding-left: 10px;
+  box-shadow: 0 2px 6px rgba(59,130,246,0.1); /* 微光阴影 */
+}
 
 
 
