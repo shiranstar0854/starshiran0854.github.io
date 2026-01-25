@@ -96,14 +96,21 @@ window.addEventListener("scroll", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const progressInner = document.getElementById("progress-inner");
 
-  window.addEventListener("scroll", () => {
+  function updateProgress() {
     const scrollTop = window.scrollY;
-    const docHeight = document.body.scrollHeight - window.innerHeight;
-    const progress = (scrollTop / docHeight) * 100;
-    progressInner.style.width = progress + "%";
-  });
+    // 获取 body 内真实内容高度（忽略固定元素）
+    const content = document.querySelector(".record-card");
+    if (!content) return;
+
+    const docHeight = content.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressInner.style.width = Math.min(progress, 100) + "%";
+  }
+
+  window.addEventListener("scroll", updateProgress);
+  window.addEventListener("resize", updateProgress); // 窗口大小改变也更新
+  updateProgress(); // 页面加载立即计算一次
 });
-console.log("进度条元素:", document.getElementById("progress-inner"));
 
 
 
