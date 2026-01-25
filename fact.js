@@ -70,7 +70,7 @@ window.addEventListener("wheel", (e) => {
     }
   }
 
-  scrollTimeout = setTimeout(() => scrollTimeout = null, 200); // 200ms 节流
+  scrollTimeout = setTimeout(() => scrollTimeout = null, 600); // 200ms 节流
 });
 
 
