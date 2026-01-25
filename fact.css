@@ -110,4 +110,31 @@ h4 {
   color: var(--success);
   font-weight: 500;
 }
+/* === 结构性展开指示（非情绪化交互） === */
+
+/* summary 左侧状态标记 */
+summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 6px;
+  transition: transform 0.15s ease;
+  color: var(--text-muted);
+}
+
+/* 展开状态：箭头下转 */
+details[open] summary::before {
+  transform: rotate(90deg);
+  color: var(--accent);
+}
+
+/* 悬停时仅增强可读性，不刺激 */
+summary:hover {
+  color: #000;
+}
+
+/* 已展开模块轻微结构强调 */
+details[open] {
+  border-left: 3px solid var(--border-main);
+  padding-left: 10px;
+}
 
