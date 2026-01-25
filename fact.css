@@ -137,4 +137,10 @@ details[open] {
   border-left: 3px solid var(--border-main);
   padding-left: 10px;
 }
+/* === 正在阅读模块标记 === */
+details.reading {
+  background: #f9fafb;
+  outline: 1px dashed var(--border-sub);
+}
+
 
