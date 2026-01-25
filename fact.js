@@ -25,4 +25,18 @@ window.addEventListener("scroll", () => {
   }
 });
 
+// === 验证完成状态锁定系统 ===
+
+// 找到结论模块
+const conclusion = document.querySelector(".conclusion");
+
+// 若结论存在，标记整份记录为“已验证”
+if (conclusion) {
+  document.body.classList.add("verified");
+
+  // 控制台输出一次性验证标记（给未来调试用）
+  console.log("[FACT] 该记录已完成现实验证");
+}
+
+
 
