@@ -158,6 +158,12 @@ body.verified .record-header::after {
   color: var(--success);
   opacity: 0.6;
 }
+/* 滚轮控制展开模块视觉增强 */
+details[open] {
+  background: #f4f7fb;
+  border-left: 3px solid var(--accent);
+  padding-left: 12px;
+}
 
 
 
