@@ -103,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
     progressInner.style.width = progress + "%";
   });
 });
+console.log("进度条元素:", document.getElementById("progress-inner"));
 
 
 
