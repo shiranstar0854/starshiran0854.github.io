@@ -142,5 +142,22 @@ details.reading {
   background: #f9fafb;
   outline: 1px dashed var(--border-sub);
 }
+/* === 已验证记录状态 === */
+
+body.verified .record-card {
+  border-color: #0f766e;
+}
+
+/* 页头轻度状态提示（不显性展示） */
+body.verified .record-header::after {
+  content: "VERIFIED";
+  display: inline-block;
+  margin-left: 12px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--success);
+  opacity: 0.6;
+}
+
 
 
