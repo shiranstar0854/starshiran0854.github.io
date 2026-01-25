@@ -164,6 +164,10 @@ details[open] {
   border-left: 3px solid var(--accent);
   padding-left: 12px;
 }
+/* 滚轮切换模块平滑动画 */
+details {
+  transition: all 0.4s ease;
+}
 
 
 
