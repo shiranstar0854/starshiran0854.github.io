@@ -192,6 +192,10 @@ details.reading {
   background: #3b82f6; /* 蓝色进度条 */
   transition: width 0.2s ease;
 }
+html, body {
+  height: 100%;
+}
+
 
 
 
