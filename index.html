@@ -1,236 +1,224 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>Shiran · 认知记录</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Shiran · Cognitive OS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <style>
     :root {
-      --bg-body: #f7f7f7;
-      --bg-container: #ffffff;
-      --bg-model: #fafafa;
-      --border-model: #333;
-      --border-warning: #e5533d;
-      --bg-warning: #fff5f5;
-      --tag-bg: #eaeaea;
-      --tag-color: #222;
-      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --bg: #0f1115;
+      --panel: #161a22;
+      --border: #2a2f3a;
+      --text-main: #e6e8eb;
+      --text-sub: #9aa1ad;
+      --accent: #4da3ff;
+      --danger: #e5533d;
+      --ok: #47c479;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI",
+              Roboto, "Helvetica Neue", Arial;
     }
+
+    * { box-sizing: border-box; }
 
     body {
-      font-family: var(--font-family);
-      background-color: var(--bg-body);
-      color: #222;
-      line-height: 1.7;
       margin: 0;
-      padding: 24px;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-      background: var(--bg-container);
-      padding: 32px;
-      border-radius: 8px;
-    }
-
-    h1 {
-      font-size: 28px;
-      margin-bottom: 12px;
-      color: #333;
-    }
-
-    h2 {
-      font-size: 22px;
-      margin-top: 32px;
-      color: #333;
-    }
-
-    p {
-      font-size: 16px;
-      color: #555;
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font);
       line-height: 1.6;
     }
 
-    .section-header {
-      border-bottom: 2px solid #eee;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 32px;
     }
 
-    .block {
-      background: var(--bg-model);
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    header span {
+      color: var(--text-sub);
+      font-size: 14px;
+    }
+
+    nav a {
+      margin-left: 16px;
+      color: var(--text-sub);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       padding: 20px;
-      margin-bottom: 24px;
-      border-radius: 6px;
-      border-left: 4px solid var(--border-model);
     }
 
-    .block h3 {
-      margin-bottom: 16px;
-      font-size: 18px;
-      color: #111;
+    .panel h2 {
+      font-size: 16px;
+      margin: 0 0 12px;
+      color: var(--accent);
     }
 
-    .block ul {
-      list-style-type: disc;
-      margin-left: 20px;
-      color: #444;
+    .panel p {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin: 0 0 8px;
+    }
+
+    .status {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 6px;
     }
 
     .tag {
       display: inline-block;
-      background: var(--tag-bg);
-      color: var(--tag-color);
       padding: 2px 8px;
-      margin-right: 8px;
       border-radius: 4px;
-      font-size: 13px;
-      cursor: pointer;
+      font-size: 12px;
+      margin-right: 6px;
+      background: #222733;
+      color: var(--text-sub);
     }
 
+    .ok { color: var(--ok); }
+    .danger { color: var(--danger); }
+
     footer {
+      margin-top: 40px;
       text-align: center;
-      font-size: 14px;
-      color: #888;
-      margin-top: 30px;
+      font-size: 12px;
+      color: var(--text-sub);
     }
   </style>
 </head>
 
 <body>
 
-
-
-<script>
-async function testBackend() {
-  try {
-    const response = await fetch('http://localhost:3000/test', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: '这里是拭然' })
-    });
-    const data = await response.json();
-    console.log('收到后端数据:', data);
-  } catch (err) {
-    console.error('调用后端失败：', err);
-  }
-}
-
-testBackend();
-
-</script>
-
-
-
 <div class="container">
+
+  <!-- 顶部系统状态 -->
   <header>
-    <h1>Shiran · 认知记录</h1>
-    <p>记录判断如何形成、如何被验证、如何被修正</p>
+    <div>
+      <h1>Shiran · Cognitive OS</h1>
+      <span>判断不是观点，是可被淘汰的假设</span>
+    </div>
     <nav>
-        <a href="index.html">首页</a>
-        <a href="model.html">模型库</a>
-        <a href="records.html">行动记录</a>
-        <a href="about.html">关于</a>
-        <a href="fact.html">现实反馈</a>
-      </nav>
+      <a href="model.html">模型库</a>
+      <a href="records.html">行动记录</a>
+      <a href="fact.html">现实反馈</a>
+      <a href="about.html">系统说明</a>
+    </nav>
   </header>
 
-  <!-- 立场 -->
-  <section class="block">
-    <div class="section-header">
-      <h2>立场</h2>
+  <!-- 系统总览 -->
+  <section class="grid">
+
+    <!-- 核心判断模块 -->
+    <div class="panel">
+      <h2>核心判断（Active Hypotheses）</h2>
+      <div class="status">
+        <span>AI 生产力领先阶段</span>
+        <span class="ok">验证中</span>
+      </div>
+      <div class="status">
+        <span>认知升级的制度边界</span>
+        <span class="ok">验证中</span>
+      </div>
+      <div class="status">
+        <span>情绪压制 → 行动替代</span>
+        <span class="danger">变量不足</span>
+      </div>
+      <p>所有判断默认可被否定</p>
     </div>
-    <p>
-      世界并不混乱，只是变量过多。<br>
-      我关注结构、约束与长期因果，而非情绪与即时反馈。
-    </p>
-    <p>
-      认知的价值不在于解释世界，<br>
-      而在于是否真实改变了我的行为路径。
-    </p>
+
+    <!-- 模型调用状态 -->
+    <div class="panel">
+      <h2>模型状态（Models Loaded）</h2>
+      <span class="tag">三要素结构模型</span>
+      <span class="tag">贫穷陷阱模型</span>
+      <span class="tag">行动成本模型</span>
+      <span class="tag">博弈决策模型</span>
+      <p>模型仅作为压缩工具，不作为结论来源</p>
+    </div>
+
+    <!-- 行动引擎 -->
+    <div class="panel">
+      <h2>行动引擎（Action Engine）</h2>
+      <div class="status">
+        <span>本周计划</span>
+        <span class="danger">未执行</span>
+      </div>
+      <div class="status">
+        <span>真实投资验证</span>
+        <span class="danger">资源不足</span>
+      </div>
+      <p>未行动 = 模型失效，而非时间不足</p>
+    </div>
+
+    <!-- 现实反馈 -->
+    <div class="panel">
+      <h2>现实反馈（Reality Check）</h2>
+      <div class="status">
+        <span>现金流约束</span>
+        <span class="danger">高</span>
+      </div>
+      <div class="status">
+        <span>试错成本</span>
+        <span class="danger">不可忽略</span>
+      </div>
+      <p>现实变量优先级高于认知完整性</p>
+    </div>
+
+    <!-- 决策偏好 -->
+    <div class="panel">
+      <h2>决策偏好（Policy）</h2>
+      <span class="tag">未来可选性优先</span>
+      <span class="tag">牺牲情绪舒适</span>
+      <span class="tag">低频高质量行动</span>
+      <p>系统目标：扩大可选集，而非即时收益</p>
+    </div>
+
+    <!-- 系统循环 -->
+    <div class="panel">
+      <h2>系统循环（Core Loop）</h2>
+      <p>判断 → 模型 → 行动 → 反馈 → 修正</p>
+      <p>任一节点断裂即回滚</p>
+      <p>首页仅显示状态，不参与解释</p>
+    </div>
+
   </section>
 
-  <!-- 当前核心判断 -->
-  <section class="block">
-    <div class="section-header">
-      <h2>正在被验证的判断</h2>
-    </div>
-    <ul>
-      <li>AI 是否处于「生产力领先，生产关系滞后」阶段</li>
-      <li>个体在既定制度下，认知升级的真实边界在哪里</li>
-      <li>减少情绪型信息摄入后，行动替代是否成立</li>
-    </ul>
-    <p class="hint">
-      这些判断不会被“证明正确”，只会被修正或淘汰。
-    </p>
-  </section>
+  <footer>
+    © 2026 Shiran · Cognitive OS v0.1  
+    <br/>Built slowly · Corrected aggressively
+  </footer>
 
-  <!-- 认知如何落地 -->
-  <section class="block">
-    <div class="section-header">
-      <h2>认知如何落地</h2>
-    </div>
-    <ul>
-      <li>通过行动而非阅读验证判断</li>
-      <li>用现实反馈暴露认知漏洞</li>
-      <li>记录错误而不是包装逻辑</li>
-      <li>在特定时间点复盘是否值得继续</li>
-    </ul>
-  </section>
-
-  <!-- 模型入口 -->
-  <section class="block">
-    <div class="section-header">
-      <h2>已调用模型</h2>
-    </div>
-    <ul>
-      <li>生产力 → 生产关系 → 制度秩序（三要素模型）</li>
-      <li>AI 使用边界与责任归属模型</li>
-      <li>社会保障 × 金融认知（贫穷陷阱模型）</li>
-      <li>实质性学习 vs 陷阱式学习识别模型</li>
-      <li>任务拖延的利弊权衡与强制执行模型</li>
-      <li>基层选举的多变量博弈模型</li>
-    </ul>
-    <p>
-      👉 详见 <a href="model.html">模型库</a>
-    </p>
-  </section>
-
-  <!-- 近期真实行动 -->
-  <section class="block">
-    <div class="section-header">
-      <h2>近期行动验证</h2>
-    </div>
-    <ul>
-      <li>真实参与乡村干部选举，验证人性与利益博弈</li>
-      <li>阅读《贫穷的本质》，对社会保障与金融认知进行现实映射</li>
-      <li>实际驾车行驶，检验“学会 ≠ 掌握”的学习陷阱</li>
-      <li>对拖延行为进行强制执行与后果评估</li>
-    </ul>
-  </section>
-
-  <!-- 更新痕迹 -->
-  <section class="block">
-    <div class="section-header">
-      <h2>时间痕迹</h2>
-    </div>
-    <ul>
-      <li>2025-01｜AI 产品密集发布的结构性判断</li>
-      <li>2025-01｜乡村选举的博弈模型复盘</li>
-      <li>2025-01｜实质性学习的验证与修正</li>
-    </ul>
-  </section>
-
-
-
-
-<footer class="site-footer">
-  <p>© 2026 Shiran · Built slowly, corrected often</p>
-</footer>
-<script src="index.js"></script>
+</div>
 
 </body>
 </html>
-
