@@ -3,152 +3,211 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>模型验证记录 · 情绪模板调用</title>
+<title>系统化模型库 · Model & Records 编辑</title>
 <style>
+:root {
+  --bg-body: #f7f7f7;
+  --bg-container: #ffffff;
+  --bg-model: #fafafa;
+  --border-model: #333;
+  --border-warning: #e5533d;
+  --bg-warning: #fff5f5;
+  --tag-bg: #eaeaea;
+  --tag-color: #222;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background:#f7f7f7;
-  margin:0;
-  padding:24px;
-  line-height:1.6;
+  font-family: var(--font-family);
+  background: var(--bg-body);
+  color: #222;
+  margin: 0; padding: 24px;
 }
-#progress-bar {
-  width:100%;
-  height:8px;
-  background:#eee;
-  border-radius:4px;
-  overflow:hidden;
-  margin-bottom:24px;
+.container {
+  max-width: 1000px;
+  margin: auto;
+  background: var(--bg-container);
+  padding: 32px;
+  border-radius: 8px;
 }
-#progress-inner {
-  height:100%;
-  width:0%;
-  background:#4caf50;
-  transition: width 0.5s;
+h1 { font-size: 28px; margin-bottom: 12px; }
+h2 { font-size: 22px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+h3 { font-size: 18px; margin-top: 16px; }
+p, ul { margin: 8px 0; }
+ul { margin-left: 20px; }
+.model {
+  margin-top: 24px;
+  padding: 20px;
+  background: var(--bg-model);
+  border-left: 4px solid var(--border-model);
+  border-radius: 6px;
+  transition: all 0.3s;
 }
-
-.record-card {
-  background:#fff;
-  padding:24px;
-  border-radius:8px;
-  max-width:800px;
-  margin:auto;
-  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+.tag {
+  display: inline-block;
+  background: var(--tag-bg);
+  color: var(--tag-color);
+  padding: 2px 8px;
+  margin-right: 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
 }
-
-.record-header h1 { margin:0 0 6px 0; font-size:24px; }
-.record-meta { font-size:13px; color:#666; }
-
-details { margin-top:12px; }
-details summary { cursor:pointer; font-weight:600; }
-details[open] summary::after { content:'▲'; float:right; }
-details summary::after { content:'▼'; float:right; }
-
-.conclusion.success { color:#2e7d32; font-weight:600; }
-
-.warning { background:#fff5f5; border-left:4px solid #e5533d; padding:8px; border-radius:4px; margin-top:6px; font-size:13px; }
-
+.warning {
+  background: var(--bg-warning);
+  border-left: 4px solid var(--border-warning);
+  padding: 12px;
+  margin-top: 12px;
+}
+.toggle-btn {
+  background: #eee;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.collapsed .model-content { display: none; }
+.search-bar { margin-top: 20px; }
+.search-bar input { padding: 8px 12px; width: 100%; max-width: 300px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+.progress-bar-container { background: #eee; height: 10px; border-radius: 5px; margin-top: 8px; width: 100%; }
+.progress-bar { height: 10px; background: #4caf50; border-radius: 5px; width: 0%; }
+.form-section { margin-top: 40px; padding: 20px; background: #f0f0f0; border-radius: 6px; }
+.form-section h3 { margin-top: 0; }
+.form-section input, .form-section textarea, .form-section select { width: 100%; padding: 6px 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #ccc; }
+.form-section button { padding: 6px 12px; border-radius: 4px; border: none; background: #4caf50; color: white; cursor: pointer; }
 </style>
 </head>
 <body>
+<div class="container">
+  <h1>系统化思考模型库（可编辑验证记录）</h1>
+  <p>整合模型、验证记录与行动指引，支持新增验证记录。</p>
+  
+  <div class="search-bar">
+    <input type="text" id="tagSearch" placeholder="输入标签过滤模型...">
+  </div>
 
-<div id="progress-bar"><div id="progress-inner"></div></div>
+  <div id="modelContainer"></div>
 
-<section class="record-card" data-model-id="emotion-template" data-validate-date="2026-01-15">
-  <header class="record-header">
-    <h1>模型验证记录 · 情绪模板调用</h1>
-    <span class="record-meta">2026-01 · 现实验证</span>
-  </header>
-
-  <details open>
-    <summary>一、验证目标</summary>
-    <p>用现实反馈检验「情绪模板模型」是否需要修正。</p>
-  </details>
-
-  <details>
-    <summary>二、验证方式</summary>
-    <ul>
-      <li>访谈身边 5 人（年轻人 ×2，中年人 ×2）</li>
-      <li>拆解短视频平台热点与情绪模板结构</li>
-    </ul>
-  </details>
-
-  <details>
-    <summary>三、核心观察</summary>
-    <h4>年轻人</h4>
-    <ul>
-      <li>核心价值：快速代入 + 即时情绪反馈</li>
-      <li>信息本身并非主要吸引力</li>
-    </ul>
-
-    <h4>中年人</h4>
-    <ul>
-      <li>表层需求：信息与解决方案</li>
-      <li>底层一致：仍然依赖情绪确认</li>
-    </ul>
-
-    <h4>平台对照</h4>
-    <ul>
-      <li>长视频：目的性强，延迟满足</li>
-      <li>短视频：情绪触发替代个人决策</li>
-    </ul>
-  </details>
-
-  <details>
-    <summary>四、结构性判断</summary>
-    <p>
-      短视频的核心不是效率，而是
-      <strong>情绪代入 + 即时反馈 + 低决策成本</strong>。
-    </p>
-  </details>
-
-  <details>
-    <summary>五、修正结论</summary>
-    <p class="conclusion success">
-      模型无需修正，现实反馈强化其解释力。
-    </p>
-  </details>
-
-  <details>
-    <summary>六、行动判定规则</summary>
-    <p>
-      若内容满足：强代入、快反馈、无可执行路径  
-      → 直接判定为情绪模板，不进入决策系统。
-    </p>
-  </details>
-
-</section>
+  <!-- 新增记录表单 -->
+  <div class="form-section">
+    <h3>新增验证记录</h3>
+    <label>选择模型</label>
+    <select id="modelSelect"></select>
+    <label>日期 (YYYY-MM-DD)</label>
+    <input type="date" id="recordDate">
+    <label>结论</label>
+    <input type="text" id="recordConclusion" placeholder="结论说明">
+    <label>进度 (%)</label>
+    <input type="number" id="recordProgress" min="0" max="100" value="100">
+    <label>警告 / 注意事项</label>
+    <textarea id="recordWarning" placeholder="警告信息"></textarea>
+    <button id="addRecordBtn">添加验证记录</button>
+  </div>
+</div>
 
 <script>
-// ==== 进度条模拟 ====
-(function(){
-  const progressInner = document.getElementById('progress-inner');
-  const record = document.querySelector('.record-card');
-  const validateDate = new Date(record.dataset.validateDate);
-  const now = new Date();
-  const totalDays = 30; // 默认30天验证周期
-  const diffDays = Math.min(Math.floor((now - validateDate)/(1000*3600*24)), totalDays);
-  const percent = Math.min(Math.floor(diffDays/totalDays*100),100);
-  progressInner.style.width = percent + '%';
-})();
+// ====== 数据驱动 ======
+const data = {
+  models: [
+    {
+      id: "emotion-template",
+      name: "情绪模板识别",
+      tags: ["信息过滤", "行为修正"],
+      description: "刷短视频时情绪被反复牵引。",
+      principles: ["仅观察结构，不据此行动", "情绪先行，信息密度低"],
+      records: [
+        { date: "2026-02-03", conclusion: "无需修正", progress: 100, warning: "仅观察结构，不据此行动" }
+      ]
+    },
+    {
+      id: "ai-boundary",
+      name: "AI 使用边界与责任",
+      tags: ["AI工具", "风险控制"],
+      description: "高频使用 AI 提升效率。",
+      principles: ["AI 只能辅助，个人承担不可逆成本", "不可外包责任给 AI"],
+      records: [
+        { date: "2026-01-20", conclusion: "遵循原则", progress: 80, warning: "注意责任归属" }
+      ]
+    },
+    {
+      id: "multi-game",
+      name: "多变量博弈模型",
+      tags: ["现实博弈", "制度分析", "行为判断"],
+      description: "适用于多人竞争、资源分配的场景。",
+      principles: ["先分析成本与收益", "不做道德评判"],
+      records: [
+        { date: "2026-01-15", conclusion: "结构判断有效", progress: 90, warning: "情绪或正义叙事易误判" }
+      ]
+    }
+  ]
+};
 
-// ==== 本地存储同步 Records ====
-(function(){
-  const record = document.querySelector('.record-card');
-  const modelId = record.dataset.modelId;
-  const validateDate = new Date(record.dataset.validateDate).getTime();
-  let records = JSON.parse(localStorage.getItem('modelRecords')||'[]');
+// ====== 渲染函数 ======
+const container = document.getElementById('modelContainer');
+function renderModels(filter="") {
+  container.innerHTML = "";
+  data.models.forEach(model => {
+    const tagsLower = model.tags.map(t => t.toLowerCase());
+    if (filter && !tagsLower.some(t => t.includes(filter))) return;
 
-  // 更新或添加记录
-  const index = records.findIndex(r=>r.modelId===modelId);
-  if(index>-1){
-    records[index].timestamp = validateDate;
-  } else {
-    records.push({modelId:modelId,timestamp:validateDate});
-  }
-  localStorage.setItem('modelRecords',JSON.stringify(records));
-})();
+    const modelDiv = document.createElement('div');
+    modelDiv.className = "model";
+
+    let recordsHtml = model.records.map(r => `
+      <h3>验证记录 · ${r.date}</h3>
+      <p><strong>结论：</strong>${r.conclusion}</p>
+      <div class="progress-bar-container">
+        <div class="progress-bar" style="width: ${r.progress}%"></div>
+      </div>
+      <div class="warning">${r.warning}</div>
+    `).join("");
+
+    modelDiv.innerHTML = `
+      <h2>${model.name} <button class="toggle-btn">折叠</button></h2>
+      <div><strong>标签：</strong> ${model.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+      <p>${model.description}</p>
+      <div class="model-content">
+        <h3>原则与注意事项</h3>
+        <ul>${model.principles.map(p=>`<li>${p}</li>`).join("")}</ul>
+        ${recordsHtml}
+      </div>
+    `;
+    container.appendChild(modelDiv);
+
+    // 折叠事件
+    const btn = modelDiv.querySelector('.toggle-btn');
+    btn.addEventListener('click', ()=> modelDiv.classList.toggle('collapsed'));
+  });
+
+  // 更新模型选择下拉
+  const select = document.getElementById('modelSelect');
+  select.innerHTML = data.models.map(m=>`<option value="${m.id}">${m.name}</option>`).join("");
+}
+
+// ====== 搜索功能 ======
+const searchInput = document.getElementById('tagSearch');
+searchInput.addEventListener('input', ()=>{
+  const keyword = searchInput.value.trim().toLowerCase();
+  renderModels(keyword);
+});
+
+// ====== 新增验证记录 ======
+document.getElementById('addRecordBtn').addEventListener('click', ()=>{
+  const modelId = document.getElementById('modelSelect').value;
+  const date = document.getElementById('recordDate').value;
+  const conclusion = document.getElementById('recordConclusion').value;
+  const progress = parseInt(document.getElementById('recordProgress').value);
+  const warning = document.getElementById('recordWarning').value;
+
+  if(!date || !conclusion) { alert("日期和结论不能为空"); return; }
+
+  const model = data.models.find(m=>m.id===modelId);
+  model.records.push({date, conclusion, progress, warning});
+  renderModels(searchInput.value.trim().toLowerCase());
+});
+
+// ====== 初始化 ======
+renderModels();
 </script>
-
 </body>
 </html>
