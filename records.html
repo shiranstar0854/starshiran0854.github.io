@@ -1,365 +1,258 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>系统级结构化模型库</title>
+<style>
+  :root {
+    --bg-body: #f7f7f7;
+    --bg-container: #ffffff;
+    --bg-model: #fafafa;
+    --border-model: #333;
+    --border-warning: #e5533d;
+    --bg-warning: #fff5f5;
+    --tag-bg: #eaeaea;
+    --tag-color: #222;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+  body {
+    font-family: var(--font-family);
+    background: var(--bg-body);
+    color: #222;
+    margin: 0;
+    padding: 24px;
+    line-height: 1.6;
+  }
+  .container {
+    max-width: 960px;
+    margin: auto;
+    background: var(--bg-container);
+    padding: 32px;
+    border-radius: 8px;
+  }
+  h1 { font-size: 28px; margin-bottom: 12px; }
+  .page-desc { color: #666; font-size: 14px; margin-bottom: 24px; }
+  .divider { height:1px; background:#eee; margin:24px 0; }
+  .search-bar { margin: 20px 0; }
+  .search-bar input {
+    padding:8px 12px;
+    width:100%;
+    max-width:300px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    font-size:14px;
+  }
+  .model { 
+    margin-top: 24px;
+    padding:20px;
+    background: var(--bg-model);
+    border-left:4px solid var(--border-model);
+    border-radius:6px;
+    transition: all 0.3s;
+  }
+  .model-title { 
+    font-size:18px; 
+    display:flex; 
+    justify-content: space-between; 
+    align-items:center; 
+  }
+  .toggle-btn {
+    background:#eee;
+    border:none;
+    border-radius:4px;
+    padding:4px 10px;
+    cursor:pointer;
+    font-size:12px;
+  }
+  .model-content { margin-top:12px; }
+  .model-item { margin-top:12px; }
+  .model-item strong { display:block; margin-bottom:4px; }
+  ul { margin:6px 0 6px 18px; }
+  .warning {
+    background: var(--bg-warning);
+    border-left:4px solid var(--border-warning);
+    padding:12px;
+    border-radius:4px;
+    margin-top:12px;
+  }
+  .collapsed .model-content { display:none; }
 
-  <title>判断记录 · Records</title>
-
-  <style>
-    :root {
-      --bg-body: #f7f7f7;
-      --bg-container: #ffffff;
-      --bg-model: #fafafa;
-      --border-model: #333;
-      --border-warning: #e5533d;
-      --bg-warning: #fff5f5;
-      --tag-bg: #eaeaea;
-      --tag-color: #222;
-      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        "Helvetica Neue", Arial;
-    }
-
-    body {
-      font-family: var(--font-family);
-      background-color: var(--bg-body);
-      color: #222;
-      line-height: 1.7;
-      margin: 0;
-      padding: 24px;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-      background: var(--bg-container);
-      padding: 32px;
-      border-radius: 8px;
-    }
-
-    h1 {
-      font-size: 28px;
-      margin-bottom: 12px;
-    }
-
-    .page-desc {
-      color: #666;
-      font-size: 14px;
-      margin-bottom: 32px;
-    }
-
-    .divider {
-      height: 1px;
-      background: #eee;
-      margin: 24px 0;
-    }
-
-    .model {
-      margin-top: 28px;
-      padding: 20px;
-      background: var(--bg-model);
-      border-left: 4px solid var(--border-model);
-      border-radius: 6px;
-    }
-
-    .model-title {
-      font-size: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0;
-    }
-
-    .toggle-btn {
-      background: #eee;
-      border: none;
-      border-radius: 4px;
-      padding: 4px 10px;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .model-content {
-      margin-top: 12px;
-    }
-
-    .model-item {
-      margin-top: 12px;
-    }
-
-    .model-item strong {
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    ul {
-      margin: 6px 0 6px 18px;
-    }
-
-    .warning {
-      background: var(--bg-warning);
-      border-left: 4px solid var(--border-warning);
-      padding: 12px;
-      border-radius: 4px;
-    }
-
-    .collapsed .model-content {
-      display: none;
-    }
-  </style>
+  /* 过期样式 */
+  .model-expired { border-left-color:#e5533d; opacity:0.8; }
+  .model-system-note {
+    background:#fff3f3;
+    border-left:4px solid #e5533d;
+    padding:10px;
+    margin-bottom:14px;
+    font-size:14px;
+  }
+  .tag {
+    display:inline-block;
+    background: var(--tag-bg);
+    color: var(--tag-color);
+    padding:2px 8px;
+    margin-right:8px;
+    border-radius:4px;
+    font-size:13px;
+    cursor:pointer;
+  }
+</style>
 </head>
-
 <body>
-  <div class="container">
-    <h1>判断记录（可调用）</h1>
-    <p class="page-desc">
-      已被反复验证、可在现实中直接调用的判断模型集合。
-    </p>
+<div class="container">
+<h1>系统级结构化模型库</h1>
+<p class="page-desc">本系统展示可调用判断模型，模型需绑定记录才能有效，否则自动过期。</p>
 
-    <div class="divider"></div>
+<div class="search-bar">
+  <input type="text" id="tagSearch" placeholder="输入标签过滤模型，例如：AI分析">
+</div>
 
-    <!-- 情绪模板识别 -->
-    <div class="model">
-      <h3 class="model-title">
-        情绪模板识别
-        <button class="toggle-btn"
-          onclick="this.closest('.model').classList.toggle('collapsed')">
-          折叠
-        </button>
-      </h3>
+<div class="model-container">
 
-      <div class="model-content">
-        <p><strong>覆盖话题：</strong>短视频情绪叙事、共鸣型内容、上瘾机制</p>
-
-        <div class="model-item">
-          <strong>统一本质</strong>
-          <p>内容是否成立并不重要，是否触发既有情绪或欲望模板才重要。</p>
-        </div>
-
-        <div class="model-item">
-          <strong>判断条件</strong>
-          <ul>
-            <li>可被任意题材替换</li>
-            <li>不提供可复制的行动路径</li>
-            <li>却能迅速引发强烈情绪</li>
-          </ul>
-        </div>
-
-        <div class="model-item warning">
-          <strong>行为约束</strong>
-          <p>只允许观察其结构，禁止据此行动或转发。</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 结构模型 -->
-    <div class="model">
-      <h3 class="model-title">
-        结构模型使用边界
-        <button class="toggle-btn"
-          onclick="this.closest('.model').classList.toggle('collapsed')">
-          折叠
-        </button>
-      </h3>
-
-      <div class="model-content">
-        <p><strong>覆盖话题：</strong>生产力、生产关系、制度秩序、AI 泡沫</p>
-
-        <div class="model-item">
-          <strong>统一本质</strong>
-          <p>模型不是用来解释一切，而是在特定条件下降低错误率。</p>
-        </div>
-
-        <div class="model-item">
-          <strong>判断逻辑</strong>
-          <p>先判断主导变量，再决定是否使用该模型。</p>
-        </div>
-
-        <div class="model-item warning">
-          <strong>止损条件</strong>
-          <p>现实结果连续偏离时，优先怀疑模型前提是否失效。</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 金融 -->
-    <div class="model">
-      <h3 class="model-title">
-        金融与风险溢价
-        <button class="toggle-btn"
-          onclick="this.closest('.model').classList.toggle('collapsed')">
-          折叠
-        </button>
-      </h3>
-
-      <div class="model-content">
-        <div class="model-item">
-          <strong>统一本质</strong>
-          <p>价格波动 ≠ 价值变化，多数来自预期的反复修正。</p>
-        </div>
-
-        <div class="model-item">
-          <strong>判断原则</strong>
-          <p>没有新的结构性信息，就不进行新的决策。</p>
-        </div>
-
-        <div class="model-item warning">
-          <strong>风险管理</strong>
-          <p>不决策不是自信，而是错误成本尚未被证伪。</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- AI -->
-    <div class="model">
-      <h3 class="model-title">
-        AI 结构判断
-        <button class="toggle-btn"
-          onclick="this.closest('.model').classList.toggle('collapsed')">
-          折叠
-        </button>
-      </h3>
-
-      <div class="model-content">
-        <div class="model-item">
-          <strong>现实过滤器</strong>
-          <ul>
-            <li>技术是否可行</li>
-            <li>生产关系是否适配</li>
-            <li>是否接近不用不行的临界点</li>
-          </ul>
-        </div>
-
-        <div class="model-item warning">
-          <strong>时间校准</strong>
-          <p>社会转折点通常滞后于技术突破 5–10 年。</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 学习 -->
-    <div class="model">
-      <h3 class="model-title">
-        学习陷阱识别
-        <button class="toggle-btn"
-          onclick="this.closest('.model').classList.toggle('collapsed')">
-          折叠
-        </button>
-      </h3>
-
-      <div class="model-content">
-        <div class="model-item">
-          <strong>判断标准</strong>
-          <p>若在预定时间内未暴露“我哪里错了或不知道”，默认判定为陷阱学习。</p>
-        </div>
-
-        <div class="model-item warning">
-          <strong>行为规范</strong>
-          <p>不看学习输入密度，只看是否被现实打脸。</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 行动 -->
-    <div class="model">
-      <h3 class="model-title">
-        行动与执行判断
-        <button class="toggle-btn"
-          onclick="this.closest('.model').classList.toggle('collapsed')">
-          折叠
-        </button>
-      </h3>
-
-      <div class="model-content">
-        <div class="model-item">
-          <strong>核心判断</strong>
-          <p>拖延不是缓冲，而是成本放大器。</p>
-        </div>
-
-        <div class="model-item warning">
-          <strong>执行原则</strong>
-          <p>不追求情绪准备度，只计算不做的现实成本。</p>
-        </div>
-      </div>
-    </div>
-    <!-- 多变量博弈判断 -->
-<div class="model">
-  <h3 class="model-title">
-    多变量博弈判断
-    <button class="toggle-btn"
-      onclick="this.closest('.model').classList.toggle('collapsed')">
-      折叠
-    </button>
-  </h3>
-
+<!-- 模型示例开始 -->
+<div class="model" data-model-id="emotion-template" data-review-cycle="30">
+  <h2 class="model-title">
+    情绪模板识别
+    <button class="toggle-btn">折叠</button>
+  </h2>
+  <span class="tag">信息过滤</span>
+  <span class="tag">行为修正</span>
   <div class="model-content">
-    <p><strong>触发条件：</strong>涉及选举、资源分配、角色竞争或集体表态的场景</p>
-
+    <p><strong>覆盖话题：</strong>短视频情绪叙事、共鸣型内容、上瘾机制</p>
     <div class="model-item">
-      <strong>快速判断</strong>
-      <p>若结果涉及现实利益分配 → 默认判定为多变量博弈，而非规则或能力排序。</p>
+      <strong>统一本质</strong>
+      <p>内容是否成立不重要，是否触发既有情绪模板才重要。</p>
     </div>
-
-    <div class="model-item">
-      <strong>观察优先级</strong>
-      <ul>
-        <li>谁在实际付出成本</li>
-        <li>谁能获得直接或间接收益</li>
-        <li>失败的风险最终由谁承担</li>
-      </ul>
-    </div>
-
-    <div class="model-item">
-      <strong>常见误判</strong>
-      <ul>
-        <li>把公开表态当作真实立场</li>
-        <li>高估能力与原则，低估关系与交换</li>
-        <li>用道德评价替代结构分析</li>
-      </ul>
-    </div>
-
     <div class="model-item warning">
-      <strong>行动约束</strong>
-      <p>在未识别成本与收益归属前，不参与站队、不做价值判断。</p>
+      <strong>行为约束</strong>
+      <p>只允许观察其结构，禁止据此行动或转发。</p>
     </div>
   </div>
 </div>
 
-<div class="model">
-      <h3 class="model-title">
-        自我调控机制 · 情绪与理性判断
-        <button class="toggle-btn" onclick="this.closest('.model').classList.toggle('collapsed')">
-          折叠
-        </button>
-      </h3>
-
-      <div class="model-content">
-        <p><strong>覆盖话题：</strong>焦虑情绪、外界质疑、目标稳定性</p>
-
-        <div class="model-item">
-          <strong>判断</strong>
-          <p>情绪容易使目标摇摆，需屏蔽外界干扰，聚焦长期复利。</p>
-        </div>
-
-        <div class="model-item">
-          <strong>行动</strong>
-          <ul>
-            <li>暂停情绪反应，回归理性。</li>
-            <li>思考行动是否有长期复利。</li>
-          </ul>
-        </div>
-
-        <div class="warning">
-          ⚠ 长期目标需要定期复审，以防情绪再次影响判断。
-        </div>
-      </div>
-    </div>    
-
-  
-
-  
-
+<div class="model" data-model-id="structure-boundary" data-review-cycle="30">
+  <h2 class="model-title">
+    结构模型使用边界
+    <button class="toggle-btn">折叠</button>
+  </h2>
+  <span class="tag">趋势判断</span>
+  <span class="tag">AI分析</span>
+  <div class="model-content">
+    <p><strong>覆盖话题：</strong>生产力、生产关系、制度秩序、AI泡沫</p>
+    <div class="model-item">
+      <strong>判断逻辑</strong>
+      <p>先判断主导变量，再决定是否使用该模型。</p>
+    </div>
   </div>
-  <script src="scripts.js"></script>
+</div>
+
+<div class="model" data-model-id="finance-risk" data-review-cycle="30">
+  <h2 class="model-title">
+    金融与风险溢价
+    <button class="toggle-btn">折叠</button>
+  </h2>
+  <span class="tag">金融认知</span>
+  <div class="model-content">
+    <div class="model-item">
+      <strong>统一本质</strong>
+      <p>价格波动 ≠ 价值变化，多数来自预期反复修正。</p>
+    </div>
+  </div>
+</div>
+
+<div class="model" data-model-id="ai-structure" data-review-cycle="30">
+  <h2 class="model-title">
+    AI结构判断
+    <button class="toggle-btn">折叠</button>
+  </h2>
+  <span class="tag">AI工具</span>
+  <div class="model-content">
+    <div class="model-item">
+      <strong>现实过滤器</strong>
+      <ul>
+        <li>技术可行性</li>
+        <li>生产关系适配</li>
+        <li>是否到达临界点</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="model" data-model-id="multi-game" data-review-cycle="30">
+  <h2 class="model-title">
+    多变量博弈判断
+    <button class="toggle-btn">折叠</button>
+  </h2>
+  <span class="tag">现实博弈</span>
+  <span class="tag">制度分析</span>
+  <div class="model-content">
+    <div class="model-item">
+      <strong>快速判断</strong>
+      <p>若结果涉及现实利益分配 → 默认判定为多变量博弈。</p>
+    </div>
+    <div class="model-item warning">
+      <strong>行动约束</strong>
+      <p>未识别成本与收益归属前，不参与站队、不做价值判断。</p>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+// 折叠功能
+document.querySelectorAll('.toggle-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>btn.closest('.model').classList.toggle('collapsed'));
+});
+
+// 标签搜索
+const searchInput = document.getElementById('tagSearch');
+searchInput.addEventListener('input',()=>{
+  const keyword = searchInput.value.trim().toLowerCase();
+  document.querySelectorAll('.model').forEach(model=>{
+    const tags = Array.from(model.querySelectorAll('.tag')).map(t=>t.innerText.toLowerCase());
+    model.style.display = tags.some(t=>t.includes(keyword)) || keyword===''?'block':'none';
+  });
+});
+
+// === 系统级 Records 链接逻辑 ===
+(function(){
+  // 模拟 Records 页面，本例直接写入本地存储
+  const records = [
+    {modelId:'emotion-template', timestamp:Date.now()-5*24*60*60*1000},
+    {modelId:'ai-structure', timestamp:Date.now()-40*24*60*60*1000},
+    {modelId:'finance-risk', timestamp:Date.now()-10*24*60*60*1000}
+  ];
+  localStorage.setItem('modelRecords',JSON.stringify(records));
+
+  const DAY = 24*60*60*1000;
+  const now = Date.now();
+  const lastRecordMap={};
+  records.forEach(r=>{
+    if(!lastRecordMap[r.modelId]||r.timestamp>lastRecordMap[r.modelId]) lastRecordMap[r.modelId]=r.timestamp;
+  });
+
+  document.querySelectorAll('.model[data-model-id]').forEach(model=>{
+    const id = model.dataset.modelId;
+    const cycleDays = parseInt(model.dataset.reviewCycle||"30",10);
+    const lastUsed = lastRecordMap[id];
+    if(!lastUsed){
+      expire(model,'无任何现实记录'); return;
+    }
+    const diffDays = Math.floor((now-lastUsed)/DAY);
+    if(diffDays>cycleDays) expire(model,`超过 ${diffDays} 天未被调用`);
+  });
+
+  function expire(model,reason){
+    model.classList.add('model-expired');
+    const note=document.createElement('div');
+    note.className='model-system-note';
+    note.innerText=`模型已失效：${reason}。禁止作为判断依据。`;
+    model.prepend(note);
+  }
+})();
+</script>
 </body>
 </html>
