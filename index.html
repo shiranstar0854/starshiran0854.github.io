@@ -2,223 +2,144 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>Shiran · Cognitive OS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>结构化思考模型库 3.0</title>
+
+  <!-- Chart.js 用于图表渲染 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
-    :root {
-      --bg: #0f1115;
-      --panel: #161a22;
-      --border: #2a2f3a;
-      --text-main: #e6e8eb;
-      --text-sub: #9aa1ad;
-      --accent: #4da3ff;
-      --danger: #e5533d;
-      --ok: #47c479;
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI",
-              Roboto, "Helvetica Neue", Arial;
-    }
-
-    * { box-sizing: border-box; }
-
     body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text-main);
-      font-family: var(--font);
-      line-height: 1.6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: #f7f7f7;
+      margin: 0; padding: 20px;
     }
+    header { text-align: center; margin-bottom: 20px; }
+    header h1 { font-size: 32px; }
+    header p { font-size: 16px; color: #555; }
 
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 32px;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 32px;
-    }
-
-    header h1 {
-      font-size: 24px;
-      margin: 0;
-    }
-
-    header span {
-      color: var(--text-sub);
+    .search-bar { text-align: center; margin-bottom: 20px; }
+    .search-bar input {
+      padding: 8px 12px;
+      width: 300px;
       font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
 
-    nav a {
-      margin-left: 16px;
-      color: var(--text-sub);
-      text-decoration: none;
-      font-size: 14px;
-    }
+    .model-container { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
 
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--border);
+    .model-card {
+      background: #fff;
       border-radius: 8px;
-      padding: 20px;
+      padding: 16px;
+      width: 280px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      display: flex; flex-direction: column;
     }
 
-    .panel h2 {
-      font-size: 16px;
-      margin: 0 0 12px;
-      color: var(--accent);
-    }
+    .model-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .model-header h3 { margin: 0; font-size: 18px; }
+    .toggle-btn { font-size: 12px; padding: 4px 8px; border: none; border-radius: 4px; background: #eee; cursor: pointer; }
 
-    .panel p {
-      font-size: 14px;
-      color: var(--text-sub);
-      margin: 0 0 8px;
-    }
+    .model-content { margin-top: 12px; display: none; }
+    .model-content ul { padding-left: 20px; }
 
-    .status {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      margin-bottom: 6px;
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      margin-right: 6px;
-      background: #222733;
-      color: var(--text-sub);
-    }
-
-    .ok { color: var(--ok); }
-    .danger { color: var(--danger); }
-
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-sub);
-    }
+    .chart-container { height: 150px; margin-top: 12px; }
   </style>
 </head>
 
 <body>
-
-<div class="container">
-
-  <!-- 顶部系统状态 -->
   <header>
-    <div>
-      <h1>Shiran · Cognitive OS</h1>
-      <span>判断不是观点，是可被淘汰的假设</span>
-    </div>
-    <nav>
-      <a href="model.html">模型库</a>
-      <a href="records.html">行动记录</a>
-      <a href="fact.html">现实反馈</a>
-      
-    </nav>
+    <h1>结构化思考模型库 3.0</h1>
+    <p>数据驱动 · 可视化 · 高级交互</p>
   </header>
 
-  <!-- 系统总览 -->
-  <section class="grid">
+  <div class="search-bar">
+    <input type="text" id="tagSearch" placeholder="搜索模型标签..." />
+  </div>
 
-    <!-- 核心判断模块 -->
-    <div class="panel">
-      <h2>核心判断（Active Hypotheses）</h2>
-      <div class="status">
-        <span>AI 生产力领先阶段</span>
-        <span class="ok">验证中</span>
-      </div>
-      <div class="status">
-        <span>认知升级的制度边界</span>
-        <span class="ok">验证中</span>
-      </div>
-      <div class="status">
-        <span>情绪压制 → 行动替代</span>
-        <span class="danger">变量不足</span>
-      </div>
-      <p>所有判断默认可被否定</p>
-    </div>
+  <div class="model-container" id="modelContainer">
+    <!-- 模型卡片将由 JS 动态生成 -->
+  </div>
 
-    <!-- 模型调用状态 -->
-    <div class="panel">
-      <h2>模型状态（Models Loaded）</h2>
-      <span class="tag">三要素结构模型</span>
-      <span class="tag">贫穷陷阱模型</span>
-      <span class="tag">行动成本模型</span>
-      <span class="tag">博弈决策模型</span>
-      <p>模型仅作为压缩工具，不作为结论来源</p>
-    </div>
+  <script>
+    // 示例 JSON 数据
+    const models = [
+      {
+        id: 1,
+        title: "情绪模板识别",
+        tags: ["情绪", "短视频", "上瘾"],
+        description: "内容是否成立不重要，触发情绪模板才关键。",
+        chartData: [10, 20, 30]
+      },
+      {
+        id: 2,
+        title: "AI 使用边界",
+        tags: ["AI", "风险", "辅助决策"],
+        description: "AI 仅做辅助，决策与成本必须由个人承担。",
+        chartData: [5, 15, 25]
+      }
+    ];
 
-    <!-- 行动引擎 -->
-    <div class="panel">
-      <h2>行动引擎（Action Engine）</h2>
-      <div class="status">
-        <span>本周计划</span>
-        <span class="danger">未执行</span>
-      </div>
-      <div class="status">
-        <span>真实投资验证</span>
-        <span class="danger">资源不足</span>
-      </div>
-      <p>未行动 = 模型失效，而非时间不足</p>
-    </div>
+    const container = document.getElementById("modelContainer");
 
-    <!-- 现实反馈 -->
-    <div class="panel">
-      <h2>现实反馈（Reality Check）</h2>
-      <div class="status">
-        <span>现金流约束</span>
-        <span class="danger">高</span>
-      </div>
-      <div class="status">
-        <span>试错成本</span>
-        <span class="danger">不可忽略</span>
-      </div>
-      <p>现实变量优先级高于认知完整性</p>
-    </div>
+    // 动态生成模型卡片
+    function renderModels(filter="") {
+      container.innerHTML = "";
+      models.forEach(model => {
+        if(filter && !model.tags.some(tag => tag.toLowerCase().includes(filter))) return;
 
-    <!-- 决策偏好 -->
-    <div class="panel">
-      <h2>决策偏好（Policy）</h2>
-      <span class="tag">未来可选性优先</span>
-      <span class="tag">牺牲情绪舒适</span>
-      <span class="tag">低频高质量行动</span>
-      <p>系统目标：扩大可选集，而非即时收益</p>
-    </div>
+        const card = document.createElement("div");
+        card.className = "model-card";
+        card.innerHTML = `
+          <div class="model-header">
+            <h3>${model.title}</h3>
+            <button class="toggle-btn">展开</button>
+          </div>
+          <div class="model-content">
+            <p>${model.description}</p>
+            <div class="chart-container">
+              <canvas id="chart-${model.id}"></canvas>
+            </div>
+            <p>标签: ${model.tags.join(", ")}</p>
+          </div>
+        `;
+        container.appendChild(card);
 
-    <!-- 系统循环 -->
-    <div class="panel">
-      <h2>系统循环（Core Loop）</h2>
-      <p>判断 → 模型 → 行动 → 反馈 → 修正</p>
-      <p>任一节点断裂即回滚</p>
-      <p>首页仅显示状态，不参与解释</p>
-    </div>
+        // 折叠功能
+        const toggleBtn = card.querySelector(".toggle-btn");
+        const content = card.querySelector(".model-content");
+        toggleBtn.addEventListener("click", () => {
+          const isVisible = content.style.display === "block";
+          content.style.display = isVisible ? "none" : "block";
+          toggleBtn.innerText = isVisible ? "展开" : "折叠";
+        });
 
-  </section>
+        // 图表渲染
+        const ctx = card.querySelector(`#chart-${model.id}`).getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ["A", "B", "C"],
+            datasets: [{
+              label: '示例数据',
+              data: model.chartData,
+              backgroundColor: 'rgba(75, 192, 192, 0.6)'
+            }]
+          },
+          options: { responsive: true, maintainAspectRatio: false }
+        });
+      });
+    }
 
-  <footer>
-    © 2026 Shiran · Cognitive OS v0.1  
-    <br/>Built slowly · Corrected aggressively
-  </footer>
+    // 初始渲染
+    renderModels();
 
-</div>
-
+    // 搜索功能
+    document.getElementById("tagSearch").addEventListener("input", e => {
+      renderModels(e.target.value.toLowerCase());
+    });
+  </script>
 </body>
 </html>
