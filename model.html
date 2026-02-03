@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>结构化思考模型库</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Model System · 结构化认知模型库</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <style>
     :root {
       --bg-body: #f7f7f7;
@@ -14,7 +15,8 @@
       --bg-warning: #fff5f5;
       --tag-bg: #eaeaea;
       --tag-color: #222;
-      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial;
     }
 
     body {
@@ -27,10 +29,10 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 920px;
       margin: auto;
       background: var(--bg-container);
-      padding: 32px;
+      padding: 36px;
       border-radius: 8px;
     }
 
@@ -40,36 +42,36 @@
       padding-bottom: 12px;
     }
 
-    h2 {
-      margin-top: 32px;
-      font-size: 22px;
-      color: #111;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .desc {
+      color: #666;
+      font-size: 14px;
+      margin: 12px 0 28px;
     }
 
-    h3 {
-      margin-top: 20px;
-      font-size: 18px;
-      color: #333;
-    }
-
-    p, ul {
-      margin: 8px 0;
-    }
-
-    ul {
-      margin-left: 20px;
+    .system-note {
+      background: var(--bg-warning);
+      border-left: 4px solid var(--border-warning);
+      padding: 14px;
+      border-radius: 6px;
+      margin-bottom: 36px;
+      font-size: 14px;
     }
 
     .model {
-      margin-top: 24px;
-      padding: 20px;
+      margin-top: 36px;
+      padding: 24px;
       background: var(--bg-model);
       border-left: 4px solid var(--border-model);
       border-radius: 6px;
-      transition: all 0.3s;
+    }
+
+    .model h2 {
+      margin-top: 0;
+      font-size: 22px;
+    }
+
+    .meta {
+      margin: 12px 0;
     }
 
     .tag {
@@ -80,254 +82,197 @@
       margin-right: 8px;
       border-radius: 4px;
       font-size: 13px;
-      cursor: pointer;
+    }
+
+    h3 {
+      margin-top: 22px;
+      font-size: 17px;
+    }
+
+    ul {
+      margin-left: 20px;
     }
 
     .warning {
       background: var(--bg-warning);
       border-left: 4px solid var(--border-warning);
       padding: 12px;
-      margin-top: 12px;
-    }
-
-    .toggle-btn {
-      background: #eee;
-      border: none;
+      margin-top: 16px;
       border-radius: 4px;
-      padding: 4px 10px;
-      cursor: pointer;
-      font-size: 12px;
-      margin-left: 12px;
     }
 
-    /* 折叠样式 */
-    .collapsed .model-content {
-      display: none;
-    }
-
-    /* 搜索栏样式 */
-    .search-bar {
-      margin-top: 20px;
-    }
-
-    .search-bar input {
-      padding: 8px 12px;
-      width: 100%;
-      max-width: 300px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+    .link {
+      margin-top: 14px;
       font-size: 14px;
+    }
+
+    .link a {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 13px;
+      color: #888;
     }
   </style>
 </head>
+
 <body>
 <div class="container">
 
-  <h1>个人结构化思考模型库</h1>
-  <p>本页面用于存放我在现实中已验证、可反复调用的思考模型。</p>
-  <p><strong>原则：</strong>先选模型，再判断；不凭情绪，不追热点。</p>
+  <h1>结构化认知模型系统</h1>
+  <p class="desc">
+    本页面存放的是：<strong>已被现实调用、允许被推翻、具备复审机制的判断模型</strong>。
+  </p>
 
-  <!-- 搜索栏 -->
-  <div class="search-bar">
-    <input type="text" id="tagSearch" placeholder="输入标签过滤模型，例如：AI辅助决策">
+  <div class="system-note">
+    <strong>模型系统说明：</strong>
+    <ul>
+      <li><strong>信息过滤模型</strong>：用于降低噪音，不直接指导行动</li>
+      <li><strong>结构解释模型</strong>：用于理解环境，不直接给出决策</li>
+      <li><strong>行动约束模型</strong>：用于限制错误行为，直接影响行动</li>
+      <li>所有模型均可进入：有效 / 待验证 / 暂停 / 淘汰 状态</li>
+    </ul>
   </div>
 
-  <div class="model-container">
+  <!-- 模型一 -->
+  <div class="model" id="model-emotion-template">
+    <h2>情绪模板识别模型</h2>
 
-    <!-- 模型组件模板开始 -->
-
-    <div class="model">
-  <h2>模型一 · 调用记录：短视频与信息内容「情绪模板模型」</h2>
-  <span class="tag">信息过滤</span>
-  <span class="tag">行为修正</span>
-
-  <h3>调用背景</h3>
-  <p>长期刷到“成长很痛苦 / 普通人逆袭 / 厄运专挑苦命人”等高度同质内容，并察觉自身情绪被反复牵引。</p>
-
-  <h3>结构判断</h3>
-  <ul>
-    <li>表层依赖煽情 BGM 与单一案例</li>
-    <li>内容载体可无限替换（游戏 / 学习 / 健身）</li>
-    <li>情绪先行，信息密度极低</li>
-  </ul>
-
-  <h3>判断结论</h3>
-  <p>该类内容本质为情绪消费，不具备可迁移行动价值。</p>
-
-  <h3>行动选择</h3>
-  <p>主动减少短视频使用频率，将注意力转向结构化输出与现实行动。</p>
-
-  <div class="warning">
-    ⚠ 后续观察发现，低质即时奖励的吸引力不可被低估，替代方案仍需构建。
-  </div>
-</div>
-  <div class="model">
-  <h2>模型二 · 调用记录：生产力 → 生产关系 → 制度秩序</h2>
-  <span class="tag">趋势判断</span>
-  <span class="tag">AI分析</span>
-
-  <h3>调用背景</h3>
-  <p>阿尔法峰会后，市场集中讨论 AI 是否为泡沫，美股科技股估值分歧加剧。</p>
-
-  <h3>结构判断</h3>
-  <ul>
-    <li><strong>生产力：</strong>算力与模型能力高度成熟</li>
-    <li><strong>生产关系：</strong>应用端落地与商业闭环不足</li>
-    <li><strong>制度秩序：</strong>资本与政策强支持，但具时间约束</li>
-  </ul>
-
-  <h3>判断结论</h3>
-  <p>当前阶段属于生产力领先型繁荣，高波动，存在泡沫风险但非系统性崩塌。</p>
-
-  <h3>行动选择</h3>
-  <p>投资上不追高、不重仓，仅持续跟踪应用端变化。</p>
-
-  <div class="warning">
-    ⚠ 若未来 6–12 个月应用端无实质改善，结论需下修。
-  </div>
-</div>
-  <div class="model">
-  <h2>模型三 · 调用记录：AI 使用边界与责任归属</h2>
-  <span class="tag">AI工具</span>
-  <span class="tag">风险控制</span>
-
-  <h3>调用背景</h3>
-  <p>在学习、建站与宏观分析中高频使用 AI，显著提升效率。</p>
-
-  <h3>结构判断</h3>
-  <ul>
-    <li>AI 擅长信息整理、结构分析、风险列举</li>
-    <li>AI 无法承担行动成本与现实后果</li>
-  </ul>
-
-  <h3>判断结论</h3>
-  <p>AI 只能作为决策辅助工具，所有不可逆成本必须由个人承担。</p>
-
-  <h3>行动选择</h3>
-  <p>使用 AI 辅助建站与认知抽象，但起点选择与节奏由自己控制。</p>
-
-  <div class="warning">
-    ⚠ 任何将责任外包给 AI 的决策，都是高风险行为。
-  </div>
-</div>
-  <div class="model">
-  <h2>模型四 · 调用记录：社会保障 × 金融认知（贫穷陷阱模型）</h2>
-  <span class="tag">制度分析</span>
-  <span class="tag">个人决策</span>
-
-  <h3>调用背景</h3>
-  <p>读完《贫穷的本质》，意识到贫穷并非单一收入问题。</p>
-
-  <h3>结构判断</h3>
-  <ul>
-    <li>社会保障决定个人抗风险底线</li>
-    <li>金融认知决定个人长期上限</li>
-    <li>错误决策在低保障环境中被持续放大</li>
-  </ul>
-
-  <h3>判断结论</h3>
-  <p>个人无法改变制度，但可以通过认知升级与身份选择降低陷入贫穷陷阱的概率。</p>
-
-  <h3>行动选择</h3>
-  <p>计划寒假实地走访农民与企业家，对比其风险与未来认知。</p>
-
-  <div class="warning">
-    ⚠ 实地访谈完成后需补充复盘，验证该判断。
-  </div>
-</div>
-<div class="model">
-  <h2>模型五 · 多变量博弈模型（基层选举 / 现实博弈）</h2>
-  <span class="tag">现实博弈</span>
-  <span class="tag">制度分析</span>
-  <span class="tag">行为判断</span>
-
-  <h3>适用场景</h3>
-  <p>涉及多人竞争、资源或职位分配，且存在公开规则与私下博弈并行的现实场景（如基层选举、项目负责人争夺、组织内晋升）。</p>
-
-  <h3>结构判断</h3>
-  <ul>
-    <li>结果不由单一规则或能力决定</li>
-    <li>长期声望、关系密度与现实交换同时作用</li>
-    <li>公开立场与真实选择存在系统性偏差</li>
-  </ul>
-
-  <h3>核心变量</h3>
-  <ul>
-    <li><strong>个人能力：</strong>表达、执行、协调与兑现能力</li>
-    <li><strong>历史积累：</strong>过往行为、可信度与声望</li>
-    <li><strong>利益结构：</strong>可交换资源、承诺与回报</li>
-    <li><strong>关系网络：</strong>熟人密度、关键节点影响力</li>
-  </ul>
-
-  <h3>模型结论</h3>
-  <p>此类结果是多变量博弈的暂时均衡，而非价值、能力或规则的单向体现。</p>
-
-  <h3>调用原则</h3>
-  <ul>
-    <li>先分析谁在付出成本、谁在获益</li>
-    <li>避免在未识别风险前公开站队</li>
-    <li>不做道德评判，只做结构判断</li>
-  </ul>
-
-  <div class="warning">
-    ⚠ 当情绪、正义叙事或集体口号占据主导时，优先假设存在未被明说的交换条件。
-  </div>
-</div>
-
-<div class="model-container">
-
-    <!-- 今日行动模型 -->
-    <div class="model">
-      <h2>模型六 · 调用记录：自我调控机制与情绪调节</h2>
-      <span class="tag">情绪管理</span>
-      <span class="tag">理性决策</span>
-
-      <h3>调用背景</h3>
-      <p>在面对焦虑与外界质疑时，我经常会在情绪影响下做出不理性的决策。</p>
-
-      <h3>结构判断</h3>
-      <ul>
-        <li>情绪驱动的决策缺乏长期价值</li>
-        <li>外界的建议和质疑常常导致目标的摇摆</li>
-        <li>需要明确长期复利性与短期效果的差异</li>
-      </ul>
-
-      <h3>判断结论</h3>
-      <p>情绪化决策对长期目标造成偏离，必须通过理性认知和自我调控来重新定位目标。</p>
-
-      <h3>行动选择</h3>
-      <p>在面临情绪或外界压力时，暂停、屏蔽噪音，优先回归理性分析，权衡长期复利性与短期诱惑。</p>
-
-      <div class="warning">
-        ⚠ 面对外界质疑时，长远规划需要定期复审，以防情绪重新影响判断。
-      </div>
+    <div class="meta">
+      <span class="tag">模型类型：信息过滤</span>
+      <span class="tag">状态：有效</span>
+      <span class="tag">最近验证：2026-02</span>
+      <span class="tag">下次复审：2026-04</span>
     </div>
 
+    <h3>适用场景</h3>
+    <p>短视频、热点叙事、情绪型内容密集输入环境。</p>
+
+    <h3>结构判断</h3>
+    <ul>
+      <li>内容可被任意题材替换</li>
+      <li>高情绪密度、低行动密度</li>
+      <li>以代入感而非可迁移路径为核心</li>
+    </ul>
+
+    <h3>结论</h3>
+    <p>该类内容不用于决策，仅允许结构观察。</p>
+
+    <div class="warning">
+      ⚠ 一旦该模型被用于行动或转发，默认判定为系统失效。
+    </div>
+
+    <div class="link">
+      👉 最近一次调用：
+      <a href="records.html#emotion-2026-02">查看行动记录</a>
+    </div>
   </div>
+
+  <!-- 模型二 -->
+  <div class="model" id="model-structure-ai">
+    <h2>生产力 → 生产关系 → 制度秩序模型</h2>
+
+    <div class="meta">
+      <span class="tag">模型类型：结构解释</span>
+      <span class="tag">状态：有效</span>
+      <span class="tag">最近验证：2026-01</span>
+      <span class="tag">下次复审：2026-07</span>
+    </div>
+
+    <h3>核心变量</h3>
+    <ul>
+      <li>技术成熟度（生产力）</li>
+      <li>应用与分配方式（生产关系）</li>
+      <li>资本与制度反应（秩序）</li>
+    </ul>
+
+    <h3>判断原则</h3>
+    <p>优先识别主导变量，避免用单一维度解释全部现象。</p>
+
+    <div class="warning">
+      ⚠ 若应用端长期无改善，模型需整体下修。
+    </div>
+
+    <div class="link">
+      👉 最近一次调用：
+      <a href="records.html#ai-structure-2026">查看行动记录</a>
+    </div>
+  </div>
+
+  <!-- 模型三 -->
+  <div class="model" id="model-self-control">
+    <h2>自我调控与情绪决策约束模型</h2>
+
+    <div class="meta">
+      <span class="tag">模型类型：行动约束</span>
+      <span class="tag">状态：有效</span>
+      <span class="tag">最近验证：2026-02</span>
+      <span class="tag">下次复审：2026-03</span>
+    </div>
+
+    <h3>触发条件</h3>
+    <ul>
+      <li>外界质疑</li>
+      <li>短期诱惑</li>
+      <li>焦虑导致目标摇摆</li>
+    </ul>
+
+    <h3>强制规则</h3>
+    <ul>
+      <li>暂停即时反应</li>
+      <li>只评估长期复利与行动成本</li>
+      <li>拒绝情绪舒适换短期确定性</li>
+    </ul>
+
+    <div class="warning">
+      ⚠ 若多次因情绪改变长期目标，该模型需进入「待验证」状态。
+    </div>
+
+    <div class="link">
+      👉 最近一次调用：
+      <a href="records.html#self-control-2026-02">查看行动记录</a>
+    </div>
+  </div>
+
+  <!-- 模型四 -->
+  <div class="model" id="model-invest-risk">
+    <h2>低现金流条件下的投资约束模型</h2>
+
+    <div class="meta">
+      <span class="tag">模型类型：行动约束</span>
+      <span class="tag">状态：有效</span>
+      <span class="tag">最近验证：2026-02</span>
+      <span class="tag">下次复审：2026-05</span>
+    </div>
+
+    <h3>现实前提</h3>
+    <ul>
+      <li>无稳定现金流</li>
+      <li>本金有限</li>
+      <li>交易成本不可忽略</li>
+    </ul>
+
+    <h3>结论</h3>
+    <p>高频交易在该条件下为负期望行为。</p>
+
+    <div class="warning">
+      ⚠ 若未来现金流结构改变，该模型自动进入复审。
+    </div>
+
+    <div class="link">
+      👉 最近一次调用：
+      <a href="records.html#invest-fail-2026-02">查看行动记录</a>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 Shiran · Cognitive System · Models are allowed to fail
+  </footer>
+
 </div>
-
-    
-<script>
-  // 折叠功能
-  document.querySelectorAll('.toggle-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const model = btn.closest('.model');
-      model.classList.toggle('collapsed');
-    });
-  });
-
-  // 标签搜索功能
-  const searchInput = document.getElementById('tagSearch');
-  searchInput.addEventListener('input', () => {
-    const keyword = searchInput.value.trim().toLowerCase();
-    document.querySelectorAll('.model').forEach(model => {
-      const tags = Array.from(model.querySelectorAll('.tag')).map(t => t.innerText.toLowerCase());
-      model.style.display = tags.some(t => t.includes(keyword)) || keyword === '' ? 'block' : 'none';
-    });
-  });
-</script>
-
-<script src="scripts.js"></script>  
 </body>
 </html>
-
