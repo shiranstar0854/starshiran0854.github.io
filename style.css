@@ -80,3 +80,122 @@ h2 {
   opacity: 1;
   transform: translateY(0);
 }
+:root {
+  --bg: #0f1115;
+  --panel: #161a22;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --accent: #3b82f6;
+  --border: #262b36;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+#app {
+  max-width: 1000px;
+  margin: auto;
+  padding: 24px;
+  display: grid;
+  gap: 20px;
+}
+
+/* Header */
+.system-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+}
+
+.system-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.system-indicator {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+.system-indicator.running {
+  color: #22c55e;
+}
+
+/* Panels */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.panel h2 {
+  font-size: 14px;
+  margin: 0 0 12px 0;
+  color: var(--muted);
+}
+
+/* Status */
+.status-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.status-panel li {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+/* Modules */
+.module-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.module-buttons button {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.module-buttons button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Output */
+.output-box {
+  background: #0b0d12;
+  border: 1px dashed var(--border);
+  padding: 12px;
+  min-height: 120px;
+  font-size: 14px;
+}
+
+.output-box .idle {
+  color: var(--muted);
+}
+
+/* Visual */
+.visual-placeholder {
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px dashed var(--border);
+  padding: 20px;
+  text-align: center;
+}
