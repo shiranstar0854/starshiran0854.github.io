@@ -67,3 +67,16 @@ h2 {
   border-color: #58a6ff;
   color: #58a6ff;
 }
+#output-content {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.fade-out {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
