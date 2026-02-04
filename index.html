@@ -1,57 +1,62 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8" />
   <title>System Dashboard · v3.0</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- 系统宣言 -->
-  <section id="system-manifesto">
-    <h1>个人认知系统 · 控制台</h1>
-    <p>
-      本站不是观点输出器，而是一个持续运行的
-      <strong>判断—行动—修正</strong>系统。
-    </p>
-  </section>
+<div id="app">
 
-  <!-- 当前系统状态（未来由 JSON 驱动） -->
-  <section id="system-status">
-    <h2>当前状态</h2>
+  <!-- 顶部系统栏 -->
+  <header class="system-header">
+    <div>
+      <h1>个人认知系统 · 控制台</h1>
+      <span class="system-sub">Judgement · Action · Correction</span>
+    </div>
+    <div class="system-indicator running">● RUNNING</div>
+  </header>
+
+  <!-- 系统状态面板 -->
+  <section class="panel status-panel">
+    <h2>System Status</h2>
     <ul>
-      <li>正在验证模型：情绪模板调用</li>
-      <li>行动周期：第 1 周</li>
-      <li>系统状态：运行中</li>
+      <li><strong>Active Module:</strong> <span id="active-module">None</span></li>
+      <li><strong>Cycle:</strong> Week 1</li>
+      <li><strong>Version:</strong> v3.0</li>
     </ul>
   </section>
 
-  <!-- 系统模块入口 -->
-  <section id="system-modules">
-    <h2>系统模块</h2>
-    <nav>
+  <!-- 模块控制台 -->
+  <section class="panel module-panel">
+    <h2>Modules</h2>
+    <div class="module-buttons">
       <button data-module="model">模型系统</button>
       <button data-module="logs">现实日志</button>
       <button data-module="roadmap">系统路线</button>
-    </nav>
+    </div>
   </section>
-  
-  <section id="system-output">
-  <h2>系统输出</h2>
-  <div id="output-content">
-    <p>系统待命中。</p>
-  </div>
-</section>
 
-
-  <!-- 可视化占位（后续 Canvas / SVG） -->
-  <section id="system-visual">
-    <h2>系统可视化</h2>
-    <p>（数据渲染模块，尚未加载）</p>
+  <!-- 系统输出区 -->
+  <section class="panel output-panel">
+    <h2>System Output</h2>
+    <div id="output-content" class="output-box">
+      <p class="idle">System idle. Waiting for module input.</p>
+    </div>
   </section>
+
+  <!-- 预留：可视化 -->
+  <section class="panel visual-panel">
+    <h2>Visualization</h2>
+    <div class="visual-placeholder">
+      Data stream not connected.
+    </div>
+  </section>
+
+</div>
 
 <script src="index.js"></script>
-
 </body>
 </html>
