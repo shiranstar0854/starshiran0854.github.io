@@ -1,5 +1,5 @@
 // ================================
-// 模块内容定义（HTML 级输出）
+// 模块内容定义
 // ================================
 const MODULE_OUTPUTS = {
   model: `
@@ -38,7 +38,7 @@ const output = document.getElementById("output-content");
 const buttons = document.querySelectorAll("[data-module]");
 
 // ================================
-// 模块加载函数
+// 带动画的模块加载
 // ================================
 function loadModule(moduleKey) {
   if (!MODULE_OUTPUTS[moduleKey]) {
@@ -46,7 +46,17 @@ function loadModule(moduleKey) {
     return;
   }
 
-  output.innerHTML = MODULE_OUTPUTS[moduleKey];
+  // 先淡出
+  output.classList.add("fade-out");
+  output.classList.remove("fade-in");
+
+  setTimeout(() => {
+    output.innerHTML = MODULE_OUTPUTS[moduleKey];
+
+    // 再淡入
+    output.classList.remove("fade-out");
+    output.classList.add("fade-in");
+  }, 200); // 与 CSS transition 时间匹配
 }
 
 // ================================
@@ -54,12 +64,12 @@ function loadModule(moduleKey) {
 // ================================
 buttons.forEach(button => {
   button.addEventListener("click", () => {
-    const moduleKey = button.dataset.module;
-    loadModule(moduleKey);
+    loadModule(button.dataset.module);
   });
 });
 
 // ================================
-// 默认状态
+// 初始状态
 // ================================
 output.innerHTML = "<p>请选择一个系统模块以加载。</p>";
+output.classList.add("fade-in");
