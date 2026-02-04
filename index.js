@@ -1,25 +1,17 @@
-// 页面加载时，控制页面元素的显现
-document.addEventListener('DOMContentLoaded', function () {
-  // 获取所有的 .block 元素
-  const blocks = document.querySelectorAll('.block');
+const output = document.getElementById("output-content");
 
-  // 当页面滚动时触发
-  window.addEventListener('scroll', function () {
-    blocks.forEach(function (block) {
-      if (isInViewport(block)) {
-        block.classList.add('visible');
-      }
-    });
+const systemData = {
+  model: "当前模块：情绪模板分析系统已加载。",
+  logs: "当前模块：现实验证日志系统运行中。",
+  roadmap: "当前模块：系统升级路线图（3.0 架构）。"
+};
+
+function loadModule(key) {
+  output.innerHTML = `<p>${systemData[key]}</p>`;
+}
+
+document.querySelectorAll("[data-module]").forEach(button => {
+  button.addEventListener("click", () => {
+    loadModule(button.dataset.module);
   });
-
-  // 判断元素是否在视口中
-  function isInViewport(element) {
-    const rect = element.getBoundingClientRect();
-    return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-  }
 });
