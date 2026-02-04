@@ -2,144 +2,46 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>结构化思考模型库 3.0</title>
-
-  <!-- Chart.js 用于图表渲染 -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: #f7f7f7;
-      margin: 0; padding: 20px;
-    }
-    header { text-align: center; margin-bottom: 20px; }
-    header h1 { font-size: 32px; }
-    header p { font-size: 16px; color: #555; }
-
-    .search-bar { text-align: center; margin-bottom: 20px; }
-    .search-bar input {
-      padding: 8px 12px;
-      width: 300px;
-      font-size: 14px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-
-    .model-container { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
-
-    .model-card {
-      background: #fff;
-      border-radius: 8px;
-      padding: 16px;
-      width: 280px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      display: flex; flex-direction: column;
-    }
-
-    .model-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-    .model-header h3 { margin: 0; font-size: 18px; }
-    .toggle-btn { font-size: 12px; padding: 4px 8px; border: none; border-radius: 4px; background: #eee; cursor: pointer; }
-
-    .model-content { margin-top: 12px; display: none; }
-    .model-content ul { padding-left: 20px; }
-
-    .chart-container { height: 150px; margin-top: 12px; }
-  </style>
+  <title>System Dashboard · v3.0</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
-  <header>
-    <h1>结构化思考模型库 3.0</h1>
-    <p>数据驱动 · 可视化 · 高级交互</p>
-  </header>
 
-  <div class="search-bar">
-    <input type="text" id="tagSearch" placeholder="搜索模型标签..." />
-  </div>
+  <!-- 系统宣言 -->
+  <section id="system-manifesto">
+    <h1>个人认知系统 · 控制台</h1>
+    <p>
+      本站不是观点输出器，而是一个持续运行的
+      <strong>判断—行动—修正</strong>系统。
+    </p>
+  </section>
 
-  <div class="model-container" id="modelContainer">
-    <!-- 模型卡片将由 JS 动态生成 -->
-  </div>
+  <!-- 当前系统状态（未来由 JSON 驱动） -->
+  <section id="system-status">
+    <h2>当前状态</h2>
+    <ul>
+      <li>正在验证模型：情绪模板调用</li>
+      <li>行动周期：第 1 周</li>
+      <li>系统状态：运行中</li>
+    </ul>
+  </section>
 
-  <script>
-    // 示例 JSON 数据
-    const models = [
-      {
-        id: 1,
-        title: "情绪模板识别",
-        tags: ["情绪", "短视频", "上瘾"],
-        description: "内容是否成立不重要，触发情绪模板才关键。",
-        chartData: [10, 20, 30]
-      },
-      {
-        id: 2,
-        title: "AI 使用边界",
-        tags: ["AI", "风险", "辅助决策"],
-        description: "AI 仅做辅助，决策与成本必须由个人承担。",
-        chartData: [5, 15, 25]
-      }
-    ];
+  <!-- 系统模块入口 -->
+  <section id="system-modules">
+    <h2>系统模块</h2>
+    <nav>
+      <button>Models</button>
+      <button>Records</button>
+      <button>Decisions</button>
+      <button>About</button>
+    </nav>
+  </section>
 
-    const container = document.getElementById("modelContainer");
+  <!-- 可视化占位（后续 Canvas / SVG） -->
+  <section id="system-visual">
+    <h2>系统可视化</h2>
+    <p>（数据渲染模块，尚未加载）</p>
+  </section>
 
-    // 动态生成模型卡片
-    function renderModels(filter="") {
-      container.innerHTML = "";
-      models.forEach(model => {
-        if(filter && !model.tags.some(tag => tag.toLowerCase().includes(filter))) return;
-
-        const card = document.createElement("div");
-        card.className = "model-card";
-        card.innerHTML = `
-          <div class="model-header">
-            <h3>${model.title}</h3>
-            <button class="toggle-btn">展开</button>
-          </div>
-          <div class="model-content">
-            <p>${model.description}</p>
-            <div class="chart-container">
-              <canvas id="chart-${model.id}"></canvas>
-            </div>
-            <p>标签: ${model.tags.join(", ")}</p>
-          </div>
-        `;
-        container.appendChild(card);
-
-        // 折叠功能
-        const toggleBtn = card.querySelector(".toggle-btn");
-        const content = card.querySelector(".model-content");
-        toggleBtn.addEventListener("click", () => {
-          const isVisible = content.style.display === "block";
-          content.style.display = isVisible ? "none" : "block";
-          toggleBtn.innerText = isVisible ? "展开" : "折叠";
-        });
-
-        // 图表渲染
-        const ctx = card.querySelector(`#chart-${model.id}`).getContext('2d');
-        new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: ["A", "B", "C"],
-            datasets: [{
-              label: '示例数据',
-              data: model.chartData,
-              backgroundColor: 'rgba(75, 192, 192, 0.6)'
-            }]
-          },
-          options: { responsive: true, maintainAspectRatio: false }
-        });
-      });
-    }
-
-    // 初始渲染
-    renderModels();
-
-    // 搜索功能
-    document.getElementById("tagSearch").addEventListener("input", e => {
-      renderModels(e.target.value.toLowerCase());
-    });
-  </script>
 </body>
 </html>
