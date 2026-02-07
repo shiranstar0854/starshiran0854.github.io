@@ -82,14 +82,26 @@ async function loadModule(moduleKey) {
     output.classList.add("fade-in");
   }, 200);
 }
+const activeModuleText = document.getElementById("active-module");
 
-// ================================
-// 事件监听
-// ================================
 buttons.forEach(button => {
   button.addEventListener("click", () => {
-    loadModule(button.dataset.module);
+    const moduleKey = button.dataset.module;
+
+    // 1. 移除所有激活态
+    buttons.forEach(btn => btn.classList.remove("active"));
+
+    // 2. 设置当前激活按钮
+    button.classList.add("active");
+
+    // 3. 更新系统状态栏
+    activeModuleText.textContent = moduleKey;
+
+    // 4. 加载模块内容
+    loadModule(moduleKey);
   });
+});
+
 });
 
 // ================================
