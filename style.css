@@ -127,3 +127,11 @@ body {
     transform: translateY(0);
   }
 }
+/* ===============================
+   模块激活态（Active State）
+================================ */
+.module-buttons button.active {
+  border-color: var(--accent);
+  background: rgba(79, 209, 197, 0.08);
+  color: var(--accent);
+}
