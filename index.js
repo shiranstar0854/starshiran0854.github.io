@@ -1,26 +1,35 @@
 // ================================
-// 模块内容定义
+// 后端系统状态
+// ================================
+let SYSTEM_STATUS = {
+  activeModule: "None",
+  cycle: "Week 1",
+  state: "RUNNING"
+};
+
+// ================================
+// 模块内容定义（模板）
 // ================================
 const MODULE_OUTPUTS = {
-  model: `
+  model: status => `
     <h3>模型系统</h3>
     <p>用于记录、验证、修正当前使用的认知与决策模型。</p>
     <ul>
       <li>当前模型：情绪模板分析</li>
-      <li>状态：已加载</li>
-      <li>验证轮次：1</li>
+      <li>系统状态：${status.state}</li>
+      <li>验证周期：${status.cycle}</li>
     </ul>
   `,
-  logs: `
+  logs: status => `
     <h3>现实日志</h3>
     <p>用于追踪真实世界中的行动、反馈与偏差。</p>
     <ul>
       <li>最近行动：内容系统 3.0 构建</li>
-      <li>反馈状态：收集中</li>
+      <li>系统状态：${status.state}</li>
       <li>偏差记录：暂无</li>
     </ul>
   `,
-  roadmap: `
+  roadmap: status => `
     <h3>系统路线</h3>
     <p>描述系统的阶段性目标与长期演化方向。</p>
     <ol>
@@ -36,27 +45,42 @@ const MODULE_OUTPUTS = {
 // ================================
 const output = document.getElementById("output-content");
 const buttons = document.querySelectorAll("[data-module]");
+const activeModuleText = document.getElementById("active-module");
 
 // ================================
-// 带动画的模块加载
+// 从后端加载系统状态
 // ================================
-function loadModule(moduleKey) {
+async function loadSystemStatus() {
+  try {
+    const res = await fetch("http://localhost:3000/api/status");
+    SYSTEM_STATUS = await res.json();
+  } catch (err) {
+    console.error("无法加载系统状态", err);
+  }
+}
+
+// ================================
+// 带动画的模块加载（状态驱动）
+// ================================
+async function loadModule(moduleKey) {
   if (!MODULE_OUTPUTS[moduleKey]) {
     output.innerHTML = "<p>模块不存在。</p>";
     return;
   }
 
-  // 先淡出
+  // 更新系统状态
+  SYSTEM_STATUS.activeModule = moduleKey;
+  activeModuleText.textContent = moduleKey;
+
+  // 动画：淡出
   output.classList.add("fade-out");
   output.classList.remove("fade-in");
 
   setTimeout(() => {
-    output.innerHTML = MODULE_OUTPUTS[moduleKey];
-
-    // 再淡入
+    output.innerHTML = MODULE_OUTPUTS[moduleKey](SYSTEM_STATUS);
     output.classList.remove("fade-out");
     output.classList.add("fade-in");
-  }, 200); // 与 CSS transition 时间匹配
+  }, 200);
 }
 
 // ================================
@@ -69,7 +93,12 @@ buttons.forEach(button => {
 });
 
 // ================================
-// 初始状态
+// 系统初始化
 // ================================
-output.innerHTML = "<p>请选择一个系统模块以加载。</p>";
-output.classList.add("fade-in");
+(async function initSystem() {
+  await loadSystemStatus();
+  activeModuleText.textContent = SYSTEM_STATUS.activeModule;
+  output.innerHTML = "<p class='idle'>System idle. Waiting for module input.</p>";
+  output.classList.add("fade-in");
+})();
+
