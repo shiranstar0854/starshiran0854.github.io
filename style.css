@@ -1,176 +1,94 @@
-/* ===== 全局系统基线 ===== */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 32px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #0e1117;
-  color: #e6edf3;
-  line-height: 1.6;
-}
-
-/* ===== 系统区块通用样式 ===== */
-section {
-  border: 1px solid #30363d;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 24px;
-  background: #161b22;
-}
-
-/* ===== 标题系统 ===== */
-h1 {
-  margin-top: 0;
-  font-size: 24px;
-}
-
-h2 {
-  margin-top: 0;
-  font-size: 18px;
-  color: #8b949e;
-}
-
-/* ===== 系统宣言 ===== */
-#system-manifesto p {
-  color: #c9d1d9;
-}
-
-/* ===== 系统状态 ===== */
-#system-status ul {
-  padding-left: 20px;
-}
-
-#system-status li {
-  margin-bottom: 6px;
-}
-
-/* ===== 模块入口 ===== */
-#system-modules nav {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-#system-modules button {
-  background: transparent;
-  color: #e6edf3;
-  border: 1px solid #30363d;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-#system-modules button:hover {
-  border-color: #58a6ff;
-  color: #58a6ff;
-}
-#output-content {
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.fade-out {
-  opacity: 0;
-  transform: translateY(8px);
-}
-
-.fade-in {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* ===============================
+   全局系统变量
+================================ */
 :root {
-  --bg: #0f1115;
-  --panel: #161a22;
-  --text: #e5e7eb;
-  --muted: #9ca3af;
-  --accent: #3b82f6;
-  --border: #262b36;
+  --bg-main: #0f1115;
+  --bg-panel: #161a22;
+  --border: #2a2f3a;
+  --text-main: #e6e6eb;
+  --text-sub: #8b90a0;
+  --accent: #4fd1c5;
 }
 
+/* ===============================
+   基础重置
+================================ */
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+  background: var(--bg-main);
+  color: var(--text-main);
 }
 
+/* ===============================
+   布局骨架
+================================ */
 #app {
-  max-width: 1000px;
-  margin: auto;
-  padding: 24px;
   display: grid;
-  gap: 20px;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
 }
 
-/* Header */
+/* ===============================
+   顶部系统栏
+================================ */
 .system-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 12px;
 }
 
 .system-sub {
-  font-size: 12px;
-  color: var(--muted);
+  color: var(--text-sub);
+  font-size: 13px;
 }
 
 .system-indicator {
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 12px;
+  font-size: 13px;
+  color: var(--accent);
 }
 
-.system-indicator.running {
-  color: #22c55e;
-}
-
-/* Panels */
+/* ===============================
+   主体区域
+================================ */
 .panel {
-  background: var(--panel);
+  background: var(--bg-panel);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 16px;
 }
 
-.panel h2 {
-  font-size: 14px;
-  margin: 0 0 12px 0;
-  color: var(--muted);
+/* 三栏布局 */
+.status-panel {
+  margin: 16px;
 }
 
-/* Status */
-.status-panel ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.module-panel,
+.output-panel {
+  margin: 0 16px 16px;
 }
 
-.status-panel li {
-  font-size: 14px;
-  margin-bottom: 6px;
-}
-
-/* Modules */
+/* ===============================
+   模块控制区
+================================ */
 .module-buttons {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .module-buttons button {
   background: transparent;
   border: 1px solid var(--border);
-  color: var(--text);
-  padding: 8px 14px;
-  border-radius: 6px;
+  color: var(--text-main);
+  padding: 6px 12px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .module-buttons button:hover {
@@ -178,24 +96,34 @@ body {
   color: var(--accent);
 }
 
-/* Output */
+/* ===============================
+   输出区
+================================ */
 .output-box {
-  background: #0b0d12;
-  border: 1px dashed var(--border);
-  padding: 12px;
   min-height: 120px;
-  font-size: 14px;
+  line-height: 1.6;
 }
 
 .output-box .idle {
-  color: var(--muted);
+  color: var(--text-sub);
 }
 
-/* Visual */
-.visual-placeholder {
-  font-size: 12px;
-  color: var(--muted);
-  border: 1px dashed var(--border);
-  padding: 20px;
-  text-align: center;
+/* 动画 */
+.fade-in {
+  animation: fadeIn 0.25s ease-in;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
