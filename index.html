@@ -2,61 +2,76 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>System Dashboard · v3.0</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cognitive Action OS · Command Interface</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="app" class="shell">
+    <header class="topbar glass">
+      <div>
+        <p class="eyebrow">认知行动系统 / Cognitive Action OS</p>
+        <h1>高级输出驾驶舱</h1>
+      </div>
+      <div class="topbar-meta">
+        <span class="pill online">● ONLINE</span>
+        <span id="clock" class="pill">--:--</span>
+      </div>
+    </header>
 
-<div id="app">
+    <main class="layout-grid">
+      <aside class="left-rail glass">
+        <section>
+          <h2>核心模块</h2>
+          <div id="module-buttons" class="module-list"></div>
+        </section>
 
-  <!-- 顶部系统栏 -->
-  <header class="system-header">
-    <div>
-      <h1>个人认知系统 · 控制台</h1>
-      <span class="system-sub">Judgement · Action · Correction</span>
-    </div>
-    <div class="system-indicator running">● RUNNING</div>
-  </header>
+        <section>
+          <h2>系统指标</h2>
+          <ul class="metric-list">
+            <li><span>执行稳定度</span><strong id="metric-stability">0%</strong></li>
+            <li><span>认知清晰度</span><strong id="metric-clarity">0%</strong></li>
+            <li><span>反馈延迟</span><strong id="metric-latency">0 ms</strong></li>
+          </ul>
+        </section>
+      </aside>
 
-  <!-- 系统状态面板 -->
-  <section class="panel status-panel">
-    <h2>System Status</h2>
-    <ul>
-      <li><strong>Active Module:</strong> <span id="active-module">None</span></li>
-      <li><strong>Cycle:</strong> Week 1</li>
-      <li><strong>Version:</strong> v3.0</li>
-    </ul>
-  </section>
+      <section class="center-stage glass">
+        <header class="panel-header">
+          <div>
+            <h2 id="active-title">准备就绪</h2>
+            <p id="active-subtitle">请选择模块，开始输出你的认知行动轨迹。</p>
+          </div>
+          <button id="next-step" class="action-btn">生成下一步建议</button>
+        </header>
 
-  <!-- 模块控制台 -->
-  <section class="panel module-panel">
-    <h2>Modules</h2>
-    <div class="module-buttons">
-      <button data-module="model">模型系统</button>
-      <button data-module="logs">现实日志</button>
-      <button data-module="roadmap">系统路线</button>
-    </div>
-  </section>
+        <div id="output-panel" class="output-panel"></div>
 
-  <!-- 系统输出区 -->
-  <section class="panel output-panel">
-    <h2>System Output</h2>
-    <div id="output-content" class="output-box">
-      <p class="idle">System idle. Waiting for module input.</p>
-    </div>
-  </section>
+        <section class="timeline">
+          <h3>行动时间线</h3>
+          <div id="timeline-list" class="timeline-list"></div>
+        </section>
+      </section>
 
-  <!-- 预留：可视化 -->
-  <section class="panel visual-panel">
-    <h2>Visualization</h2>
-    <div class="visual-placeholder">
-      Data stream not connected.
-    </div>
-  </section>
+      <aside class="right-rail glass">
+        <section>
+          <h2>当日聚焦</h2>
+          <div id="focus-card" class="focus-card"></div>
+        </section>
 
-</div>
+        <section>
+          <h2>策略节奏</h2>
+          <div class="rhythm-grid" id="rhythm-grid"></div>
+        </section>
 
-<script src="index.js"></script>
+        <section>
+          <h2>系统日志</h2>
+          <div id="logs" class="logs"></div>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <script src="index.js"></script>
 </body>
 </html>
