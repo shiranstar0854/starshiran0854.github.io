@@ -1,62 +1,254 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>System Dashboard · v3.0</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <meta
+    name="description"
+    content="Shiran Star's premium UI homepage, combining a system console, editorial cards, and a visual gallery into a static single-page experience."
+  />
+  <title>Shiran Star | Curated UI Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="backdrop-grid" aria-hidden="true"></div>
+  <div class="backdrop-glow glow-a" aria-hidden="true"></div>
+  <div class="backdrop-glow glow-b" aria-hidden="true"></div>
+  <div class="backdrop-glow glow-c" aria-hidden="true"></div>
+  <div class="scroll-indicator" aria-hidden="true">
+    <span id="scroll-bar"></span>
+  </div>
 
-<div id="app">
+  <div class="page-shell">
+    <header class="topbar panel">
+      <div class="brand">
+        <div class="brand-mark">S</div>
+        <div>
+          <p class="brand-kicker">Curated UI / GitHub Pages</p>
+          <h1>Shiran Star</h1>
+        </div>
+      </div>
 
-  <!-- 顶部系统栏 -->
-  <header class="system-header">
-    <div>
-      <h1>个人认知系统 · 控制台</h1>
-      <span class="system-sub">Judgement · Action · Correction</span>
-    </div>
-    <div class="system-indicator running">● RUNNING</div>
-  </header>
+      <nav class="topnav" aria-label="Main navigation">
+        <a href="#overview">Overview</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#system">System</a>
+      </nav>
 
-  <!-- 系统状态面板 -->
-  <section class="panel status-panel">
-    <h2>System Status</h2>
-    <ul>
-      <li><strong>Active Module:</strong> <span id="active-module">None</span></li>
-      <li><strong>Cycle:</strong> Week 1</li>
-      <li><strong>Version:</strong> v3.0</li>
-    </ul>
-  </section>
+      <div class="status-chip">
+        <span class="pulse"></span>
+        <span>LIVE - 2026</span>
+      </div>
+    </header>
 
-  <!-- 模块控制台 -->
-  <section class="panel module-panel">
-    <h2>Modules</h2>
-    <div class="module-buttons">
-      <button data-module="model">模型系统</button>
-      <button data-module="logs">现实日志</button>
-      <button data-module="roadmap">系统路线</button>
-    </div>
-  </section>
+    <main>
+      <section id="overview" class="hero-grid">
+        <article class="hero panel">
+          <div class="eyebrow">Premium static interface</div>
+          <h2>Reframe information, images, and judgment into a layout with real hierarchy.</h2>
+          <p class="hero-copy">
+            This rewrite turns the homepage into a premium, static-first experience. It removes backend
+            dependencies, keeps the structure clear, and uses editorial cards, glass surfaces, and layered
+            motion to feel like a product instead of a template.
+          </p>
 
-  <!-- 系统输出区 -->
-  <section class="panel output-panel">
-    <h2>System Output</h2>
-    <div id="output-content" class="output-box">
-      <p class="idle">System idle. Waiting for module input.</p>
-    </div>
-  </section>
+          <div class="hero-actions">
+            <a class="primary-btn" href="#gallery">View Gallery</a>
+            <a class="secondary-btn" href="#system">Open System Panel</a>
+          </div>
 
-  <!-- 预留：可视化 -->
-  <section class="panel visual-panel">
-    <h2>Visualization</h2>
-    <div class="visual-placeholder">
-      Data stream not connected.
-    </div>
-  </section>
+          <dl class="metric-row">
+            <div class="metric">
+              <dt>Modules</dt>
+              <dd><span data-count="3">0</span></dd>
+            </div>
+            <div class="metric">
+              <dt>Visual Layers</dt>
+              <dd><span data-count="12">0</span></dd>
+            </div>
+            <div class="metric">
+              <dt>Motion States</dt>
+              <dd><span data-count="7">0</span></dd>
+            </div>
+          </dl>
+        </article>
 
-</div>
+        <aside class="signal panel">
+          <div class="signal-head">
+            <div>
+              <p class="eyebrow compact">Signal board</p>
+              <h3>Layout health</h3>
+            </div>
+            <span class="mini-chip">Stable</span>
+          </div>
 
-<script src="index.js"></script>
+          <div class="signal-chart" aria-label="Layout signal chart">
+            <span style="--bar: 28%"></span>
+            <span style="--bar: 54%"></span>
+            <span style="--bar: 72%"></span>
+            <span style="--bar: 46%"></span>
+            <span style="--bar: 88%"></span>
+            <span style="--bar: 66%"></span>
+          </div>
+
+          <ul class="signal-list">
+            <li>
+              <strong>Structure</strong>
+              <span>Single-page, responsive, and static-first.</span>
+            </li>
+            <li>
+              <strong>Texture</strong>
+              <span>Gradient atmosphere with layered glass surfaces.</span>
+            </li>
+            <li>
+              <strong>Rhythm</strong>
+              <span>Cards, motion, and clear visual hierarchy.</span>
+            </li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="feature-strip">
+        <article class="feature panel">
+          <div class="feature-icon">01</div>
+          <div>
+            <h3>Model Library</h3>
+            <p>Turn scattered model notes into a compact, readable card grid.</p>
+          </div>
+        </article>
+
+        <article class="feature panel">
+          <div class="feature-icon">02</div>
+          <div>
+            <h3>Records Board</h3>
+            <p>Use time, status, and progress to express validation history.</p>
+          </div>
+        </article>
+
+        <article class="feature panel">
+          <div class="feature-icon">03</div>
+          <div>
+            <h3>Fact Layer</h3>
+            <p>Organize content around information, judgment, and action.</p>
+          </div>
+        </article>
+      </section>
+
+      <section id="gallery" class="section-block">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow compact">Visual gallery</p>
+            <h2>Three images, framed like a compact editorial series.</h2>
+          </div>
+          <p class="section-copy">
+            The source images already have a strong visual voice. Here they are placed inside quieter,
+            more premium presentation surfaces so the content feels deliberate.
+          </p>
+        </div>
+
+        <div class="gallery-grid">
+          <figure class="gallery-card panel tall">
+            <img src="images/model-a.jpg" alt="Three highlights image card" />
+            <figcaption>
+              <span class="tag">Insight</span>
+              <h3>Three Highlights</h3>
+              <p>Use big type and a strong card structure to separate information clearly.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-card panel">
+            <img src="images/model-b.jpg" alt="Award-themed visual card" />
+            <figcaption>
+              <span class="tag">Award</span>
+              <h3>Macro Whisperer</h3>
+              <p>Warm illustration works well inside a soft, glowing glass container.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="gallery-card panel">
+            <img src="images/model-c.jpg" alt="Desk narrative visual card" />
+            <figcaption>
+              <span class="tag">Editorial</span>
+              <h3>Desk Narrative</h3>
+              <p>White space and black-gold framing create a more restrained premium feel.</p>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="system" class="system-grid">
+        <article class="system panel">
+          <div class="section-head tight">
+            <div>
+              <p class="eyebrow compact">System panel</p>
+              <h2>Interface rules</h2>
+            </div>
+            <span class="mini-chip">Interactive</span>
+          </div>
+
+          <div class="tab-row" role="tablist" aria-label="Interface rules toggle">
+            <button class="tab active" type="button" data-tab="principle" role="tab" aria-selected="true">
+              Principle
+            </button>
+            <button class="tab" type="button" data-tab="motion" role="tab" aria-selected="false">
+              Motion
+            </button>
+            <button class="tab" type="button" data-tab="workflow" role="tab" aria-selected="false">
+              Workflow
+            </button>
+          </div>
+
+          <div id="tab-panel" class="tab-panel" aria-live="polite"></div>
+        </article>
+
+        <aside class="timeline panel">
+          <div class="section-head tight">
+            <div>
+              <p class="eyebrow compact">Release notes</p>
+              <h2>Rewrite path</h2>
+            </div>
+          </div>
+
+          <ol class="timeline-list">
+            <li>
+              <span>01</span>
+              <div>
+                <h3>Remove localhost dependency</h3>
+                <p>Replace the old backend-driven request with static content that works on GitHub Pages.</p>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <h3>Rebuild the visual hierarchy</h3>
+                <p>Split the page into hero, gallery, and system sections for faster scanning.</p>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <h3>Add motion and responsiveness</h3>
+                <p>Use scroll progress, counters, and card hover feedback to finish the experience.</p>
+              </div>
+            </li>
+          </ol>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built for <span class="year"></span> - GitHub Pages ready</p>
+      <a href="#overview">Back to top</a>
+    </footer>
+  </div>
+
+  <script src="index.js"></script>
 </body>
 </html>
