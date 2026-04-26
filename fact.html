@@ -1,213 +1,293 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>系统化模型库 · Model & Records 编辑</title>
-<style>
-:root {
-  --bg-body: #f7f7f7;
-  --bg-container: #ffffff;
-  --bg-model: #fafafa;
-  --border-model: #333;
-  --border-warning: #e5533d;
-  --bg-warning: #fff5f5;
-  --tag-bg: #eaeaea;
-  --tag-color: #222;
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-}
-body {
-  font-family: var(--font-family);
-  background: var(--bg-body);
-  color: #222;
-  margin: 0; padding: 24px;
-}
-.container {
-  max-width: 1000px;
-  margin: auto;
-  background: var(--bg-container);
-  padding: 32px;
-  border-radius: 8px;
-}
-h1 { font-size: 28px; margin-bottom: 12px; }
-h2 { font-size: 22px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; }
-h3 { font-size: 18px; margin-top: 16px; }
-p, ul { margin: 8px 0; }
-ul { margin-left: 20px; }
-.model {
-  margin-top: 24px;
-  padding: 20px;
-  background: var(--bg-model);
-  border-left: 4px solid var(--border-model);
-  border-radius: 6px;
-  transition: all 0.3s;
-}
-.tag {
-  display: inline-block;
-  background: var(--tag-bg);
-  color: var(--tag-color);
-  padding: 2px 8px;
-  margin-right: 8px;
-  border-radius: 4px;
-  font-size: 13px;
-  cursor: pointer;
-}
-.warning {
-  background: var(--bg-warning);
-  border-left: 4px solid var(--border-warning);
-  padding: 12px;
-  margin-top: 12px;
-}
-.toggle-btn {
-  background: #eee;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 10px;
-  cursor: pointer;
-  font-size: 12px;
-}
-.collapsed .model-content { display: none; }
-.search-bar { margin-top: 20px; }
-.search-bar input { padding: 8px 12px; width: 100%; max-width: 300px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
-.progress-bar-container { background: #eee; height: 10px; border-radius: 5px; margin-top: 8px; width: 100%; }
-.progress-bar { height: 10px; background: #4caf50; border-radius: 5px; width: 0%; }
-.form-section { margin-top: 40px; padding: 20px; background: #f0f0f0; border-radius: 6px; }
-.form-section h3 { margin-top: 0; }
-.form-section input, .form-section textarea, .form-section select { width: 100%; padding: 6px 10px; margin-bottom: 12px; border-radius: 4px; border: 1px solid #ccc; }
-.form-section button { padding: 6px 12px; border-radius: 4px; border: none; background: #4caf50; color: white; cursor: pointer; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="Shiran 的事实约束页：把事实、假设、边界和待验证问题分开管理。" />
+  <title>Shiran Star | 事实约束</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Noto+Serif+SC:wght@600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="container">
-  <h1>系统化思考模型库（可编辑验证记录）</h1>
-  <p>整合模型、验证记录与行动指引，支持新增验证记录。</p>
-  
-  <div class="search-bar">
-    <input type="text" id="tagSearch" placeholder="输入标签过滤模型...">
+  <div class="backdrop-grid" aria-hidden="true"></div>
+  <div class="backdrop-glow glow-a" aria-hidden="true"></div>
+  <div class="backdrop-glow glow-b" aria-hidden="true"></div>
+  <div class="backdrop-glow glow-c" aria-hidden="true"></div>
+  <div class="scroll-indicator" aria-hidden="true"><span id="scroll-bar"></span></div>
+
+  <div class="page-shell">
+    <header class="topbar panel">
+      <div class="brand">
+        <div class="brand-mark">F</div>
+        <div>
+          <p class="brand-kicker">Fact Ledger</p>
+          <h1>Shiran Star</h1>
+        </div>
+      </div>
+
+      <nav class="topnav" aria-label="主导航">
+        <a href="index.html">首页</a>
+        <a href="model.html">模型库</a>
+        <a href="records.html">验证记录</a>
+        <a href="#ledger">事实账本</a>
+        <a href="#boundaries">边界清单</a>
+      </nav>
+
+      <div class="status-chip">
+        <span class="pulse"></span>
+        <span>Evidence mode</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-grid">
+        <article class="hero panel">
+          <div class="eyebrow">Fact ledger</div>
+          <h2>事实不是意义，事实只是系统可以调用的原材料。</h2>
+          <p class="hero-copy">
+            这一页只保留已经确认的事实、当前使用的假设、不可突破的边界和待验证的问题。
+            它的作用不是做结论，而是防止结论在没有证据的情况下抢跑。
+          </p>
+
+          <div class="hero-meta">
+            <span class="mini-chip">Observed</span>
+            <span class="mini-chip">Hypothesis</span>
+            <span class="mini-chip">Boundary</span>
+          </div>
+
+          <div class="hero-actions">
+            <a class="primary-btn" href="#ledger">查看账本</a>
+            <a class="secondary-btn" href="#boundaries">查看边界</a>
+          </div>
+
+          <dl class="metric-row">
+            <div class="metric">
+              <dt>Confirmed</dt>
+              <dd><span data-count="4">0</span></dd>
+            </div>
+            <div class="metric">
+              <dt>Hypotheses</dt>
+              <dd><span data-count="3">0</span></dd>
+            </div>
+            <div class="metric">
+              <dt>Boundaries</dt>
+              <dd><span data-count="5">0</span></dd>
+            </div>
+          </dl>
+        </article>
+
+        <aside class="signal panel">
+          <div class="signal-head">
+            <div>
+              <p class="eyebrow compact">Truth audit</p>
+              <h3>账本状态</h3>
+            </div>
+            <span class="mini-chip">Audit trail</span>
+          </div>
+
+          <div class="signal-chart" aria-label="事实审计图">
+            <span style="--bar: 34%"></span>
+            <span style="--bar: 54%"></span>
+            <span style="--bar: 76%"></span>
+            <span style="--bar: 48%"></span>
+            <span style="--bar: 86%"></span>
+            <span style="--bar: 60%"></span>
+          </div>
+
+          <div class="note-stack">
+            <div class="note-item">
+              <strong>事实</strong>
+              <p>可以被现场、时间和记录共同确认。</p>
+            </div>
+            <div class="note-item">
+              <strong>假设</strong>
+              <p>只能暂时使用，不能伪装成事实。</p>
+            </div>
+            <div class="note-item">
+              <strong>边界</strong>
+              <p>一旦被突破，原模型就需要退场。</p>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="ledger" class="section-block">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow compact">Fact ledger</p>
+            <h2>事实账本</h2>
+          </div>
+          <p class="section-copy">
+            这里把事实、假设和边界拆开，不让它们互相冒充。目标只有一个：减少误判。
+          </p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card panel">
+            <div class="card-top">
+              <div>
+                <span class="tag">已确认事实</span>
+                <h3>事实必须来自现实</h3>
+              </div>
+              <span class="mini-chip">Stable</span>
+            </div>
+            <p>如果一条信息不能被时间、现场或记录共同确认，它就不能直接升级成事实。</p>
+            <ul>
+              <li>来源：现实现场</li>
+              <li>状态：可复核</li>
+              <li>作用：提供模型原材料</li>
+            </ul>
+          </article>
+
+          <article class="info-card panel">
+            <div class="card-top">
+              <div>
+                <span class="tag">待验证假设</span>
+                <h3>假设只能暂存</h3>
+              </div>
+              <span class="mini-chip">Provisional</span>
+            </div>
+            <p>假设可以帮助解释，但在没有复审之前，只能标记为“待验证”，不能直接参与最终判断。</p>
+            <ul>
+              <li>来源：当前模型</li>
+              <li>状态：临时可用</li>
+              <li>作用：引导下一次验证</li>
+            </ul>
+          </article>
+
+          <article class="info-card panel">
+            <div class="card-top">
+              <div>
+                <span class="tag">不可突破边界</span>
+                <h3>边界是系统底线</h3>
+              </div>
+              <span class="mini-chip">Hard limit</span>
+            </div>
+            <p>边界决定哪些动作永远不能做，哪些目标永远不能被短期情绪交换掉。</p>
+            <ul>
+              <li>来源：长期策略</li>
+              <li>状态：优先级最高</li>
+              <li>作用：约束行为</li>
+            </ul>
+          </article>
+
+          <article class="info-card panel">
+            <div class="card-top">
+              <div>
+                <span class="tag">待验证问题</span>
+                <h3>问题比结论更诚实</h3>
+              </div>
+              <span class="mini-chip">Open</span>
+            </div>
+            <p>当一个判断无法通过现实验证时，最好把它转写成问题，而不是继续包装成结论。</p>
+            <ul>
+              <li>来源：模型冲突</li>
+              <li>状态：开放中</li>
+              <li>作用：推动下一次记录</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="boundaries" class="system-grid">
+        <article class="system panel">
+          <div class="section-head tight">
+            <div>
+              <p class="eyebrow compact">Boundary clauses</p>
+              <h2>边界清单</h2>
+            </div>
+            <span class="mini-chip">Open to review</span>
+          </div>
+
+          <div class="ledger-stack">
+            <details data-ledger-item>
+              <summary>事实不等于解释</summary>
+              <div class="ledger-body">
+                看见事实之后才开始解释，解释只是压缩，不是替代。任何没有事实支撑的“顿悟”，都不应直接进入系统。
+              </div>
+              <div class="ledger-meta">
+                <span class="tag">分层处理</span>
+                <span class="tag">防止混淆</span>
+              </div>
+            </details>
+
+            <details data-ledger-item>
+              <summary>短期情绪不能改写长期边界</summary>
+              <div class="ledger-body">
+                情绪可以参与判断，但不能直接决定方向。长期边界一旦设定，必须优先于即时舒适感。
+              </div>
+              <div class="ledger-meta">
+                <span class="tag">长期优先</span>
+                <span class="tag">禁止交易</span>
+              </div>
+            </details>
+
+            <details data-ledger-item>
+              <summary>没有记录的结论不算结论</summary>
+              <div class="ledger-body">
+                如果结论没有被写成记录，它就无法进入下一次复审，也无法和现实结果做对照。
+              </div>
+              <div class="ledger-meta">
+                <span class="tag">必须落地</span>
+                <span class="tag">必须可回收</span>
+              </div>
+            </details>
+
+            <details data-ledger-item>
+              <summary>模型失效时先退场，不先辩护</summary>
+              <div class="ledger-body">
+                一旦边界被现实击穿，最优先的动作不是解释“为什么没错”，而是判断该不该退场。
+              </div>
+              <div class="ledger-meta">
+                <span class="tag">退场优先</span>
+                <span class="tag">边界修正</span>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <aside class="timeline panel">
+          <div class="section-head tight">
+            <div>
+              <p class="eyebrow compact">Contradiction register</p>
+              <h2>冲突登记</h2>
+            </div>
+          </div>
+
+          <div class="note-stack">
+            <div class="note-item">
+              <strong>冲突 01</strong>
+              <p>如果一个解释需要更多解释来维持，它很可能已经偏离事实。</p>
+            </div>
+            <div class="note-item">
+              <strong>冲突 02</strong>
+              <p>如果一个判断不愿意留下记录，它通常不想接受复核。</p>
+            </div>
+            <div class="note-item">
+              <strong>冲突 03</strong>
+              <p>如果一个模型无法退场，它最后会把系统拖回旧习惯。</p>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="callout">
+        <p>事实页的目标不是收集更多内容，而是减少“把没确认的东西当成已确认”的机会。</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built for <span class="year"></span> · Fact ledger ready</p>
+      <a href="#ledger">Back to top</a>
+    </footer>
   </div>
 
-  <div id="modelContainer"></div>
-
-  <!-- 新增记录表单 -->
-  <div class="form-section">
-    <h3>新增验证记录</h3>
-    <label>选择模型</label>
-    <select id="modelSelect"></select>
-    <label>日期 (YYYY-MM-DD)</label>
-    <input type="date" id="recordDate">
-    <label>结论</label>
-    <input type="text" id="recordConclusion" placeholder="结论说明">
-    <label>进度 (%)</label>
-    <input type="number" id="recordProgress" min="0" max="100" value="100">
-    <label>警告 / 注意事项</label>
-    <textarea id="recordWarning" placeholder="警告信息"></textarea>
-    <button id="addRecordBtn">添加验证记录</button>
-  </div>
-</div>
-
-<script>
-// ====== 数据驱动 ======
-const data = {
-  models: [
-    {
-      id: "emotion-template",
-      name: "情绪模板识别",
-      tags: ["信息过滤", "行为修正"],
-      description: "刷短视频时情绪被反复牵引。",
-      principles: ["仅观察结构，不据此行动", "情绪先行，信息密度低"],
-      records: [
-        { date: "2026-02-03", conclusion: "无需修正", progress: 100, warning: "仅观察结构，不据此行动" }
-      ]
-    },
-    {
-      id: "ai-boundary",
-      name: "AI 使用边界与责任",
-      tags: ["AI工具", "风险控制"],
-      description: "高频使用 AI 提升效率。",
-      principles: ["AI 只能辅助，个人承担不可逆成本", "不可外包责任给 AI"],
-      records: [
-        { date: "2026-01-20", conclusion: "遵循原则", progress: 80, warning: "注意责任归属" }
-      ]
-    },
-    {
-      id: "multi-game",
-      name: "多变量博弈模型",
-      tags: ["现实博弈", "制度分析", "行为判断"],
-      description: "适用于多人竞争、资源分配的场景。",
-      principles: ["先分析成本与收益", "不做道德评判"],
-      records: [
-        { date: "2026-01-15", conclusion: "结构判断有效", progress: 90, warning: "情绪或正义叙事易误判" }
-      ]
-    }
-  ]
-};
-
-// ====== 渲染函数 ======
-const container = document.getElementById('modelContainer');
-function renderModels(filter="") {
-  container.innerHTML = "";
-  data.models.forEach(model => {
-    const tagsLower = model.tags.map(t => t.toLowerCase());
-    if (filter && !tagsLower.some(t => t.includes(filter))) return;
-
-    const modelDiv = document.createElement('div');
-    modelDiv.className = "model";
-
-    let recordsHtml = model.records.map(r => `
-      <h3>验证记录 · ${r.date}</h3>
-      <p><strong>结论：</strong>${r.conclusion}</p>
-      <div class="progress-bar-container">
-        <div class="progress-bar" style="width: ${r.progress}%"></div>
-      </div>
-      <div class="warning">${r.warning}</div>
-    `).join("");
-
-    modelDiv.innerHTML = `
-      <h2>${model.name} <button class="toggle-btn">折叠</button></h2>
-      <div><strong>标签：</strong> ${model.tags.map(t=>`<span class="tag">${t}</span>`).join("")}</div>
-      <p>${model.description}</p>
-      <div class="model-content">
-        <h3>原则与注意事项</h3>
-        <ul>${model.principles.map(p=>`<li>${p}</li>`).join("")}</ul>
-        ${recordsHtml}
-      </div>
-    `;
-    container.appendChild(modelDiv);
-
-    // 折叠事件
-    const btn = modelDiv.querySelector('.toggle-btn');
-    btn.addEventListener('click', ()=> modelDiv.classList.toggle('collapsed'));
-  });
-
-  // 更新模型选择下拉
-  const select = document.getElementById('modelSelect');
-  select.innerHTML = data.models.map(m=>`<option value="${m.id}">${m.name}</option>`).join("");
-}
-
-// ====== 搜索功能 ======
-const searchInput = document.getElementById('tagSearch');
-searchInput.addEventListener('input', ()=>{
-  const keyword = searchInput.value.trim().toLowerCase();
-  renderModels(keyword);
-});
-
-// ====== 新增验证记录 ======
-document.getElementById('addRecordBtn').addEventListener('click', ()=>{
-  const modelId = document.getElementById('modelSelect').value;
-  const date = document.getElementById('recordDate').value;
-  const conclusion = document.getElementById('recordConclusion').value;
-  const progress = parseInt(document.getElementById('recordProgress').value);
-  const warning = document.getElementById('recordWarning').value;
-
-  if(!date || !conclusion) { alert("日期和结论不能为空"); return; }
-
-  const model = data.models.find(m=>m.id===modelId);
-  model.records.push({date, conclusion, progress, warning});
-  renderModels(searchInput.value.trim().toLowerCase());
-});
-
-// ====== 初始化 ======
-renderModels();
-</script>
+  <script src="index.js"></script>
 </body>
 </html>
