@@ -1,97 +1,165 @@
-// ================================
-// 全局系统状态（由后端驱动）
-// ================================
-let SYSTEM_STATUS = {
-  activeModule: "none",
-  cycle: "Unknown",
-  state: "UNKNOWN"
-};
+const yearNode = document.querySelector(".year");
+const scrollBar = document.getElementById("scroll-bar");
+const countNodes = Array.from(document.querySelectorAll("[data-count]"));
+const revealNodes = Array.from(
+  document.querySelectorAll(".hero, .signal, .feature, .gallery-card, .system, .timeline")
+);
+const tabButtons = Array.from(document.querySelectorAll("[data-tab]"));
+const tabPanel = document.getElementById("tab-panel");
 
-// ================================
-// 模块渲染模板
-// ================================
-const MODULE_OUTPUTS = {
-  model: status => `
-    <h3>模型系统</h3>
-    <ul>
-      <li>当前模型：情绪模板分析</li>
-      <li>系统状态：${status.state}</li>
-      <li>验证周期：${status.cycle}</li>
-    </ul>
-  `,
-  logs: status => `
-    <h3>现实日志</h3>
-    <ul>
-      <li>系统状态：${status.state}</li>
-      <li>最近动作：系统 3.0 构建</li>
-    </ul>
-  `,
-  roadmap: () => `
-    <h3>系统路线</h3>
-    <ol>
-      <li>v3.0：系统重建</li>
-      <li>v3.1：Notion 数据接入</li>
-      <li>v4.0：自动修正闭环</li>
-    </ol>
-  `
-};
-
-// ================================
-// DOM 绑定
-// ================================
-const output = document.getElementById("output-content");
-const buttons = document.querySelectorAll("[data-module]");
-const activeModuleText = document.getElementById("active-module");
-
-// ================================
-// 启动时加载系统状态
-// ================================
-async function fetchSystemStatus() {
-  try {
-    const res = await fetch("http://localhost:3000/api/status");
-    SYSTEM_STATUS = await res.json();
-    activeModuleText.textContent = SYSTEM_STATUS.activeModule;
-  } catch (err) {
-    output.innerHTML = "<p class='error'>无法连接系统后端</p>";
-    console.error(err);
+const tabContent = {
+  principle: {
+    title: "Design principle",
+    copy:
+      "This rewrite turns the page into a clear editorial console: strong hierarchy, fewer distractions, and surfaces that feel deliberate rather than generic.",
+    points: [
+      "Use one strong hero instead of many competing blocks.",
+      "Keep copy short and let spacing do the heavy lifting.",
+      "Treat every image as a framed asset, not a plain illustration."
+    ]
+  },
+  motion: {
+    title: "Motion system",
+    copy:
+      "Motion stays restrained: counters, hover lift, reveal transitions, and a thin scroll indicator. The page moves just enough to feel alive.",
+    points: [
+      "Animate on first view, not continuously.",
+      "Use blur and glow only where they add depth.",
+      "Respect reduced-motion preferences."
+    ]
+  },
+  workflow: {
+    title: "Implementation workflow",
+    copy:
+      "The homepage is now static-first and GitHub Pages friendly. No localhost API calls, no framework runtime, and no fragile build assumptions.",
+    points: [
+      "Replace backend-dependent widgets with static content.",
+      "Group content into hero, gallery, and system sections.",
+      "Use one JS file for lightweight behavior only."
+    ]
   }
-}
+};
 
-// ================================
-// 模块加载（纯渲染）
-// ================================
-function loadModule(key) {
-  if (!MODULE_OUTPUTS[key]) return;
+function renderTab(key) {
+  const data = tabContent[key] || tabContent.principle;
 
-  SYSTEM_STATUS.activeModule = key;
-  activeModuleText.textContent = key;
+  tabPanel.innerHTML = `
+    <h3>${data.title}</h3>
+    <p>${data.copy}</p>
+    <ul>
+      ${data.points.map((point) => `<li>${point}</li>`).join("")}
+    </ul>
+  `;
 
-  output.classList.remove("fade-in");
-  output.classList.add("fade-out");
-
-  setTimeout(() => {
-    output.innerHTML = MODULE_OUTPUTS[key](SYSTEM_STATUS);
-    output.classList.remove("fade-out");
-    output.classList.add("fade-in");
-  }, 200);
-}
-
-// ================================
-// 事件绑定
-// ================================
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    buttons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    loadModule(btn.dataset.module);
+  tabButtons.forEach((button) => {
+    const isActive = button.dataset.tab === key;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
   });
-});
+}
 
-// ================================
-// 初始化
-// ================================
-(async function init() {
-  await fetchSystemStatus();
-  output.innerHTML = "<p class='idle'>System ready.</p>";
-  output.classList.add("fade-in");
-})();
+function animateNumber(node, target) {
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion) {
+    node.textContent = target.toLocaleString();
+    return;
+  }
+
+  const start = performance.now();
+  const duration = 1100;
+
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    node.textContent = Math.round(target * eased).toLocaleString();
+
+    if (progress < 1) {
+      requestAnimationFrame(tick);
+    }
+  }
+
+  requestAnimationFrame(tick);
+}
+
+function updateScrollBar() {
+  if (!scrollBar) return;
+
+  const doc = document.documentElement;
+  const max = doc.scrollHeight - window.innerHeight;
+  const progress = max > 0 ? (window.scrollY / max) * 100 : 0;
+  scrollBar.style.width = `${Math.min(Math.max(progress, 0), 100)}%`;
+}
+
+function setupReveal() {
+  revealNodes.forEach((node) => node.classList.add("reveal"));
+
+  if (!("IntersectionObserver" in window)) {
+    revealNodes.forEach((node) => node.classList.add("is-visible"));
+    setupCounters();
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.16
+    }
+  );
+
+  revealNodes.forEach((node) => observer.observe(node));
+}
+
+function setupCounters() {
+  countNodes.forEach((node) => {
+    const target = Number(node.dataset.count || 0);
+    animateNumber(node, target);
+  });
+}
+
+function setupTabs() {
+  tabButtons.forEach((button) => {
+    button.addEventListener("click", () => renderTab(button.dataset.tab));
+  });
+}
+
+function setupObservers() {
+  const heroCounters = document.querySelector(".metric-row");
+
+  if (!heroCounters) return setupCounters();
+
+  if (!("IntersectionObserver" in window)) {
+    setupCounters();
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setupCounters();
+          observer.disconnect();
+        }
+      });
+    },
+    { threshold: 0.25 }
+  );
+
+  observer.observe(heroCounters);
+}
+
+yearNode.textContent = String(new Date().getFullYear());
+renderTab("principle");
+setupTabs();
+setupReveal();
+setupObservers();
+updateScrollBar();
+
+window.addEventListener("scroll", updateScrollBar, { passive: true });
+window.addEventListener("resize", updateScrollBar, { passive: true });
