@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
   <meta
     name="description"
-    content="Shiran Star's premium UI homepage, combining a system console, editorial cards, and a visual gallery into a static single-page experience."
+    content="Shiran 的自身认知系统主页：把观察、判断、行动与复盘拆成可验证的操作系统。"
   />
-  <title>Shiran Star | Curated UI Console</title>
+  <title>Shiran Star | 自身认知系统</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Noto+Serif+SC:wght@600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="style.css" />
@@ -29,65 +29,68 @@
   <div class="page-shell">
     <header class="topbar panel">
       <div class="brand">
-        <div class="brand-mark">S</div>
+        <div class="brand-mark">OS</div>
         <div>
-          <p class="brand-kicker">Curated UI / GitHub Pages</p>
+          <p class="brand-kicker">Self Cognition / GitHub Pages</p>
           <h1>Shiran Star</h1>
         </div>
       </div>
 
-      <nav class="topnav" aria-label="Main navigation">
-        <a href="#overview">Overview</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#system">System</a>
+      <nav class="topnav" aria-label="主导航">
+        <a href="#architecture">系统结构</a>
+        <a href="#modules">模块入口</a>
+        <a href="#rules">运行规则</a>
+        <a href="model.html">模型库</a>
+        <a href="records.html">验证记录</a>
+        <a href="fact.html">事实约束</a>
       </nav>
 
       <div class="status-chip">
         <span class="pulse"></span>
-        <span>LIVE - 2026</span>
+        <span>v2 · Cognition OS</span>
       </div>
     </header>
 
     <main>
-      <section id="overview" class="hero-grid">
+      <section class="hero-grid">
         <article class="hero panel">
-          <div class="eyebrow">Premium static interface</div>
-          <h2>Reframe information, images, and judgment into a layout with real hierarchy.</h2>
+          <div class="eyebrow">Self cognition system</div>
+          <h2>把自己拆成一个可观察、可校准、可复盘的系统。</h2>
           <p class="hero-copy">
-            This rewrite turns the homepage into a premium, static-first experience. It removes backend
-            dependencies, keeps the structure clear, and uses editorial cards, glass surfaces, and layered
-            motion to feel like a product instead of a template.
+            这个站点不是情绪日记，也不是灵感清单，而是一套把“观察、解释、行动、复盘”分开处理的认知操作系统。
+            每个模型都必须有边界，每条记录都必须能回溯，每个结论都要能被现实修正。
           </p>
 
-          <div class="hero-meta" aria-label="Project highlights">
-            <span class="mini-chip">Static first</span>
-            <span class="mini-chip">No runtime</span>
+          <div class="hero-meta" aria-label="项目亮点">
+            <span class="mini-chip">静态优先</span>
+            <span class="mini-chip">可复审</span>
+            <span class="mini-chip">证据驱动</span>
             <span class="mini-chip">GitHub Pages ready</span>
           </div>
 
           <div class="hero-actions">
-            <a class="primary-btn" href="#gallery">View Gallery</a>
-            <a class="secondary-btn" href="#system">Open System Panel</a>
+            <a class="primary-btn" href="model.html">进入模型库</a>
+            <a class="secondary-btn" href="records.html">查看验证记录</a>
           </div>
 
           <div class="hero-note">
             <p>
-              A tighter visual system with stronger contrast, softer motion, and more editorial spacing.
+              目标不是“更像自己”，而是让自我判断变成一个能被记录、能被对照、能被迭代的系统。
             </p>
           </div>
 
           <dl class="metric-row">
             <div class="metric">
-              <dt>Modules</dt>
+              <dt>Active Models</dt>
+              <dd><span data-count="6">0</span></dd>
+            </div>
+            <div class="metric">
+              <dt>Validation Loops</dt>
+              <dd><span data-count="14">0</span></dd>
+            </div>
+            <div class="metric">
+              <dt>Open Questions</dt>
               <dd><span data-count="3">0</span></dd>
-            </div>
-            <div class="metric">
-              <dt>Visual Layers</dt>
-              <dd><span data-count="12">0</span></dd>
-            </div>
-            <div class="metric">
-              <dt>Motion States</dt>
-              <dd><span data-count="7">0</span></dd>
             </div>
           </dl>
         </article>
@@ -95,33 +98,33 @@
         <aside class="signal panel">
           <div class="signal-head">
             <div>
-              <p class="eyebrow compact">Signal board</p>
-              <h3>Layout health</h3>
+              <p class="eyebrow compact">System balance</p>
+              <h3>认知健康</h3>
             </div>
             <span class="mini-chip">Stable</span>
           </div>
 
-          <div class="signal-chart" aria-label="Layout signal chart">
-            <span style="--bar: 28%"></span>
-            <span style="--bar: 54%"></span>
-            <span style="--bar: 72%"></span>
-            <span style="--bar: 46%"></span>
-            <span style="--bar: 88%"></span>
+          <div class="signal-chart" aria-label="认知平衡图">
+            <span style="--bar: 26%"></span>
+            <span style="--bar: 58%"></span>
+            <span style="--bar: 70%"></span>
+            <span style="--bar: 44%"></span>
+            <span style="--bar: 84%"></span>
             <span style="--bar: 66%"></span>
           </div>
 
           <ul class="signal-list">
             <li>
-              <strong>Structure</strong>
-              <span>Single-page, responsive, and static-first.</span>
+              <strong>输入质量</strong>
+              <span>先判断信息来源，再判断信息意义。</span>
             </li>
             <li>
-              <strong>Texture</strong>
-              <span>Gradient atmosphere with layered glass surfaces.</span>
+              <strong>判断延迟</strong>
+              <span>把即时反应和最终结论拆开，避免一步直达。</span>
             </li>
             <li>
-              <strong>Rhythm</strong>
-              <span>Cards, motion, and clear visual hierarchy.</span>
+              <strong>纠偏频率</strong>
+              <span>每次行动都要留下记录，避免“感觉对了”就结束。</span>
             </li>
           </ul>
         </aside>
@@ -131,90 +134,241 @@
         <article class="feature panel">
           <div class="feature-icon">01</div>
           <div>
-            <h3>Model Library</h3>
-            <p>Turn scattered model notes into a compact, readable card grid.</p>
+            <h3>观察层</h3>
+            <p>把事实从情绪里拆出来，先记录，再解释。</p>
           </div>
         </article>
 
         <article class="feature panel">
           <div class="feature-icon">02</div>
           <div>
-            <h3>Records Board</h3>
-            <p>Use time, status, and progress to express validation history.</p>
+            <h3>解释层</h3>
+            <p>让模型压缩信息，但不允许替代现实。</p>
           </div>
         </article>
 
         <article class="feature panel">
           <div class="feature-icon">03</div>
           <div>
-            <h3>Fact Layer</h3>
-            <p>Organize content around information, judgment, and action.</p>
+            <h3>行动层</h3>
+            <p>每次动作都带边界、成本和退出条件。</p>
           </div>
         </article>
       </section>
 
-      <section id="gallery" class="section-block">
+      <section id="architecture" class="section-block">
         <div class="section-head">
           <div>
-            <p class="eyebrow compact">Visual gallery</p>
-            <h2>Three images, framed like a compact editorial series.</h2>
+            <p class="eyebrow compact">System architecture</p>
+            <h2>系统结构不是自我感觉，而是一套分层协议。</h2>
           </div>
           <p class="section-copy">
-            The source images already have a strong visual voice. Here they are placed inside quieter,
-            more premium presentation surfaces so the content feels deliberate.
+            这里把认知系统拆成输入、建模、行动、回收四个层级。每一层只处理自己该处理的东西，这样系统才不会在情绪、直觉和事实之间互相污染。
           </p>
         </div>
 
-        <div class="gallery-grid">
-          <figure class="gallery-card panel tall" data-seq="01">
-            <img src="images/model-a.jpg" alt="Three highlights image card" />
-            <figcaption>
-              <span class="tag">Insight</span>
-              <h3>Three Highlights</h3>
-              <p>Use big type and a strong card structure to separate information clearly.</p>
-            </figcaption>
-          </figure>
+        <div class="bento-grid">
+          <article class="bento-card wide">
+            <figure>
+              <img src="images/model-a.jpg" alt="认知系统的视觉入口" />
+              <figcaption>
+                <div class="card-meta">
+                  <span class="tag">Evidence field</span>
+                  <span class="tag">Memory anchor</span>
+                </div>
+                <h3>证据场</h3>
+                <p>所有判断都必须先进入证据场，再进入模型场。没有证据的结论，只能暂存，不能执行。</p>
+              </figcaption>
+            </figure>
+          </article>
 
-          <figure class="gallery-card panel" data-seq="02">
-            <img src="images/model-b.jpg" alt="Award-themed visual card" />
-            <figcaption>
-              <span class="tag">Award</span>
-              <h3>Macro Whisperer</h3>
-              <p>Warm illustration works well inside a soft, glowing glass container.</p>
-            </figcaption>
-          </figure>
+          <article class="bento-card">
+            <span class="tag">Identity</span>
+            <h3>身份层</h3>
+            <p>回答“我是谁、我在追求什么、哪些目标不能被短期冲动改写”。</p>
+          </article>
 
-          <figure class="gallery-card panel" data-seq="03">
-            <img src="images/model-c.jpg" alt="Desk narrative visual card" />
-            <figcaption>
-              <span class="tag">Editorial</span>
-              <h3>Desk Narrative</h3>
-              <p>White space and black-gold framing create a more restrained premium feel.</p>
-            </figcaption>
-          </figure>
+          <article class="bento-card">
+            <span class="tag">Compression</span>
+            <h3>模型层</h3>
+            <p>把复杂现实压缩成可调用的判断模板，但每个模板都要写明失效边界。</p>
+          </article>
+
+          <article class="bento-card">
+            <span class="tag">Review</span>
+            <h3>复盘层</h3>
+            <p>把每次行动和结果对照，记录“哪些判断对了、哪些判断只是碰巧”。</p>
+          </article>
+
+          <article class="bento-card wide">
+            <figure>
+              <img src="images/model-b.jpg" alt="系统校准的视觉隐喻" />
+              <figcaption>
+                <div class="card-meta">
+                  <span class="tag">Calibration</span>
+                  <span class="tag">Boundary</span>
+                </div>
+                <h3>校准器</h3>
+                <p>真正重要的不是“我理解了什么”，而是“理解之后有没有改变行为边界”。</p>
+              </figcaption>
+            </figure>
+          </article>
         </div>
       </section>
 
-      <section id="system" class="system-grid">
+      <section id="modules" class="section-block">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow compact">Module entries</p>
+            <h2>把系统拆成三个入口，方便独立更新和审查。</h2>
+          </div>
+          <p class="section-copy">
+            模型库、验证记录、事实约束这三页分别处理不同层级的数据。这样做的好处是：不会把“模型”当事实，也不会把“记录”当最终结论。
+          </p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card panel">
+            <div class="card-top">
+              <div>
+                <span class="tag">Model Library</span>
+                <h3>模型库</h3>
+              </div>
+              <span class="mini-chip">6 active</span>
+            </div>
+            <p>存放可调用的认知模型，每个模型都写明类型、触发条件、失效信号和复审周期。</p>
+            <ul>
+              <li>适合什么场景</li>
+              <li>什么时候失效</li>
+              <li>什么时候必须退场</li>
+            </ul>
+            <a class="secondary-btn" href="model.html">打开模型库</a>
+          </article>
+
+          <article class="info-card panel">
+            <div class="card-top">
+              <div>
+                <span class="tag">Validation Log</span>
+                <h3>验证记录</h3>
+              </div>
+              <span class="mini-chip">14 loops</span>
+            </div>
+            <p>记录模型在真实场景里被调用过、有没有失误、失误后怎么修正。</p>
+            <ul>
+              <li>时间戳优先</li>
+              <li>结果优先</li>
+              <li>证据优先</li>
+            </ul>
+            <a class="secondary-btn" href="records.html">打开验证记录</a>
+          </article>
+
+          <article class="info-card panel">
+            <div class="card-top">
+              <div>
+                <span class="tag">Fact Ledger</span>
+                <h3>事实约束</h3>
+              </div>
+              <span class="mini-chip">3 open</span>
+            </div>
+            <p>把“已确认事实、待验证假设、不可突破边界”分开写，避免把推断当成事实。</p>
+            <ul>
+              <li>事实和意义分离</li>
+              <li>推断必须标注</li>
+              <li>边界必须可见</li>
+            </ul>
+            <a class="secondary-btn" href="fact.html">打开事实约束</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="loop" class="system-grid">
         <article class="system panel">
           <div class="section-head tight">
             <div>
-              <p class="eyebrow compact">System panel</p>
-              <h2>Interface rules</h2>
+              <p class="eyebrow compact">Validation loop</p>
+              <h2>运行路径</h2>
+            </div>
+            <span class="mini-chip">Review every cycle</span>
+          </div>
+
+          <ol class="timeline-list">
+            <li>
+              <span>01</span>
+              <div>
+                <h3>收集输入</h3>
+                <p>先记录事实，再决定要不要解释它。</p>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <h3>调用模型</h3>
+                <p>用最合适的模型压缩信息，不把模型当现实本身。</p>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <h3>执行动作</h3>
+                <p>给每个动作设置成本、边界和退出条件。</p>
+              </div>
+            </li>
+            <li>
+              <span>04</span>
+              <div>
+                <h3>写入记录</h3>
+                <p>保留时间戳、结论和偏差，供下一次校正。</p>
+              </div>
+            </li>
+            <li>
+              <span>05</span>
+              <div>
+                <h3>修正系统</h3>
+                <p>把失败当成模型更新的输入，而不是自我否定。</p>
+              </div>
+            </li>
+          </ol>
+        </article>
+
+        <aside class="timeline panel">
+          <div class="section-head tight">
+            <div>
+              <p class="eyebrow compact">Current state</p>
+              <h2>运行摘要</h2>
+            </div>
+          </div>
+
+          <div class="note-stack">
+            <div class="note-item">
+              <strong>当前版本</strong>
+              <p>v2 · 已切换为静态优先的信息架构。</p>
+            </div>
+            <div class="note-item">
+              <strong>重点风险</strong>
+              <p>把“解释”误当成“结论”，把“情绪舒适”误当成“判断正确”。</p>
+            </div>
+            <div class="note-item">
+              <strong>复审规则</strong>
+              <p>所有模型都要有记录；所有记录都要能反向定位到事实。</p>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="rules" class="system-grid">
+        <article class="system panel">
+          <div class="section-head tight">
+            <div>
+              <p class="eyebrow compact">Operating rules</p>
+              <h2>系统规则</h2>
             </div>
             <span class="mini-chip">Interactive</span>
           </div>
 
-          <div class="tab-row" role="tablist" aria-label="Interface rules toggle">
-            <button class="tab active" type="button" data-tab="principle" role="tab" aria-selected="true">
-              Principle
-            </button>
-            <button class="tab" type="button" data-tab="motion" role="tab" aria-selected="false">
-              Motion
-            </button>
-            <button class="tab" type="button" data-tab="workflow" role="tab" aria-selected="false">
-              Workflow
-            </button>
+          <div class="tab-row" role="tablist" aria-label="系统规则切换">
+            <button class="tab active" type="button" data-tab="principle" role="tab" aria-selected="true">原则</button>
+            <button class="tab" type="button" data-tab="threshold" role="tab" aria-selected="false">阈值</button>
+            <button class="tab" type="button" data-tab="retire" role="tab" aria-selected="false">退场</button>
           </div>
 
           <div id="tab-panel" class="tab-panel" aria-live="polite"></div>
@@ -223,41 +377,32 @@
         <aside class="timeline panel">
           <div class="section-head tight">
             <div>
-              <p class="eyebrow compact">Release notes</p>
-              <h2>Rewrite path</h2>
+              <p class="eyebrow compact">Quick cues</p>
+              <h2>三条底线</h2>
             </div>
           </div>
 
-          <ol class="timeline-list">
-            <li>
-              <span>01</span>
-              <div>
-                <h3>Remove localhost dependency</h3>
-                <p>Replace the old backend-driven request with static content that works on GitHub Pages.</p>
-              </div>
-            </li>
-            <li>
-              <span>02</span>
-              <div>
-                <h3>Rebuild the visual hierarchy</h3>
-                <p>Split the page into hero, gallery, and system sections for faster scanning.</p>
-              </div>
-            </li>
-            <li>
-              <span>03</span>
-              <div>
-                <h3>Add motion and responsiveness</h3>
-                <p>Use scroll progress, counters, and card hover feedback to finish the experience.</p>
-              </div>
-            </li>
-          </ol>
+          <div class="note-stack">
+            <div class="note-item">
+              <strong>1. 事实先于解释</strong>
+              <p>没有事实就没有模型；没有模型也先别急着下结论。</p>
+            </div>
+            <div class="note-item">
+              <strong>2. 行动必须可回收</strong>
+              <p>任何动作都要能追踪成本、结果和后续修正。</p>
+            </div>
+            <div class="note-item">
+              <strong>3. 失效比正确更重要</strong>
+              <p>只要边界被突破，模型就应该更新，而不是继续自证。</p>
+            </div>
+          </div>
         </aside>
       </section>
     </main>
 
     <footer class="footer">
-      <p>Built for <span class="year"></span> - GitHub Pages ready</p>
-      <a href="#overview">Back to top</a>
+      <p>Built for <span class="year"></span> · Cognition OS ready</p>
+      <a href="#architecture">Back to top</a>
     </footer>
   </div>
 
