@@ -1,258 +1,340 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>系统级结构化模型库</title>
-<style>
-  :root {
-    --bg-body: #f7f7f7;
-    --bg-container: #ffffff;
-    --bg-model: #fafafa;
-    --border-model: #333;
-    --border-warning: #e5533d;
-    --bg-warning: #fff5f5;
-    --tag-bg: #eaeaea;
-    --tag-color: #222;
-    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  }
-  body {
-    font-family: var(--font-family);
-    background: var(--bg-body);
-    color: #222;
-    margin: 0;
-    padding: 24px;
-    line-height: 1.6;
-  }
-  .container {
-    max-width: 960px;
-    margin: auto;
-    background: var(--bg-container);
-    padding: 32px;
-    border-radius: 8px;
-  }
-  h1 { font-size: 28px; margin-bottom: 12px; }
-  .page-desc { color: #666; font-size: 14px; margin-bottom: 24px; }
-  .divider { height:1px; background:#eee; margin:24px 0; }
-  .search-bar { margin: 20px 0; }
-  .search-bar input {
-    padding:8px 12px;
-    width:100%;
-    max-width:300px;
-    border-radius:6px;
-    border:1px solid #ccc;
-    font-size:14px;
-  }
-  .model { 
-    margin-top: 24px;
-    padding:20px;
-    background: var(--bg-model);
-    border-left:4px solid var(--border-model);
-    border-radius:6px;
-    transition: all 0.3s;
-  }
-  .model-title { 
-    font-size:18px; 
-    display:flex; 
-    justify-content: space-between; 
-    align-items:center; 
-  }
-  .toggle-btn {
-    background:#eee;
-    border:none;
-    border-radius:4px;
-    padding:4px 10px;
-    cursor:pointer;
-    font-size:12px;
-  }
-  .model-content { margin-top:12px; }
-  .model-item { margin-top:12px; }
-  .model-item strong { display:block; margin-bottom:4px; }
-  ul { margin:6px 0 6px 18px; }
-  .warning {
-    background: var(--bg-warning);
-    border-left:4px solid var(--border-warning);
-    padding:12px;
-    border-radius:4px;
-    margin-top:12px;
-  }
-  .collapsed .model-content { display:none; }
-
-  /* 过期样式 */
-  .model-expired { border-left-color:#e5533d; opacity:0.8; }
-  .model-system-note {
-    background:#fff3f3;
-    border-left:4px solid #e5533d;
-    padding:10px;
-    margin-bottom:14px;
-    font-size:14px;
-  }
-  .tag {
-    display:inline-block;
-    background: var(--tag-bg);
-    color: var(--tag-color);
-    padding:2px 8px;
-    margin-right:8px;
-    border-radius:4px;
-    font-size:13px;
-    cursor:pointer;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="Shiran 的验证记录：每次调用模型后的结果、偏差和修正。" />
+  <title>Shiran Star | 验证记录</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Noto+Serif+SC:wght@600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="container">
-<h1>系统级结构化模型库</h1>
-<p class="page-desc">本系统展示可调用判断模型，模型需绑定记录才能有效，否则自动过期。</p>
+  <div class="backdrop-grid" aria-hidden="true"></div>
+  <div class="backdrop-glow glow-a" aria-hidden="true"></div>
+  <div class="backdrop-glow glow-b" aria-hidden="true"></div>
+  <div class="backdrop-glow glow-c" aria-hidden="true"></div>
+  <div class="scroll-indicator" aria-hidden="true"><span id="scroll-bar"></span></div>
 
-<div class="search-bar">
-  <input type="text" id="tagSearch" placeholder="输入标签过滤模型，例如：AI分析">
-</div>
+  <div class="page-shell">
+    <header class="topbar panel">
+      <div class="brand">
+        <div class="brand-mark">R</div>
+        <div>
+          <p class="brand-kicker">Validation Log</p>
+          <h1>Shiran Star</h1>
+        </div>
+      </div>
 
-<div class="model-container">
+      <nav class="topnav" aria-label="主导航">
+        <a href="index.html">首页</a>
+        <a href="model.html">模型库</a>
+        <a href="#log">验证记录</a>
+        <a href="#process">记录原则</a>
+        <a href="fact.html">事实约束</a>
+      </nav>
 
-<!-- 模型示例开始 -->
-<div class="model" data-model-id="emotion-template" data-review-cycle="30">
-  <h2 class="model-title">
-    情绪模板识别
-    <button class="toggle-btn">折叠</button>
-  </h2>
-  <span class="tag">信息过滤</span>
-  <span class="tag">行为修正</span>
-  <div class="model-content">
-    <p><strong>覆盖话题：</strong>短视频情绪叙事、共鸣型内容、上瘾机制</p>
-    <div class="model-item">
-      <strong>统一本质</strong>
-      <p>内容是否成立不重要，是否触发既有情绪模板才重要。</p>
-    </div>
-    <div class="model-item warning">
-      <strong>行为约束</strong>
-      <p>只允许观察其结构，禁止据此行动或转发。</p>
-    </div>
+      <div class="status-chip">
+        <span class="pulse"></span>
+        <span>14 validation loops</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-grid">
+        <article class="hero panel">
+          <div class="eyebrow">Validation log</div>
+          <h2>记录不是回忆，它是用来修正模型的证据链。</h2>
+          <p class="hero-copy">
+            每次调用模型之后，都应该留下时间、场景、结果和偏差。这样做不是为了“证明自己做对了”，
+            而是为了知道：模型在哪些条件下可靠，在哪些条件下开始失真。
+          </p>
+
+          <div class="hero-meta">
+            <span class="mini-chip">Time-stamped</span>
+            <span class="mini-chip">Evidence first</span>
+            <span class="mini-chip">Outcome aware</span>
+          </div>
+
+          <div class="hero-actions">
+            <a class="primary-btn" href="#log">浏览记录</a>
+            <a class="secondary-btn" href="#process">记录原则</a>
+          </div>
+
+          <dl class="metric-row">
+            <div class="metric">
+              <dt>Valid loops</dt>
+              <dd><span data-count="14">0</span></dd>
+            </div>
+            <div class="metric">
+              <dt>Model drift</dt>
+              <dd><span data-count="3">0</span></dd>
+            </div>
+            <div class="metric">
+              <dt>Closed cases</dt>
+              <dd><span data-count="9">0</span></dd>
+            </div>
+          </dl>
+        </article>
+
+        <aside class="signal panel">
+          <div class="signal-head">
+            <div>
+              <p class="eyebrow compact">Archive health</p>
+              <h3>记录质量</h3>
+            </div>
+            <span class="mini-chip">Updated</span>
+          </div>
+
+          <div class="signal-chart" aria-label="记录质量图">
+            <span style="--bar: 32%"></span>
+            <span style="--bar: 60%"></span>
+            <span style="--bar: 78%"></span>
+            <span style="--bar: 46%"></span>
+            <span style="--bar: 88%"></span>
+            <span style="--bar: 68%"></span>
+          </div>
+
+          <div class="note-stack">
+            <div class="note-item">
+              <strong>记录要可回溯</strong>
+              <p>没有时间戳的记录，不算记录。</p>
+            </div>
+            <div class="note-item">
+              <strong>记录要可对照</strong>
+              <p>结论必须能和下一次现实结果对比。</p>
+            </div>
+            <div class="note-item">
+              <strong>记录要可修正</strong>
+              <p>一旦偏差出现，模型和行动一起调整。</p>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="log" class="section-block">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow compact">Validation entries</p>
+            <h2>最近记录</h2>
+          </div>
+          <p class="section-copy">
+            这些记录保留了真实调用的时间、结论和下一步动作。它们的作用不是装饰，而是校准。
+          </p>
+        </div>
+
+        <div class="filter-bar" data-filter-group="records">
+          <button class="filter-btn active" type="button" data-filter="all" aria-pressed="true">全部</button>
+          <button class="filter-btn" type="button" data-filter="information" aria-pressed="false">信息过滤</button>
+          <button class="filter-btn" type="button" data-filter="structure" aria-pressed="false">结构判断</button>
+          <button class="filter-btn" type="button" data-filter="constraint" aria-pressed="false">行动约束</button>
+          <button class="filter-btn" type="button" data-filter="risk" aria-pressed="false">风险控制</button>
+          <button class="filter-btn" type="button" data-filter="open" aria-pressed="false">开放问题</button>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card panel" data-filterable="records" data-tags="information,open" id="emotion-2026-02">
+            <div class="card-top">
+              <div>
+                <span class="tag">2026-02-03</span>
+                <h3>情绪模板识别</h3>
+              </div>
+              <span class="mini-chip">No action</span>
+            </div>
+            <p>在高情绪密度输入里，只做结构观察，不把共鸣感当成判断。</p>
+            <ul>
+              <li>结果：保持观察，不立即转译</li>
+              <li>偏差：情绪强度高于信息密度</li>
+              <li>下次复审：30 天后</li>
+            </ul>
+            <a class="secondary-btn" href="model.html#catalog">对应模型</a>
+          </article>
+
+          <article class="info-card panel" data-filterable="records" data-tags="structure">
+            <div class="card-top">
+              <div>
+                <span class="tag">2026-01-20</span>
+                <h3>结构判断复核</h3>
+              </div>
+              <span class="mini-chip">Validated</span>
+            </div>
+            <p>分析生产力、生产关系和制度反馈时，先定位主导变量，再谈整体结论。</p>
+            <ul>
+              <li>结果：结构判断保持有效</li>
+              <li>偏差：单变量解释欲望过强</li>
+              <li>下次复审：60 天后</li>
+            </ul>
+            <a class="secondary-btn" href="model.html#catalog">对应模型</a>
+          </article>
+
+          <article class="info-card panel" data-filterable="records" data-tags="constraint,open" id="self-control-2026-02">
+            <div class="card-top">
+              <div>
+                <span class="tag">2026-02-18</span>
+                <h3>自我调控约束</h3>
+              </div>
+              <span class="mini-chip">Hold</span>
+            </div>
+            <p>遇到外界质疑时，延迟即时反应 24 小时，再判断是否需要回应。</p>
+            <ul>
+              <li>结果：减少冲动回应</li>
+              <li>偏差：当下舒适感会伪装成效率</li>
+              <li>下次复审：14 天后</li>
+            </ul>
+            <a class="secondary-btn" href="model.html#catalog">对应模型</a>
+          </article>
+
+          <article class="info-card panel" data-filterable="records" data-tags="risk">
+            <div class="card-top">
+              <div>
+                <span class="tag">2026-02-25</span>
+                <h3>低现金流投资约束</h3>
+              </div>
+              <span class="mini-chip">Rejected</span>
+            </div>
+            <p>当现金流和本金都有限时，直接排除高频交易和高噪音策略。</p>
+            <ul>
+              <li>结果：高频交易不进入决策池</li>
+              <li>偏差：想通过短期波动寻找确定性</li>
+              <li>下次复审：30 天后</li>
+            </ul>
+            <a class="secondary-btn" href="model.html#catalog">对应模型</a>
+          </article>
+
+          <article class="info-card panel" data-filterable="records" data-tags="constraint,open" id="ai-tools-2026-03">
+            <div class="card-top">
+              <div>
+                <span class="tag">2026-03-04</span>
+                <h3>AI 使用边界</h3>
+              </div>
+              <span class="mini-chip">Checked</span>
+            </div>
+            <p>AI 可以帮助结构化，但输出仍然需要个人负责、核对和重写。</p>
+            <ul>
+              <li>结果：把 AI 定位为工具，不是作者</li>
+              <li>偏差：效率感容易盖过责任感</li>
+              <li>下次复审：30 天后</li>
+            </ul>
+            <a class="secondary-btn" href="model.html#catalog">对应模型</a>
+          </article>
+
+          <article class="info-card panel" data-filterable="records" data-tags="structure,open" id="multi-game-2026-01">
+            <div class="card-top">
+              <div>
+                <span class="tag">2026-01-15</span>
+                <h3>多变量博弈判断</h3>
+              </div>
+              <span class="mini-chip">Validated</span>
+            </div>
+            <p>当结果涉及现实利益分配时，优先识别成本、收益和权力结构，再决定站位。</p>
+            <ul>
+              <li>结果：结构判断保持有效</li>
+              <li>偏差：道德叙事容易掩盖成本归属</li>
+              <li>下次复审：45 天后</li>
+            </ul>
+            <a class="secondary-btn" href="model.html#catalog">对应模型</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="process" class="system-grid">
+        <article class="system panel">
+          <div class="section-head tight">
+            <div>
+              <p class="eyebrow compact">Record process</p>
+              <h2>记录原则</h2>
+            </div>
+            <span class="mini-chip">Process notes</span>
+          </div>
+
+          <div class="ledger-stack">
+            <details data-ledger-item>
+              <summary>先记事实，再写解释</summary>
+              <div class="ledger-body">
+                事实必须先于解释存在，解释只是后置压缩。任何没有事实支撑的“顿悟”，都不应直接进入系统。
+              </div>
+              <div class="ledger-meta">
+                <span class="tag">事实优先</span>
+                <span class="tag">防止过拟合</span>
+              </div>
+            </details>
+
+            <details data-ledger-item>
+              <summary>记录要能反向找回现场</summary>
+              <div class="ledger-body">
+                每条记录都应该能回到具体日期、具体模型、具体场景。只有能复原现场的记录，才有修正价值。
+              </div>
+              <div class="ledger-meta">
+                <span class="tag">可回溯</span>
+                <span class="tag">可对照</span>
+              </div>
+            </details>
+
+            <details data-ledger-item>
+              <summary>结论必须带失效条件</summary>
+              <div class="ledger-body">
+                如果一个结论不能写出自己在哪些情况下失效，那它更像情绪愿望，不像判断模型。
+              </div>
+              <div class="ledger-meta">
+                <span class="tag">失效条件</span>
+                <span class="tag">复审触发</span>
+              </div>
+            </details>
+
+            <details data-ledger-item>
+              <summary>偏差比成功更值得记录</summary>
+              <div class="ledger-body">
+                成功经常来自好运，偏差更能暴露模型问题。记录偏差不是为了自责，而是为了更新边界。
+              </div>
+              <div class="ledger-meta">
+                <span class="tag">偏差优先</span>
+                <span class="tag">模型更新</span>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <aside class="timeline panel">
+          <div class="section-head tight">
+            <div>
+              <p class="eyebrow compact">Archive note</p>
+              <h2>记录结构</h2>
+            </div>
+          </div>
+
+          <div class="note-stack">
+            <div class="note-item">
+              <strong>字段 01</strong>
+              <p>时间戳、模型名、场景、结果、偏差、下一步。</p>
+            </div>
+            <div class="note-item">
+              <strong>字段 02</strong>
+              <p>每条记录都要能追到对应模型和事实页。</p>
+            </div>
+            <div class="note-item">
+              <strong>字段 03</strong>
+              <p>当记录与现实冲突时，优先修模型，不修饰结果。</p>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="callout">
+        <p>记录不是证明自己正确，而是让系统知道自己什么时候错、为什么错、下一次怎么改。</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Built for <span class="year"></span> · Validation log ready</p>
+      <a href="#log">Back to top</a>
+    </footer>
   </div>
-</div>
 
-<div class="model" data-model-id="structure-boundary" data-review-cycle="30">
-  <h2 class="model-title">
-    结构模型使用边界
-    <button class="toggle-btn">折叠</button>
-  </h2>
-  <span class="tag">趋势判断</span>
-  <span class="tag">AI分析</span>
-  <div class="model-content">
-    <p><strong>覆盖话题：</strong>生产力、生产关系、制度秩序、AI泡沫</p>
-    <div class="model-item">
-      <strong>判断逻辑</strong>
-      <p>先判断主导变量，再决定是否使用该模型。</p>
-    </div>
-  </div>
-</div>
-
-<div class="model" data-model-id="finance-risk" data-review-cycle="30">
-  <h2 class="model-title">
-    金融与风险溢价
-    <button class="toggle-btn">折叠</button>
-  </h2>
-  <span class="tag">金融认知</span>
-  <div class="model-content">
-    <div class="model-item">
-      <strong>统一本质</strong>
-      <p>价格波动 ≠ 价值变化，多数来自预期反复修正。</p>
-    </div>
-  </div>
-</div>
-
-<div class="model" data-model-id="ai-structure" data-review-cycle="30">
-  <h2 class="model-title">
-    AI结构判断
-    <button class="toggle-btn">折叠</button>
-  </h2>
-  <span class="tag">AI工具</span>
-  <div class="model-content">
-    <div class="model-item">
-      <strong>现实过滤器</strong>
-      <ul>
-        <li>技术可行性</li>
-        <li>生产关系适配</li>
-        <li>是否到达临界点</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="model" data-model-id="multi-game" data-review-cycle="30">
-  <h2 class="model-title">
-    多变量博弈判断
-    <button class="toggle-btn">折叠</button>
-  </h2>
-  <span class="tag">现实博弈</span>
-  <span class="tag">制度分析</span>
-  <div class="model-content">
-    <div class="model-item">
-      <strong>快速判断</strong>
-      <p>若结果涉及现实利益分配 → 默认判定为多变量博弈。</p>
-    </div>
-    <div class="model-item warning">
-      <strong>行动约束</strong>
-      <p>未识别成本与收益归属前，不参与站队、不做价值判断。</p>
-    </div>
-  </div>
-</div>
-
-</div>
-</div>
-
-<script>
-// 折叠功能
-document.querySelectorAll('.toggle-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>btn.closest('.model').classList.toggle('collapsed'));
-});
-
-// 标签搜索
-const searchInput = document.getElementById('tagSearch');
-searchInput.addEventListener('input',()=>{
-  const keyword = searchInput.value.trim().toLowerCase();
-  document.querySelectorAll('.model').forEach(model=>{
-    const tags = Array.from(model.querySelectorAll('.tag')).map(t=>t.innerText.toLowerCase());
-    model.style.display = tags.some(t=>t.includes(keyword)) || keyword===''?'block':'none';
-  });
-});
-
-// === 系统级 Records 链接逻辑 ===
-(function(){
-  // 模拟 Records 页面，本例直接写入本地存储
-  const records = [
-    {modelId:'emotion-template', timestamp:Date.now()-5*24*60*60*1000},
-    {modelId:'ai-structure', timestamp:Date.now()-40*24*60*60*1000},
-    {modelId:'finance-risk', timestamp:Date.now()-10*24*60*60*1000}
-  ];
-  localStorage.setItem('modelRecords',JSON.stringify(records));
-
-  const DAY = 24*60*60*1000;
-  const now = Date.now();
-  const lastRecordMap={};
-  records.forEach(r=>{
-    if(!lastRecordMap[r.modelId]||r.timestamp>lastRecordMap[r.modelId]) lastRecordMap[r.modelId]=r.timestamp;
-  });
-
-  document.querySelectorAll('.model[data-model-id]').forEach(model=>{
-    const id = model.dataset.modelId;
-    const cycleDays = parseInt(model.dataset.reviewCycle||"30",10);
-    const lastUsed = lastRecordMap[id];
-    if(!lastUsed){
-      expire(model,'无任何现实记录'); return;
-    }
-    const diffDays = Math.floor((now-lastUsed)/DAY);
-    if(diffDays>cycleDays) expire(model,`超过 ${diffDays} 天未被调用`);
-  });
-
-  function expire(model,reason){
-    model.classList.add('model-expired');
-    const note=document.createElement('div');
-    note.className='model-system-note';
-    note.innerText=`模型已失效：${reason}。禁止作为判断依据。`;
-    model.prepend(note);
-  }
-})();
-</script>
+  <script src="index.js"></script>
 </body>
 </html>
