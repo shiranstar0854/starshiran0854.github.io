@@ -135,6 +135,8 @@ img {
   box-shadow: var(--shadow);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  position: relative;
+  isolation: isolate;
 }
 
 .topbar {
@@ -307,6 +309,7 @@ main {
   margin: 0;
   font: 700 clamp(2.2rem, 4vw, 4.5rem)/0.96 "Space Grotesk", sans-serif;
   letter-spacing: -0.06em;
+  text-wrap: balance;
 }
 
 .hero h2 {
@@ -328,6 +331,35 @@ main {
   max-width: 62ch;
   margin: 18px 0 0;
   font-size: 1.03rem;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.hero-meta .mini-chip {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--muted);
+}
+
+.hero-note {
+  margin-top: 18px;
+  max-width: 58ch;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 1px solid rgba(255, 211, 138, 0.35);
+}
+
+.hero-note p {
+  margin: 0;
+  color: var(--soft);
+  font-size: 0.96rem;
 }
 
 .hero-actions {
@@ -527,6 +559,27 @@ main {
   gap: 18px;
   min-height: 100%;
   overflow: hidden;
+  position: relative;
+}
+
+.gallery-card::before {
+  content: attr(data-seq);
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: rgba(8, 10, 15, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text);
+  font: 700 0.82rem/1 "Space Grotesk", sans-serif;
+  letter-spacing: 0.12em;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .gallery-card img {
@@ -550,6 +603,8 @@ main {
 
 .gallery-card figcaption {
   padding: 0 8px 4px;
+  position: relative;
+  z-index: 1;
 }
 
 .tag {
@@ -699,6 +754,23 @@ main {
   box-shadow: 0 26px 84px rgba(0, 0, 0, 0.44);
 }
 
+.panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 30%),
+    radial-gradient(circle at top right, rgba(201, 140, 255, 0.08), transparent 32%);
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.panel > * {
+  position: relative;
+  z-index: 1;
+}
+
 .panel,
 .gallery-card,
 .feature {
@@ -760,6 +832,10 @@ main {
 
   .hero h2 {
     max-width: none;
+  }
+
+  .hero-meta {
+    gap: 8px;
   }
 
   .metric-row {
