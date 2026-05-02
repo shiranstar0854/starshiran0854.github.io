@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://0854937.xyz/sitemap.xml

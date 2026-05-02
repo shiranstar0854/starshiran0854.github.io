@@ -10,32 +10,35 @@ const tabButtons = Array.from(document.querySelectorAll("[data-tab]"));
 const tabPanel = document.getElementById("tab-panel");
 const filterGroups = Array.from(document.querySelectorAll("[data-filter-group]"));
 const ledgerDetails = Array.from(document.querySelectorAll("[data-ledger-item]"));
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let countersStarted = false;
+let scrollTicking = false;
 
 const tabContent = {
   principle: {
     title: "设计原则",
     copy:
-      "把页面当作一份可阅读的认知系统：层级清楚、干扰更少、每一块内容都知道自己在回答什么问题。",
+      "把页面当成一个可阅读的认知面板：层级清楚、噪音更少、每一层都知道自己在处理什么。",
     points: [
-      "用一个强主视觉承接全站叙事，减少互相竞争的模块。",
-      "保留足够留白，让结构本身承担节奏。",
-      "把图片当作被框住的证据，而不是普通装饰。"
+      "用一个强主视觉代替多个彼此竞争的模块。",
+      "保留简短文案，让留白承担主要节奏。",
+      "把图片当成被框住的证据，而不是装饰。"
     ]
   },
   threshold: {
     title: "触发阈值",
     copy:
-      "只有当输入足够明确、场景足够稳定时，模型才进入调用状态；否则先停留在观察层，不急于给出结论。",
+      "只有当输入足够明确、场景足够稳定时，模型才可以进入调用状态；否则先停留在观察层。",
     points: [
-      "信息不清楚时，先记录事实，不急着建模。",
-      "情绪过高时，先延迟反应，不急着回应。",
-      "成本与收益未明时，先保留问题，不急着站位。"
+      "信息不清楚时，先停在记录，不急于建模。",
+      "情绪过高时，先延迟动作，不急于回应。",
+      "成本与收益未明时，先保留问题，不急于站位。"
     ]
   },
   retire: {
-    title: "退场条件",
+    title: "退役条件",
     copy:
-      "当某个模型无法解释新的现实，或开始用解释遮盖事实时，它就应该退场，而不是继续自证。",
+      "当一个模型无法解释新的现实，或者开始用解释掩盖事实时，它就应该退役，而不是继续自证。",
     points: [
       "边界被现实击穿。",
       "模型开始替代事实本身。",
@@ -48,6 +51,7 @@ function renderTab(key) {
   if (!tabPanel) return;
 
   const data = tabContent[key] || tabContent.principle;
+
   tabPanel.innerHTML = `
     <h3>${data.title}</h3>
     <p>${data.copy}</p>
@@ -60,11 +64,11 @@ function renderTab(key) {
     const isActive = button.dataset.tab === key;
     button.classList.toggle("active", isActive);
     button.setAttribute("aria-selected", String(isActive));
+    button.tabIndex = isActive ? 0 : -1;
   });
 }
 
 function animateNumber(node, target) {
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (prefersReducedMotion) {
     node.textContent = target.toLocaleString();
     return;
@@ -95,7 +99,19 @@ function updateScrollBar() {
   scrollBar.style.width = `${Math.min(Math.max(progress, 0), 100)}%`;
 }
 
+function scheduleScrollBarUpdate() {
+  if (scrollTicking) return;
+
+  scrollTicking = true;
+  requestAnimationFrame(() => {
+    updateScrollBar();
+    scrollTicking = false;
+  });
+}
+
 function setupReveal() {
+  if (!revealNodes.length) return;
+
   revealNodes.forEach((node) => node.classList.add("reveal"));
 
   if (!("IntersectionObserver" in window)) {
@@ -122,6 +138,9 @@ function setupReveal() {
 }
 
 function setupCounters() {
+  if (countersStarted) return;
+  countersStarted = true;
+
   countNodes.forEach((node) => {
     const target = Number(node.dataset.count || 0);
     animateNumber(node, target);
@@ -131,6 +150,18 @@ function setupCounters() {
 function setupTabs() {
   tabButtons.forEach((button) => {
     button.addEventListener("click", () => renderTab(button.dataset.tab));
+    button.addEventListener("keydown", (event) => {
+      const currentIndex = tabButtons.indexOf(button);
+      const direction = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
+
+      if (!direction || currentIndex < 0) return;
+
+      event.preventDefault();
+      const nextIndex = (currentIndex + direction + tabButtons.length) % tabButtons.length;
+      const nextButton = tabButtons[nextIndex];
+      nextButton.focus();
+      renderTab(nextButton.dataset.tab);
+    });
   });
 }
 
@@ -219,7 +250,9 @@ function setupObservers() {
   observer.observe(heroCounters);
 }
 
-yearNode.textContent = String(new Date().getFullYear());
+if (yearNode) {
+  yearNode.textContent = String(new Date().getFullYear());
+}
 
 if (tabPanel && tabButtons.length) {
   renderTab("principle");
@@ -232,5 +265,5 @@ setupObservers();
 setupLedgerFocus();
 updateScrollBar();
 
-window.addEventListener("scroll", updateScrollBar, { passive: true });
-window.addEventListener("resize", updateScrollBar, { passive: true });
+window.addEventListener("scroll", scheduleScrollBarUpdate, { passive: true });
+window.addEventListener("resize", scheduleScrollBarUpdate, { passive: true });

@@ -4,7 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
-  <meta name="description" content="Shiran 的认知模型库：可筛选、可退场、可复审的判断模型集合。" />
+  <meta name="theme-color" content="#0b0d12" />
+  <meta name="description" content="Shiran 的认知模型库：可调用、可退役、可复审的判断模型集合。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Shiran Star | 模型库" />
+  <meta property="og:description" content="可调用、可退役、可复审的判断模型集合。" />
+  <meta property="og:url" content="https://0854937.xyz/model.html" />
+  <link rel="canonical" href="https://0854937.xyz/model.html" />
   <title>Shiran Star | 模型库</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,11 +21,14 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
   <div class="backdrop-grid" aria-hidden="true"></div>
   <div class="backdrop-glow glow-a" aria-hidden="true"></div>
   <div class="backdrop-glow glow-b" aria-hidden="true"></div>
   <div class="backdrop-glow glow-c" aria-hidden="true"></div>
-  <div class="scroll-indicator" aria-hidden="true"><span id="scroll-bar"></span></div>
+  <div class="scroll-indicator" aria-hidden="true">
+    <span id="scroll-bar"></span>
+  </div>
 
   <div class="page-shell">
     <header class="topbar panel">
@@ -45,13 +54,13 @@
       </div>
     </header>
 
-    <main>
+    <main id="main-content">
       <section class="hero-grid">
         <article class="hero panel">
           <div class="eyebrow">Model library</div>
           <h2>模型不是答案，它只是被现实校准过的压缩格式。</h2>
           <p class="hero-copy">
-            这一页只做一件事：把“我常用的判断模型”明确写出来，标注它适用的场景、失效的信号和复审周期。
+            这一页只负责一件事：把“我常用的判断模型”明确写出来，标注它们适用的场景、失效的信号和复审周期。
             模型一旦脱离证据和记录，就不能继续作为判断依据。
           </p>
 
@@ -110,7 +119,7 @@
               <p>没有被现实调用过的模型，默认处于待验证状态。</p>
             </div>
             <div class="note-item">
-              <strong>模型必须会退场</strong>
+              <strong>模型必须会退役</strong>
               <p>一旦边界失效，优先更新，不继续自证。</p>
             </div>
           </div>
@@ -124,7 +133,7 @@
             <h2>模型目录</h2>
           </div>
           <p class="section-copy">
-            这些模型不是为了更全面，而是为了更清楚地知道自己能解释什么，不能解释什么。
+            这些模型并不追求“更全面”，而是追求“更清楚地知道自己能解释什么，不能解释什么”。
           </p>
         </div>
 
@@ -182,7 +191,7 @@
             </div>
             <p>适用于外界质疑、短期诱惑、焦虑摇摆等情境，核心是延迟即时反应。</p>
             <ul>
-              <li>触发条件：情绪推动动作冲动</li>
+              <li>触发条件：情绪推高动作冲动</li>
               <li>失效信号：长期目标反复被改写</li>
               <li>复审周期：14 天</li>
             </ul>
@@ -231,11 +240,11 @@
               </div>
               <span class="mini-chip">有效</span>
             </div>
-            <p>当结果涉及现实利益分配时，优先识别成本、收益和权力结构，而不是只看叙事。</p>
+            <p>当结果涉及现实利益分配时，优先看成本、收益和权力结构，而不是只看叙事。</p>
             <ul>
               <li>触发条件：多人竞争 / 资源分配</li>
               <li>失效信号：忽视成本归属</li>
-              <li>复审周期：45 天</li>
+              <li>复审周期：30 天</li>
             </ul>
             <a class="secondary-btn" href="records.html#multi-game-2026-01">查看记录</a>
           </article>
@@ -253,9 +262,9 @@
           </div>
 
           <div class="tab-row" role="tablist" aria-label="模型复审规则切换">
-            <button class="tab active" type="button" data-tab="principle" role="tab" aria-selected="true">原则</button>
-            <button class="tab" type="button" data-tab="threshold" role="tab" aria-selected="false">阈值</button>
-            <button class="tab" type="button" data-tab="retire" role="tab" aria-selected="false">退场</button>
+            <button class="tab active" type="button" data-tab="principle" role="tab" aria-selected="true">Principle</button>
+            <button class="tab" type="button" data-tab="threshold" role="tab" aria-selected="false">Threshold</button>
+            <button class="tab" type="button" data-tab="retire" role="tab" aria-selected="false">Retire</button>
           </div>
 
           <div id="tab-panel" class="tab-panel" aria-live="polite"></div>
@@ -279,7 +288,7 @@
               <p>如果没有记录，模型的“有效”默认只是暂时没有被打脸。</p>
             </div>
             <div class="note-item">
-              <strong>退场优先于自证</strong>
+              <strong>退役优先于自证</strong>
               <p>失效的模型要主动下线，而不是继续占用判断资源。</p>
             </div>
           </div>
@@ -293,6 +302,6 @@
     </footer>
   </div>
 
-  <script src="index.js"></script>
+  <script src="index.js" defer></script>
 </body>
 </html>

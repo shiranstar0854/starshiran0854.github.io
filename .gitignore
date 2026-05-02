@@ -1,0 +1,16 @@
+# OS and editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local archives and temporary exports
+*.zip
+*.7z
+*.rar
+*.tmp
+*.bak
+
+# Dependency folders should not be needed for this static site
+node_modules/
+.cache/
+dist/

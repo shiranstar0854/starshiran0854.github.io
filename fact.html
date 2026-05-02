@@ -4,7 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
-  <meta name="description" content="Shiran 的事实约束页：把事实、假设、边界和待验证问题分开管理。" />
+  <meta name="theme-color" content="#0b0d12" />
+  <meta name="description" content="Shiran 的事实与约束页：把事实、假设、边界和待验证问题分开管理。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Shiran Star | 事实约束" />
+  <meta property="og:description" content="把事实、假设、边界和待验证问题分开管理。" />
+  <meta property="og:url" content="https://0854937.xyz/fact.html" />
+  <link rel="canonical" href="https://0854937.xyz/fact.html" />
   <title>Shiran Star | 事实约束</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,11 +21,14 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
   <div class="backdrop-grid" aria-hidden="true"></div>
   <div class="backdrop-glow glow-a" aria-hidden="true"></div>
   <div class="backdrop-glow glow-b" aria-hidden="true"></div>
   <div class="backdrop-glow glow-c" aria-hidden="true"></div>
-  <div class="scroll-indicator" aria-hidden="true"><span id="scroll-bar"></span></div>
+  <div class="scroll-indicator" aria-hidden="true">
+    <span id="scroll-bar"></span>
+  </div>
 
   <div class="page-shell">
     <header class="topbar panel">
@@ -45,13 +54,13 @@
       </div>
     </header>
 
-    <main>
+    <main id="main-content">
       <section class="hero-grid">
         <article class="hero panel">
           <div class="eyebrow">Fact ledger</div>
           <h2>事实不是意义，事实只是系统可以调用的原材料。</h2>
           <p class="hero-copy">
-            这一页只保留已经确认的事实、当前使用的假设、不可突破的边界和待验证的问题。
+            这一页只保存已经确认的事实、当前使用的假设、不可突破的边界和待验证的问题。
             它的作用不是做结论，而是防止结论在没有证据的情况下抢跑。
           </p>
 
@@ -124,7 +133,7 @@
             <h2>事实账本</h2>
           </div>
           <p class="section-copy">
-            这里把事实、假设和边界拆开，不让它们互相冒充。目标只有一个：减少误判。
+            这里把事实、假设和边界拆开，不让它们互相冒充。这样做的目标只有一个：减少误判。
           </p>
         </div>
 
@@ -137,7 +146,7 @@
               </div>
               <span class="mini-chip">Stable</span>
             </div>
-            <p>如果一条信息不能被时间、现场或记录共同确认，它就不能直接升级成事实。</p>
+            <p>如果一条信息不能被时间、现场或记录共同确认，就不能直接升级成事实。</p>
             <ul>
               <li>来源：现实现场</li>
               <li>状态：可复核</li>
@@ -153,7 +162,7 @@
               </div>
               <span class="mini-chip">Provisional</span>
             </div>
-            <p>假设可以帮助解释，但在没有复审之前，只能标记为“待验证”，不能直接参与最终判断。</p>
+            <p>假设可以帮助解释，但在没有复审前只能标记为“待验证”，不能直接参与最终判断。</p>
             <ul>
               <li>来源：当前模型</li>
               <li>状态：临时可用</li>
@@ -169,11 +178,11 @@
               </div>
               <span class="mini-chip">Hard limit</span>
             </div>
-            <p>边界决定哪些动作永远不能做，哪些目标永远不能被短期情绪交换掉。</p>
+            <p>边界决定哪些动作永远不能做、哪些目标永远不能被短期情绪交换掉。</p>
             <ul>
               <li>来源：长期策略</li>
               <li>状态：优先级最高</li>
-              <li>作用：约束行为</li>
+              <li>作用：约束行动</li>
             </ul>
           </article>
 
@@ -209,7 +218,7 @@
             <details data-ledger-item>
               <summary>事实不等于解释</summary>
               <div class="ledger-body">
-                看见事实之后才开始解释，解释只是压缩，不是替代。任何没有事实支撑的“顿悟”，都不应直接进入系统。
+                看到事实之后才开始解释，解释只是压缩，不是替代。系统必须始终保留二者之间的距离。
               </div>
               <div class="ledger-meta">
                 <span class="tag">分层处理</span>
@@ -240,12 +249,12 @@
             </details>
 
             <details data-ledger-item>
-              <summary>模型失效时先退场，不先辩护</summary>
+              <summary>模型失效时先退役，不先辩护</summary>
               <div class="ledger-body">
                 一旦边界被现实击穿，最优先的动作不是解释“为什么没错”，而是判断该不该退场。
               </div>
               <div class="ledger-meta">
-                <span class="tag">退场优先</span>
+                <span class="tag">退役优先</span>
                 <span class="tag">边界修正</span>
               </div>
             </details>
@@ -263,15 +272,15 @@
           <div class="note-stack">
             <div class="note-item">
               <strong>冲突 01</strong>
-              <p>如果一个解释需要更多解释来维持，它很可能已经偏离事实。</p>
+              <p>如果一个解释必须靠更多解释来维持，它大概率已经偏离事实。</p>
             </div>
             <div class="note-item">
               <strong>冲突 02</strong>
-              <p>如果一个判断不愿意留下记录，它通常不想接受复核。</p>
+              <p>如果一个判断不愿意留下记录，它通常不想接受未来的核对。</p>
             </div>
             <div class="note-item">
               <strong>冲突 03</strong>
-              <p>如果一个模型无法退场，它最后会把系统拖回旧习惯。</p>
+              <p>如果一个模型无法退役，它最终会把系统拖回旧习惯。</p>
             </div>
           </div>
         </aside>
@@ -288,6 +297,6 @@
     </footer>
   </div>
 
-  <script src="index.js"></script>
+  <script src="index.js" defer></script>
 </body>
 </html>

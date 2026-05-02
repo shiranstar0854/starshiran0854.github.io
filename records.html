@@ -4,7 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#0b0d12" />
   <meta name="description" content="Shiran 的验证记录：每次调用模型后的结果、偏差和修正。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Shiran Star | 验证记录" />
+  <meta property="og:description" content="每次调用模型后的结果、偏差和修正。" />
+  <meta property="og:url" content="https://0854937.xyz/records.html" />
+  <link rel="canonical" href="https://0854937.xyz/records.html" />
   <title>Shiran Star | 验证记录</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,11 +21,14 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
   <div class="backdrop-grid" aria-hidden="true"></div>
   <div class="backdrop-glow glow-a" aria-hidden="true"></div>
   <div class="backdrop-glow glow-b" aria-hidden="true"></div>
   <div class="backdrop-glow glow-c" aria-hidden="true"></div>
-  <div class="scroll-indicator" aria-hidden="true"><span id="scroll-bar"></span></div>
+  <div class="scroll-indicator" aria-hidden="true">
+    <span id="scroll-bar"></span>
+  </div>
 
   <div class="page-shell">
     <header class="topbar panel">
@@ -45,14 +54,14 @@
       </div>
     </header>
 
-    <main>
+    <main id="main-content">
       <section class="hero-grid">
         <article class="hero panel">
           <div class="eyebrow">Validation log</div>
-          <h2>记录不是回忆，它是用来修正模型的证据链。</h2>
+          <h2>记录不是回忆，它是用于修正模型的证据链。</h2>
           <p class="hero-copy">
             每次调用模型之后，都应该留下时间、场景、结果和偏差。这样做不是为了“证明自己做对了”，
-            而是为了知道：模型在哪些条件下可靠，在哪些条件下开始失真。
+            而是为了知道：模型在哪些情况下可靠，在哪些情况下开始失真。
           </p>
 
           <div class="hero-meta">
@@ -148,7 +157,7 @@
             </div>
             <p>在高情绪密度输入里，只做结构观察，不把共鸣感当成判断。</p>
             <ul>
-              <li>结果：保持观察，不立即转译</li>
+              <li>结果：保持观察，不立即转发</li>
               <li>偏差：情绪强度高于信息密度</li>
               <li>下次复审：30 天后</li>
             </ul>
@@ -231,11 +240,11 @@
               </div>
               <span class="mini-chip">Validated</span>
             </div>
-            <p>当结果涉及现实利益分配时，优先识别成本、收益和权力结构，再决定站位。</p>
+            <p>当结果涉及现实利益分配时，优先识别成本与收益归属，再决定站位。</p>
             <ul>
               <li>结果：结构判断保持有效</li>
               <li>偏差：道德叙事容易掩盖成本归属</li>
-              <li>下次复审：45 天后</li>
+              <li>下次复审：30 天后</li>
             </ul>
             <a class="secondary-btn" href="model.html#catalog">对应模型</a>
           </article>
@@ -256,7 +265,7 @@
             <details data-ledger-item>
               <summary>先记事实，再写解释</summary>
               <div class="ledger-body">
-                事实必须先于解释存在，解释只是后置压缩。任何没有事实支撑的“顿悟”，都不应直接进入系统。
+                事实必须先于解释存在，解释只是后置的压缩。任何没有事实支撑的“顿悟”，都不能直接进入系统。
               </div>
               <div class="ledger-meta">
                 <span class="tag">事实优先</span>
@@ -267,7 +276,7 @@
             <details data-ledger-item>
               <summary>记录要能反向找回现场</summary>
               <div class="ledger-body">
-                每条记录都应该能回到具体日期、具体模型、具体场景。只有能复原现场的记录，才有修正价值。
+                每条记录都应该能回到具体日期、具体模型、具体场景。只有能复原现场的记录才有修正价值。
               </div>
               <div class="ledger-meta">
                 <span class="tag">可回溯</span>
@@ -278,7 +287,7 @@
             <details data-ledger-item>
               <summary>结论必须带失效条件</summary>
               <div class="ledger-body">
-                如果一个结论不能写出自己在哪些情况下失效，那它更像情绪愿望，不像判断模型。
+                如果一个结论不能写出自己在什么情况下失效，那它更像情绪愿望，不像判断模型。
               </div>
               <div class="ledger-meta">
                 <span class="tag">失效条件</span>
@@ -289,7 +298,7 @@
             <details data-ledger-item>
               <summary>偏差比成功更值得记录</summary>
               <div class="ledger-body">
-                成功经常来自好运，偏差更能暴露模型问题。记录偏差不是为了自责，而是为了更新边界。
+                成功经常来自好运，偏差才更能暴露模型问题。记录偏差，不是为了自责，而是为了更新边界。
               </div>
               <div class="ledger-meta">
                 <span class="tag">偏差优先</span>
@@ -310,7 +319,7 @@
           <div class="note-stack">
             <div class="note-item">
               <strong>字段 01</strong>
-              <p>时间戳、模型名、场景、结果、偏差、下一步。</p>
+              <p>时间、模型名、场景、结果、偏差、下一步。</p>
             </div>
             <div class="note-item">
               <strong>字段 02</strong>
@@ -325,7 +334,7 @@
       </section>
 
       <section class="callout">
-        <p>记录不是证明自己正确，而是让系统知道自己什么时候错、为什么错、下一次怎么改。</p>
+        <p>记录不是证明自己正确，而是让系统知道自己什么时候错、为什么错、下次怎么改。</p>
       </section>
     </main>
 
@@ -335,6 +344,6 @@
     </footer>
   </div>
 
-  <script src="index.js"></script>
+  <script src="index.js" defer></script>
 </body>
 </html>
