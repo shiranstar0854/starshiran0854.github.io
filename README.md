@@ -15,6 +15,8 @@ npm install
 npm run dev
 ```
 
+开发入口是 `app.html`。仓库根目录的 `index.html` 是 GitHub Pages 使用的静态构建产物。
+
 ## 第一版功能
 
 - 显示当前经济状态：GDP 增长率、通胀率、失业率、银行坏账率、股票指数、系统风险。
