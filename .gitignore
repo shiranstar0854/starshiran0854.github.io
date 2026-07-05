@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.npm-cache/
+.vite/
+.tmp-chrome*/
+output/
+*.tsbuildinfo
+src/**/*.js
+src/**/*.d.ts
