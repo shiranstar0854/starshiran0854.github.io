@@ -1,16 +1,9 @@
-import { clamp, round1 } from "./policy";
 import type { EconomyState } from "./types";
 
-export function calculateMarket(previous: EconomyState, gdpGrowth: number, liquidityDelta: number, baseRate: number, badDebtRate: number) {
-  const riskAppetite = clamp(previous.riskAppetite + gdpGrowth * 1.15 + liquidityDelta * 0.9 - badDebtRate * 1.1, 10, 90);
-  const stockIndex = clamp(previous.stockIndex + riskAppetite * 2.8 + liquidityDelta * 8 - baseRate * 18 - badDebtRate * 10, 1800, 5600);
-  const bondYield = clamp(baseRate + previous.inflation * 0.18 + badDebtRate * 0.08, 1, 9);
-  const volatility = clamp(previous.volatility + badDebtRate * 0.65 + Math.max(0, 45 - riskAppetite) * 0.08 - liquidityDelta * 0.25, 8, 45);
-
-  return {
-    stockIndex: Math.round(stockIndex),
-    bondYield: round1(bondYield),
-    riskAppetite: round1(riskAppetite),
-    volatility: round1(volatility),
-  };
+export function describeExternalCondition(state: EconomyState) {
+  const { housePriceIndex, externalDemand } = state.variables;
+  if (housePriceIndex < 45) return "房地产走弱可能压低财富效应和地方财政。";
+  if (externalDemand < 45) return "外需偏弱会冲击企业订单。";
+  if (housePriceIndex > 62 || externalDemand > 62) return "外部模块对增长形成支撑，但要观察依赖风险。";
+  return "房地产和外需处于中性区间。";
 }
